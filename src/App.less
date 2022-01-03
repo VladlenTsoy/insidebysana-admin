@@ -57,9 +57,9 @@ td.ant-table-column-sort {
 
 h1 {
     background: linear-gradient(90deg, #1d2330, #1b4c3f 25%);
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-
 
 ///
 h1.ant-typography,
@@ -128,4 +128,15 @@ hr {
 
 .ant-btn > span {
     text-shadow: none;
+}
+
+
+// Drawer
+
+.ant-drawer-header {
+    padding: 1rem;
+
+    .ant-drawer-close {
+        padding-left: 0;
+    }
 }

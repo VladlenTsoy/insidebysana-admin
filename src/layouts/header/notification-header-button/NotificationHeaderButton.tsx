@@ -2,7 +2,7 @@ import React, {useState} from "react"
 import {BellFilled} from "@ant-design/icons"
 import styles from "layouts/account-menu/AccountMenu.module.less"
 import {Drawer} from "antd"
-import Notification from "components/notifications/Notification"
+import NotificationCard from "components/notification-card/NotificationCard"
 import HeaderButton from "components/header-button/HeaderButton"
 
 const NotificationHeaderButton = () => {
@@ -28,11 +28,11 @@ const NotificationHeaderButton = () => {
                 // style={{position: "absolute"}}
                 onClose={close}
             >
-                <Notification>
+                <NotificationCard>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor eaque est harum minus nam, neque,
                     nihil pariatur placeat quisquam, sit ullam veniam. Facere inventore repudiandae sequi sit voluptas
                     voluptate voluptatum!
-                </Notification>
+                </NotificationCard>
             </Drawer>
         </>
     )

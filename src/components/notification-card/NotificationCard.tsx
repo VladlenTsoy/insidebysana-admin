@@ -1,8 +1,8 @@
 import React from "react"
-import styles from "./Notification.module.less"
+import styles from "./NotificationCard.module.less"
 import {CloseOutlined} from "@ant-design/icons"
 
-const Notification: React.FC = ({children}) => {
+const NotificationCard: React.FC = ({children}) => {
     return (
         <div className={styles.card}>
             <div className={styles.header}>
@@ -16,4 +16,4 @@ const Notification: React.FC = ({children}) => {
     )
 }
 
-export default Notification
+export default NotificationCard

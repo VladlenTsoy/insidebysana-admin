@@ -4,7 +4,7 @@ import {Typography, Card, Form, Input, Button, Checkbox} from "antd"
 import {UserOutlined, LockOutlined, LoginOutlined} from "@ant-design/icons"
 import {Link} from "react-router-dom"
 import {useDispatch} from "react-redux"
-import {authUser} from "features/user/authUser"
+import {authUser} from "features/user/auth/authUser"
 import {emailRules, passwordRules} from "utils/formRules"
 import styles from "./Auth.module.less"
 

@@ -3,7 +3,7 @@ import {fetchUser} from "./user-provider/fetchUser";
 import {StoreState} from "store";
 import {updateUser} from "./updateUser";
 import {logoutUser} from "./logoutUser";
-import {authUser} from "./authUser";
+import {authUser} from "./auth/authUser";
 import {registrationUser} from "./registrationUser";
 import {updateToken} from "utils/api";
 import {User} from "types/User";

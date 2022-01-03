@@ -1,0 +1,30 @@
+.headerPage {
+    max-width: @max-width;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &.full {
+        max-width: 100%;
+    }
+
+    &.tabs {
+        padding-bottom: 0;
+    }
+
+    .back {
+        font-size: 26px;
+        color: @primary-color;
+        padding: 0.5rem;
+        padding-left: 0;
+        cursor: pointer;
+    }
+
+    .action {
+        margin-left: auto;
+        display: flex;
+        gap: .5rem;
+    }
+}

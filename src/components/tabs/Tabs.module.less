@@ -1,0 +1,30 @@
+.tabs {
+    max-width: @max-width;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    display: flex;
+    padding: 0 1rem;
+}
+
+.tab {
+    padding: 1rem 0;
+    font-size: @font-size-lg;
+    cursor: pointer;
+    transition: color .3s ease-in-out;
+    border-bottom: 2px solid transparent;
+
+    &:not(:first-child) {
+        margin: 0 0 0 32px
+    }
+
+    &.active {
+        font-weight: bold;
+        border-bottom: 2px solid @primary-color;
+    }
+
+    &:hover:not(.active) {
+        color: @primary-color;
+    }
+}

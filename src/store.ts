@@ -3,7 +3,7 @@ import {useDispatch as useStoreDispatch} from "react-redux"
 import app from "./features/app/appSlice"
 import user from "./features/user/userSlice"
 // import color from "./store/admin/color/colorSlice"
-// import size from "./store/common/size/sizeSlice"
+import size from "./features/size/sizeSlice"
 // import tag from "./store/admin/tag/tagSlice"
 // import category from "./store/common/category/categorySlice"
 // import product from "./store/admin/product/productSlice"
@@ -28,13 +28,13 @@ import user from "./features/user/userSlice"
 // import productColorImage from "./store/admin/product-color-image/productColorImageSlice"
 // import trashProductColor from "lib/components/trash-products/trashProductColorSlice"
 // import homeProduct from "./pages/user/admin/pages/settings/home/homeProductSlice"
-// import {productApi} from "admin/features/product/productApi"
-// import {categoryApi} from "admin/features/category/categoryApi"
-// import {colorApi} from "admin/features/color/colorApi"
-// import {sizeApi} from "admin/features/size/sizeApi"
-// import {tagApi} from "admin/features/tag/tagApi"
-// import {homePositionApi} from "admin/features/home-position/homePositionApi"
-// import {photoApi} from "./features/photos-section/photoApi"
+import {productApi} from "features/product/productApi"
+import {categoryApi} from "features/category/categoryApi"
+import {colorApi} from "features/color/colorApi"
+import {sizeApi} from "features/size/sizeApi"
+import {tagApi} from "features/tag/tagApi"
+import {homePositionApi} from "features/home-position/homePositionApi"
+import {photoApi} from "./features/photos-section/photoApi"
 
 export type StoreState = ReturnType<typeof adminReducer>
 
@@ -42,7 +42,7 @@ export const adminReducer = combineReducers({
     app,
     user,
     // category,
-    // size,
+    size,
     // color,
     // additionalService,
     // tag,
@@ -67,13 +67,13 @@ export const adminReducer = combineReducers({
     // printProduct,
     // homeProduct,
     // lookbookCategory,
-    // [productApi.reducerPath]: productApi.reducer,
-    // [categoryApi.reducerPath]: categoryApi.reducer,
-    // [colorApi.reducerPath]: colorApi.reducer,
-    // [sizeApi.reducerPath]: sizeApi.reducer,
-    // [tagApi.reducerPath]: tagApi.reducer,
-    // [homePositionApi.reducerPath]: homePositionApi.reducer,
-    // [photoApi.reducerPath]: photoApi.reducer,
+    [productApi.reducerPath]: productApi.reducer,
+    [categoryApi.reducerPath]: categoryApi.reducer,
+    [colorApi.reducerPath]: colorApi.reducer,
+    [sizeApi.reducerPath]: sizeApi.reducer,
+    [tagApi.reducerPath]: tagApi.reducer,
+    [homePositionApi.reducerPath]: homePositionApi.reducer,
+    [photoApi.reducerPath]: photoApi.reducer,
 })
 
 export type AppDispatch = typeof store.dispatch
@@ -91,12 +91,12 @@ export const store = configureStore({
     reducer: adminReducer,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({immutableCheck: false})
-            // .concat(productApi.middleware)
-            // .concat(categoryApi.middleware)
-            // .concat(colorApi.middleware)
-            // .concat(sizeApi.middleware)
-            // .concat(tagApi.middleware)
-            // .concat(homePositionApi.middleware)
-            // .concat(photoApi.middleware)
+            .concat(productApi.middleware)
+            .concat(categoryApi.middleware)
+            .concat(colorApi.middleware)
+            .concat(sizeApi.middleware)
+            .concat(tagApi.middleware)
+            .concat(homePositionApi.middleware)
+            .concat(photoApi.middleware)
 
 })

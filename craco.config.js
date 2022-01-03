@@ -77,7 +77,8 @@ module.exports = {
                             "@text-color-secondary": "#c2c7cf",
                             "@layout-body-background": "#f8f9fb",
                             "@layout-header-background": "#1f2532",
-                            "@skeleton-color": "#f8f9fb"
+                            "@skeleton-color": "#f8f9fb",
+                            "@secondary-background": "#ededed"
                         }
                     }
                 }

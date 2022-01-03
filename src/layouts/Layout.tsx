@@ -1,22 +1,13 @@
 import React, {useEffect, useState} from "react"
-import {Button, Layout as AntdLayout, Menu} from "antd"
-import {Link, useHistory, useLocation} from "react-router-dom"
+import {Button, Layout as AntdLayout} from "antd"
+import {useHistory} from "react-router-dom"
 import {useScreenWindow} from "../hooks/use-screen-window.effect"
 import styles from "./Layout.module.less"
-import stylesMenu from "./account-menu/AccountMenu.module.less"
 import {useDispatch} from "store"
 import {changeTitle} from "features/app/appSlice"
-import {
-    CrownOutlined,
-    DollarOutlined,
-    HomeOutlined,
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    SettingOutlined,
-    SkinOutlined,
-    TeamOutlined
-} from "@ant-design/icons"
+import {MenuFoldOutlined, MenuUnfoldOutlined} from "@ant-design/icons"
 import AccountMenu from "./account-menu/AccountMenu"
+import Sidebar from "./sidebar/Sidebar"
 
 const {Header, Sider, Content} = AntdLayout
 
@@ -35,8 +26,7 @@ const Layout: React.FC = ({children}) => {
     const history = useHistory()
     const dispatch = useDispatch()
     const [collapsed, setCollapsed] = useState(true)
-    const location = useLocation()
-    const pathnameArray = location.pathname.split("/")
+
 
     const onCollapsedHandler = () => setCollapsed(prevState => !prevState)
 
@@ -63,39 +53,11 @@ const Layout: React.FC = ({children}) => {
                 trigger={null}
                 collapsedWidth={isBreakpoint ? 0 : 80}
             >
-                <div className={styles.logoMenuSticky}>
-                    <div className={styles.logo} />
-                    <Menu
-                        theme="dark"
-                        mode="inline"
-                        defaultSelectedKeys={[pathnameArray[1]]}
-                        className={styles.siteLayoutMenu}
-                    >
-                        <Menu.Item key="" icon={<HomeOutlined />}>
-                            <Link to="/">Главная</Link>
-                        </Menu.Item>
-                        <Menu.Item key="orders" icon={<DollarOutlined />}>
-                            <Link to="/orders">Заказы</Link>
-                        </Menu.Item>
-                        <Menu.Item key="products" icon={<SkinOutlined />}>
-                            <Link to="/products/all">Одежда</Link>
-                        </Menu.Item>
-                        <Menu.Item key="clients" icon={<TeamOutlined />}>
-                            <Link to="/clients">Клиенты</Link>
-                        </Menu.Item>
-                        <Menu.Item key="staff" icon={<CrownOutlined />}>
-                            <Link to="/staff">Сотрудники</Link>
-                        </Menu.Item>
-                        <Menu.Item key="settings" icon={<SettingOutlined />}>
-                            <Link to="/settings">Настройки</Link>
-                        </Menu.Item>
-                    </Menu>
-                </div>
+                <Sidebar />
             </Sider>
             <AntdLayout className={styles.siteLayout}>
                 <Header className={styles.siteLayoutHeader}>
                     {React.createElement(Button, {
-                        className: stylesMenu.sidebarButton,
                         onClick: onCollapsedHandler,
                         icon: collapsed ? (
                             <MenuUnfoldOutlined />
@@ -112,14 +74,6 @@ const Layout: React.FC = ({children}) => {
                     id="site-layout-content"
                 >
                     {children}
-                    {/*<BackTop>*/}
-                    {/*    <Button*/}
-                    {/*        type="primary"*/}
-                    {/*        shape="circle"*/}
-                    {/*        size="large"*/}
-                    {/*        icon={<UpOutlined />}*/}
-                    {/*    />*/}
-                    {/*</BackTop>*/}
                 </Content>
             </AntdLayout>
         </AntdLayout>

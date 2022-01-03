@@ -4,7 +4,11 @@ import "./App.less"
 import {Route, BrowserRouter as Router, Switch} from "react-router-dom"
 import {useUser} from "hooks/use-user"
 import Layout from "./layouts/Layout"
-import Auth from "./features/auth/Auth"
+import Auth from "./features/user/auth/Auth"
+
+const Home = React.lazy(() => import("./pages/home"))
+const Products = React.lazy(() => import("./pages/products"))
+const Product = React.lazy(() => import("./pages/product"))
 
 const App = () => {
     const {user} = useUser()
@@ -16,9 +20,11 @@ const App = () => {
                     <Route exact path="**" render={
                         () => user ?
                             <Layout>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aspernatur beatae dolor
-                                ducimus est inventore, ipsa iusto laborum laudantium non numquam obcaecati odit optio
-                                praesentium quas quis reprehenderit sed vero?
+                                <Route exact path="/" component={Home} />
+                                <Route exact path="/products/:status" component={Products} />
+                                <Route exact path="/products/product/create" component={Product} />
+                                <Route exact path="/products/product/edit/:id" component={Product} />
+                                <Route exact path="/products/product/edit/:id/:color" component={Product} />
                             </Layout> :
                             <Auth />
                     } />
