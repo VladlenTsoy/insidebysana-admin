@@ -1,0 +1,35 @@
+.profile {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    border-radius: @border-radius-base;
+    padding: 0 .75rem 0 .25rem;
+    height: 50px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background-color .3s ease-in-out;
+
+    .details {
+        display: flex;
+        flex-direction: column;
+
+        div {
+            line-height: normal;
+        }
+
+        .name {
+            font-weight: 500;
+        }
+
+        .tag {
+            font-size: @font-size-sm;
+            padding: 0 .2rem;
+            border-radius: @border-radius-base;
+            color: @text-color-secondary;
+        }
+    }
+
+    &:hover {
+        background: @layout-body-background;
+    }
+}

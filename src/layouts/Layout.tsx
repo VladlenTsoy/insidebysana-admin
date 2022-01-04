@@ -8,6 +8,8 @@ import {changeTitle} from "features/app/appSlice"
 import {MenuFoldOutlined, MenuUnfoldOutlined} from "@ant-design/icons"
 import AccountMenu from "./account-menu/AccountMenu"
 import Sidebar from "./sidebar/Sidebar"
+import SearchHeader from "./header/search-header/SearchHeader"
+import ProfileHeader from "./header/profile-header/ProfileHeader"
 
 const {Header, Sider, Content} = AntdLayout
 
@@ -57,16 +59,20 @@ const Layout: React.FC = ({children}) => {
             </Sider>
             <AntdLayout className={styles.siteLayout}>
                 <Header className={styles.siteLayoutHeader}>
-                    {React.createElement(Button, {
-                        onClick: onCollapsedHandler,
-                        icon: collapsed ? (
-                            <MenuUnfoldOutlined />
-                        ) : (
-                            <MenuFoldOutlined />
-                        ),
-                        size: "large",
-                        shape: "circle"
-                    })}
+                    <div className={styles.optionsHeader}>
+                        {React.createElement(Button, {
+                            onClick: onCollapsedHandler,
+                            icon: collapsed ? (
+                                <MenuUnfoldOutlined />
+                            ) : (
+                                <MenuFoldOutlined />
+                            ),
+                            size: "large",
+                            shape: "circle"
+                        })}
+                        <ProfileHeader />
+                        <SearchHeader />
+                    </div>
                     <AccountMenu />
                 </Header>
                 <Content
