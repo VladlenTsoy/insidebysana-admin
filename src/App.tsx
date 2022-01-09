@@ -5,7 +5,6 @@ import {Route, BrowserRouter as Router, Switch} from "react-router-dom"
 import {useUser} from "hooks/use-user"
 import Layout from "./layouts/Layout"
 import Auth from "./features/user/auth/Auth"
-import {ConfigProvider} from "antd"
 
 const Home = React.lazy(() => import("./pages/home"))
 const Products = React.lazy(() => import("./pages/products"))
@@ -13,12 +12,6 @@ const Product = React.lazy(() => import("./pages/product"))
 
 const App = () => {
     const {user} = useUser()
-    ConfigProvider.config({
-        prefixCls: 'custom',
-        theme: {
-            primaryColor: 'red',
-        },
-    })
     return (
         <React.Suspense fallback={<Loader text="Загрузка доступа..." />}>
             <Router>

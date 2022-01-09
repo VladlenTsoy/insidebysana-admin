@@ -71,7 +71,7 @@ module.exports = {
                             "@checkbox-color": "#6391fe",
                             "@radio-dot-color": "#6391fe",
                             "@border-width-base": "1px",
-                            "@border-radius-base": "20px",
+                            "@border-radius-base": "10px",
                             "@border-color-base": "#d7dce0",
                             "@black": "#1a222e",
                             "@text-color-secondary": "#c2c7cf",

@@ -52,7 +52,7 @@ const MeasurementsSection: React.FC<MeasurementsSectionProps> = ({
                                                                 "id"
                                                             ]}
                                                             fieldKey={[
-                                                                field.fieldKey,
+                                                                field.key,
                                                                 "id"
                                                             ]}
                                                             key={`id-${field.key}`}
@@ -66,7 +66,7 @@ const MeasurementsSection: React.FC<MeasurementsSectionProps> = ({
                                                                 "title"
                                                             ]}
                                                             fieldKey={[
-                                                                field.fieldKey,
+                                                                field.key,
                                                                 "title"
                                                             ]}
                                                             rules={[
@@ -106,7 +106,7 @@ const MeasurementsSection: React.FC<MeasurementsSectionProps> = ({
                                                                 String(sizes.id)
                                                             ]}
                                                             fieldKey={[
-                                                                field.fieldKey,
+                                                                field.key,
                                                                 "descriptions",
                                                                 String(sizes.id)
                                                             ]}

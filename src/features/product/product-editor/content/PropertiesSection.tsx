@@ -31,7 +31,7 @@ const PropertiesSection: React.FC = () => {
                                     <Form.Item
                                         label="Название"
                                         name={[field.name, "title"]}
-                                        fieldKey={[field.fieldKey, "title"]}
+                                        fieldKey={[field.key, "title"]}
                                         rules={[
                                             {
                                                 required: true,
@@ -50,7 +50,7 @@ const PropertiesSection: React.FC = () => {
                                 <Form.Item
                                     label="Описание"
                                     name={[field.name, "description"]}
-                                    fieldKey={[field.fieldKey, "description"]}
+                                    fieldKey={[field.key, "description"]}
                                     rules={[
                                         {
                                             required: true,

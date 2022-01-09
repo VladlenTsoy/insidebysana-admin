@@ -1,16 +1,11 @@
 import React from "react"
 import {Form, Select} from "antd"
-import {Color} from "types/Color"
 import "./SelectColor.less"
 import {useGetAllColorsQuery} from "./colorApi"
 
 const {Option} = Select
 
-interface SelectColorProps {
-    onSelectColorHandler?: (colorId: Color["id"]) => void
-}
-
-const SelectColor: React.FC<SelectColorProps> = ({onSelectColorHandler}) => {
+const SelectColor: React.FC = () => {
     const {isLoading, data: colors} = useGetAllColorsQuery()
 
     return (
@@ -21,7 +16,7 @@ const SelectColor: React.FC<SelectColorProps> = ({onSelectColorHandler}) => {
                 // optionFilterProp="label"
                 placeholder="Выберите цвет"
                 // optionFilterProp="children"
-                onSelect={onSelectColorHandler}
+                // onSelect={onSelectColorHandler}
                 filterOption={(input: any, option: any) =>
                     option["data-title"].toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }

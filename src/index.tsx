@@ -9,7 +9,6 @@ import {locale} from "moment"
 import "moment/locale/ru"
 import {ConfigProvider} from "antd"
 import ruRU from "antd/es/locale-provider/ru_RU"
-import 'antd/dist/antd.variable.min.css';
 
 locale("ru")
 
