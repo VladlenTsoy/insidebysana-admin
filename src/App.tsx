@@ -5,6 +5,7 @@ import {Route, BrowserRouter as Router, Switch} from "react-router-dom"
 import {useUser} from "hooks/use-user"
 import Layout from "./layouts/Layout"
 import Auth from "./features/user/auth/Auth"
+import LoadingBlock from "./components/loading-block/LoadingBlock"
 
 const Home = React.lazy(() => import("./pages/home"))
 const Products = React.lazy(() => import("./pages/products"))
@@ -19,11 +20,13 @@ const App = () => {
                     <Route exact path="**" render={
                         () => user ?
                             <Layout>
-                                <Route exact path="/" component={Home} />
-                                <Route exact path="/products/:status" component={Products} />
-                                <Route exact path="/products/product/create" component={Product} />
-                                <Route exact path="/products/product/edit/:id" component={Product} />
-                                <Route exact path="/products/product/edit/:id/:color" component={Product} />
+                                <React.Suspense fallback={<LoadingBlock title="Загрузка страницы..." />}>
+                                    <Route exact path="/" component={Home} />
+                                    <Route exact path="/products/:status" component={Products} />
+                                    <Route exact path="/products/product/create" component={Product} />
+                                    <Route exact path="/products/product/edit/:id" component={Product} />
+                                    <Route exact path="/products/product/edit/:id/:color" component={Product} />
+                                </React.Suspense>
                             </Layout> :
                             <Auth />
                     } />

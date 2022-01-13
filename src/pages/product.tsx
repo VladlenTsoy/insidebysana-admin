@@ -9,18 +9,13 @@ import ProductEditor from "../features/product/product-editor/ProductEditor"
 
 const Product = () => {
     const params = useParams<{id: string, color?: string}>()
-    const {data, isFetching} = useGetProductByIdQuery(params?.id, {
-        skip: !params?.id
-    })
-    const [
-        createProduct,
-        {isLoading: isCreateLoading}
-    ] = useCreateProductMutation()
-    const [
-        updateProduct,
-        {isLoading: isUpdateLoading}
-    ] = useEditProductMutation()
-
+    // Загрузка продукта
+    const {data, isFetching} = useGetProductByIdQuery(params?.id, {skip: !params?.id})
+    // Создать продукт
+    const [createProduct, {isLoading: isCreateLoading}] = useCreateProductMutation()
+    // Обновить продукт
+    const [updateProduct, {isLoading: isUpdateLoading}] = useEditProductMutation()
+    // Загрузка...
     if (isFetching) return <LoadingBlock />
 
     return (
