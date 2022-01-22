@@ -8,6 +8,8 @@ import Tabs, {Tab} from "components/tabs/Tabs"
 import Container from "../layouts/container/Container"
 import ProductList from "../features/product/product-list/ProductList"
 
+type StatusType = "all" | "draft" | "published" | "ending" | "archive"
+
 const statusTabs = [
     {name: "Все продукты", status: "all"},
     {name: "В проекте", status: "draft"},
@@ -17,13 +19,13 @@ const statusTabs = [
 ]
 
 const Products = () => {
-    const params = useParams<{status: string}>()
+    const params = useParams<{status: StatusType}>()
     const history = useHistory()
     const location = useLocation()
 
-    const onChangeHandler = (status: any) => {
+    // Смена статусов
+    const onChangeHandler = (status: string) =>
         history.push({pathname: `/products/${status}`, search: location.search})
-    }
 
     return (
         <>
