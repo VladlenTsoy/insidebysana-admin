@@ -8,6 +8,7 @@ import Auth from "./features/user/auth/Auth"
 import LoadingBlock from "./components/loading-block/LoadingBlock"
 
 const Home = React.lazy(() => import("./pages/home"))
+const Orders = React.lazy(() => import("./pages/orders"))
 const Products = React.lazy(() => import("./pages/products"))
 const Product = React.lazy(() => import("./pages/product"))
 
@@ -22,6 +23,7 @@ const App = () => {
                             <Layout>
                                 <React.Suspense fallback={<LoadingBlock title="Загрузка страницы..." />}>
                                     <Route exact path="/" component={Home} />
+                                    <Route exact path="/orders" component={Orders} />
                                     <Route exact path="/products/:status" component={Products} />
                                     <Route exact path="/products/product/create" component={Product} />
                                     <Route exact path="/products/product/edit/:id" component={Product} />
