@@ -1,8 +1,6 @@
 import React from "react"
 import HeaderPage from "../layouts/header-page/HeaderPage"
-import {Link} from "react-router-dom"
-import {Button} from "antd"
-import {DollarCircleOutlined, PlusOutlined} from "@ant-design/icons"
+import {ContainerOutlined, DollarCircleOutlined, PlusOutlined, SettingOutlined} from "@ant-design/icons"
 import Container from "../layouts/container/Container"
 
 const Orders = () => {
@@ -10,13 +8,13 @@ const Orders = () => {
         <>
             <HeaderPage
                 title="Заказы"
-                action={
-                    <Link to="/products/product/create">
-                        <Button type="primary" size="large" icon={<PlusOutlined />}>
-                            Создать
-                        </Button>
-                    </Link>
-                }
+                action={[
+                    {type: "primary", text: "Создать", icon: <PlusOutlined />, link: "/orders/create"}
+                ]}
+                more={[
+                    {text: "Архив", icon: <ContainerOutlined />, link: "/orders/archive"},
+                    {text: "Настройка", icon: <SettingOutlined />}
+                ]}
                 icon={<DollarCircleOutlined />}
                 tabs
             />

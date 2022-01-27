@@ -1,9 +1,7 @@
 import React from "react"
 import HeaderPage from "../layouts/header-page/HeaderPage"
-import {Link} from "react-router-dom"
-import {Button} from "antd"
-import {PlusOutlined, SkinOutlined} from "@ant-design/icons"
 import {useHistory, useLocation, useParams} from "react-router-dom"
+import {PlusOutlined, SkinOutlined} from "@ant-design/icons"
 import Tabs, {Tab} from "components/tabs/Tabs"
 import Container from "../layouts/container/Container"
 import ProductList from "../features/product/product-list/ProductList"
@@ -31,13 +29,12 @@ const Products = () => {
         <>
             <HeaderPage
                 title="Товары"
-                action={
-                    <Link to="/products/product/create">
-                        <Button type="primary" size="large" icon={<PlusOutlined />}>
-                            Добавить
-                        </Button>
-                    </Link>
-                }
+                action={[{
+                    type: "primary",
+                    link: "/products/product/create",
+                    icon: <PlusOutlined />,
+                    text: "Добавить"
+                }]}
                 icon={<SkinOutlined />}
                 tabs
             />
