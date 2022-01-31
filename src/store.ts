@@ -12,8 +12,8 @@ import size from "./features/size/sizeSlice"
 // import productColor from "./store/admin/product-color/productColorSlice"
 // import banner from "./store/admin/banner/bannerSlice"
 // import additionalService from "./store/common/additional-service/additionalServiceSlice"
-// import status from "./store/admin/status/statusSlice"
-// import order from "./features/order/orderSlice"
+import status from "./features/status/statusSlice"
+import order from "./features/order/orderSlice"
 // import staff from "./store/admin/staff/staffSlice"
 // import paymentMethod from "./store/admin/payment-method/paymentMethodSlice"
 // import print from "./store/admin/product-color-print-image/productColorPrintSlice"
@@ -51,8 +51,8 @@ export const adminReducer = combineReducers({
     // source,
     // productColor,
     // banner,
-    // status,
-    // order,
+    status,
+    order,
     // staff,
     // paymentMethod,
     // print,
