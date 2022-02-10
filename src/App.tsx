@@ -8,7 +8,8 @@ import Auth from "./features/user/auth/Auth"
 import LoadingBlock from "./components/loading-block/LoadingBlock"
 
 const Home = React.lazy(() => import("./pages/home"))
-const Orders = React.lazy(() => import("./pages/orders"))
+const Orders = React.lazy(() => import("./pages/orders/orders"))
+const EditorOrder = React.lazy(() => import("./pages/orders/order"))
 const Products = React.lazy(() => import("./pages/products"))
 const Product = React.lazy(() => import("./pages/product"))
 
@@ -18,20 +19,28 @@ const App = () => {
         <React.Suspense fallback={<Loader text="Загрузка доступа..." />}>
             <Router>
                 <Switch>
-                    <Route exact path="**" render={
-                        () => user ?
-                            <Layout>
-                                <React.Suspense fallback={<LoadingBlock title="Загрузка страницы..." />}>
-                                    <Route exact path="/" component={Home} />
-                                    <Route exact path="/orders" component={Orders} />
-                                    <Route exact path="/products/:status" component={Products} />
-                                    <Route exact path="/products/product/create" component={Product} />
-                                    <Route exact path="/products/product/edit/:id" component={Product} />
-                                    <Route exact path="/products/product/edit/:id/:color" component={Product} />
-                                </React.Suspense>
-                            </Layout> :
-                            <Auth />
-                    } />
+                    <Route
+                        exact
+                        path="**"
+                        render={() =>
+                            user ? (
+                                <Layout>
+                                    <React.Suspense fallback={<LoadingBlock title="Загрузка страницы..." />}>
+                                        <Route exact path="/" component={Home} />
+                                        <Route exact path="/orders" component={Orders} />
+                                        <Route exact path="/orders/order/create" component={EditorOrder} />
+                                        <Route exact path="/orders/order/edit/:id" component={EditorOrder} />
+                                        <Route exact path="/products/:status" component={Products} />
+                                        <Route exact path="/products/product/create" component={Product} />
+                                        <Route exact path="/products/product/edit/:id" component={Product} />
+                                        <Route exact path="/products/product/edit/:id/:color" component={Product} />
+                                    </React.Suspense>
+                                </Layout>
+                            ) : (
+                                <Auth />
+                            )
+                        }
+                    />
                 </Switch>
             </Router>
         </React.Suspense>
