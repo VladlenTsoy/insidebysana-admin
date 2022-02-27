@@ -1,4 +1,4 @@
-.order-card {
+.orderCard {
     border-radius: @border-radius-base;
     box-shadow: rgba(0, 0, 0, 0.05) 0 3px 3px 0;
     padding: 8px 8px 12px;
@@ -7,7 +7,8 @@
     background: @component-background;
 
     /*** HEADER ***/
-    .order-card-header {
+
+    .header {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -21,7 +22,7 @@
             .id {
                 font-weight: bold;
 
-                > .anticon {
+                :global .anticon {
                     color: @text-color-secondary;
                     margin-right: 0.3rem;
                 }
@@ -30,7 +31,7 @@
             .date {
                 font-size: 12px;
 
-                .anticon {
+                :global .anticon {
                     margin-right: 0.3rem;
                     color: @text-color-secondary;
                     font-size: 14px;
@@ -73,6 +74,7 @@
             .check {
                 background: @success-color;
             }
+
             .cancel {
                 background: @error-color;
             }
@@ -85,6 +87,7 @@
     }
 
     /*** CLIENT ***/
+
     .client {
         margin-bottom: 0.5rem;
         padding: 0.25rem 0;
@@ -95,12 +98,12 @@
         border-bottom: 1px solid #eff2f5;
 
         .information {
-            > .anticon {
+            :global .anticon {
                 color: @text-color-secondary;
                 margin-right: 0.3rem;
             }
 
-            .full-name {
+            .fullName {
                 font-size: 16px;
             }
         }
@@ -112,7 +115,8 @@
     }
 
     /*** PRICE ***/
-    .order-card-footer {
+
+    .footer {
         display: flex;
         align-items: center;
         gap: 0.3rem;
@@ -124,13 +128,14 @@
                 display: flex;
                 align-items: center;
 
-                .anticon {
+                :global .anticon {
                     color: @text-color-secondary;
                     margin-right: 0.3rem;
                 }
             }
         }
-        .total-price {
+
+        .totalPrice {
             line-height: 1.2;
 
             > .discount {

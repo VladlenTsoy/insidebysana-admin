@@ -8,18 +8,18 @@ import size from "./features/size/sizeSlice"
 // import category from "./store/common/category/categorySlice"
 // import product from "./store/admin/product/productSlice"
 // import client from "./store/admin/client/clientSlice"
-// import source from "./store/admin/source/sourceSlice"
+import source from "./features/source/sourceSlice"
 // import productColor from "./store/admin/product-color/productColorSlice"
 // import banner from "./store/admin/banner/bannerSlice"
 // import additionalService from "./store/common/additional-service/additionalServiceSlice"
 import status from "./features/status/statusSlice"
 import order from "./features/order/orderSlice"
 // import staff from "./store/admin/staff/staffSlice"
-// import paymentMethod from "./store/admin/payment-method/paymentMethodSlice"
+import paymentMethod from "./features/payment-method/paymentMethodSlice"
 // import print from "./store/admin/product-color-print-image/productColorPrintSlice"
 // import lookbook from "./store/admin/lookbook/lookbookSlice"
 // import lookbookCategory from "./store/admin/lookbook/lookbookCategorySlice"
-// import orderArchive from "./store/admin/order-archive/orderArchiveSlice"
+import orderArchive from "./features/order/order-archive/orderArchiveSlice"
 // import newsletter from "./store/admin/newsletter/newsletterSlice"
 // import promoCode from "./store/admin/promo-code/promoCodeSlice"
 // import printCategory from "./store/admin/print-category/printCategorySlice"
@@ -48,20 +48,20 @@ export const adminReducer = combineReducers({
     // tag,
     // product,
     // client,
-    // source,
+    source,
     // productColor,
     // banner,
     status,
     order,
     // staff,
-    // paymentMethod,
+    paymentMethod,
     // print,
     // lookbook,
     // newsletter,
     // promoCode,
     // productColorImage,
     // trashProductColor,
-    // orderArchive,
+    orderArchive,
     // printCategory,
     // printImage,
     // printProduct,

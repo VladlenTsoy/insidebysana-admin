@@ -9,6 +9,7 @@ import LoadingBlock from "./components/loading-block/LoadingBlock"
 
 const Home = React.lazy(() => import("./pages/home"))
 const Orders = React.lazy(() => import("./pages/orders/orders"))
+const OrdersArchive = React.lazy(() => import("./pages/orders/archive"))
 const EditorOrder = React.lazy(() => import("./pages/orders/order"))
 const Products = React.lazy(() => import("./pages/products"))
 const Product = React.lazy(() => import("./pages/product"))
@@ -28,6 +29,7 @@ const App = () => {
                                     <React.Suspense fallback={<LoadingBlock title="Загрузка страницы..." />}>
                                         <Route exact path="/" component={Home} />
                                         <Route exact path="/orders" component={Orders} />
+                                        <Route exact path="/orders/archive" component={OrdersArchive} />
                                         <Route exact path="/orders/order/create" component={EditorOrder} />
                                         <Route exact path="/orders/order/edit/:id" component={EditorOrder} />
                                         <Route exact path="/products/:status" component={Products} />

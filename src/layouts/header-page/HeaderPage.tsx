@@ -5,6 +5,8 @@ import {ArrowLeftOutlined, MoreOutlined} from "@ant-design/icons"
 import styles from "./HeaderPage.module.less"
 import cn from "classnames"
 import {ButtonHTMLType, ButtonType} from "antd/lib/button/button"
+import {useUser} from "../../hooks/use-user"
+import {User} from "../../types/User"
 
 interface HeaderPageProps {
     title: string
@@ -25,6 +27,7 @@ interface HeaderPageProps {
         icon: React.ReactFragment
         text: string
         link?: string
+        access?: User["access"][]
     }[]
 }
 
@@ -41,6 +44,7 @@ const HeaderPage: React.FC<HeaderPageProps> = (
         more
     }
 ) => {
+    const {user} = useUser()
     const history = useHistory()
     const onClickBackHandler = () => (linkBack ? history.push(linkBack) : history.goBack())
 
@@ -75,6 +79,7 @@ const HeaderPage: React.FC<HeaderPageProps> = (
                     overlay={
                         <Menu>
                             {more.map((item, key) =>
+                                (!item?.access || item?.access?.includes(user?.access || "manager")) &&
                                 <Menu.Item
                                     key={key}
                                     onClick={() => item.link ? history.push(item.link) : null}

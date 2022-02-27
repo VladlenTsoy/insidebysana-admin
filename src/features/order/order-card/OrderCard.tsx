@@ -4,7 +4,7 @@ import {Button, Dropdown, Menu, Tooltip} from "antd"
 import {
     CalendarOutlined,
     CarOutlined,
-    CheckOutlined,
+    CheckOutlined, ContainerOutlined,
     DeleteOutlined,
     EditOutlined,
     FieldNumberOutlined,
@@ -19,13 +19,12 @@ import {
 } from "@ant-design/icons"
 import {formatPrice} from "utils/formatPrice"
 import {OrderCardType} from "types//Order"
-import "./OrderCard.less"
 import {formatDate} from "utils/formatDate"
-// import DeleteOrder from "./DeleteOrderAction"
 import HideOrderAction from "./HideOrderAction"
-// import ToArchiveOrder from "./SendToArchiveOrderAction"
-// import ClientMoreAction from "admin/lib/components/more/client-more-action/ClientMoreAction"
 import {Link} from "react-router-dom"
+import cn from "classnames"
+import styles from "./OrderCard.module.less"
+import SendToArchiveOrder from "./SendToArchiveOrderAction"
 
 interface OrderCardProps {
     order: OrderCardType
@@ -45,15 +44,15 @@ const OrderCard: React.FC<OrderCardProps> = ({order, index}) => {
                     <span>Редактировать</span>
                 </Link>
             </Menu.Item>
-            {/* <Menu.Item icon={<ContainerOutlined />} key="archive">
-                <ToArchiveOrder orderId={order.id} />
-            </Menu.Item> */}
+            <Menu.Item icon={<ContainerOutlined />} key="archive">
+                <SendToArchiveOrder orderId={order.id} />
+            </Menu.Item>
             <Menu.Item icon={<DeleteOutlined />} key="cart" danger>
                 <HideOrderAction orderId={order.id} />
             </Menu.Item>
-            {/* <Menu.Item icon={<DeleteOutlined />} key="delete" danger>
-                <DeleteOrder orderId={order.id} />
-            </Menu.Item> */}
+            {/*<Menu.Item icon={<DeleteOutlined />} key="delete" danger>*/}
+            {/*    <DeleteOrder orderId={order.id} />*/}
+            {/*</Menu.Item>*/}
         </Menu>
     )
 
@@ -61,69 +60,69 @@ const OrderCard: React.FC<OrderCardProps> = ({order, index}) => {
         <Draggable draggableId={`order-${order.id}`} key={order.id} index={index}>
             {provided => (
                 <div
-                    className="order-card"
+                    className={cn(styles.orderCard, "order-card")}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
                 >
-                    <div className="order-card-header">
-                        <div className="information">
-                            <div className="date">
+                    <div className={styles.header}>
+                        <div className={styles.information}>
+                            <div className={styles.date}>
                                 <CalendarOutlined />
                                 <span>{formatDate(order.created_at)}</span>
                             </div>
                             <div>
-                                <div className="id">
+                                <div className={styles.id}>
                                     <FieldNumberOutlined />
                                     <span>{order.id}</span>
                                 </div>
                             </div>
                         </div>
                         {order.delivery && order.delivery.price !== 0 && (
-                            <div className="delivery">
+                            <div className={styles.delivery}>
                                 <Tooltip title={order.delivery.title}>
                                     <CarOutlined />
                                 </Tooltip>
                             </div>
                         )}
-                        <div className="status">
+                        <div className={styles.status}>
                             {order.payment_state === 1 && (
                                 <Tooltip title="Оплачен">
-                                    <div className="check">
+                                    <div className={styles.check}>
                                         <CheckOutlined />
                                     </div>
                                 </Tooltip>
                             )}
                             {order.payment_state === -1 && (
                                 <Tooltip title="Отменен">
-                                    <div className="cancel">
+                                    <div className={styles.cancel}>
                                         <StopOutlined />
                                     </div>
                                 </Tooltip>
                             )}
                             {order.payment_state === 0 && (
                                 <Tooltip title="Ожидание">
-                                    <div className="wait">
+                                    <div className={styles.wait}>
                                         <HourglassOutlined />
                                     </div>
                                 </Tooltip>
                             )}
                         </div>
-                        <div className="action">
+                        <div className={styles.action}>
                             <Dropdown overlay={menu} placement="bottomRight" arrow trigger={["click"]}>
                                 <Button icon={<MoreOutlined />} />
                             </Dropdown>
                         </div>
                     </div>
                     {!!order.client && (
-                        <div className="client">
-                            <div className="information">
+                        <div className={styles.client}>
+                            <div className={styles.information}>
                                 <UserOutlined />
-                                <span className="full-name">{order.client.full_name}</span>
+                                <span className={styles.fullName}>{order.client.full_name}</span>
                             </div>
-                            <div className="actions">
+                            <div className={styles.actions}>
                                 {/*<ClientMoreAction clientId={order.client.id}>*/}
-                                    <Button icon={<IdcardOutlined />} />
+                                <Button icon={<IdcardOutlined />} />
                                 {/*</ClientMoreAction>*/}
                                 {order.client.phone && (
                                     <a href={`tel:${order.client.phone}`}>
@@ -133,16 +132,16 @@ const OrderCard: React.FC<OrderCardProps> = ({order, index}) => {
                             </div>
                         </div>
                     )}
-                    <div className="order-card-footer">
-                        <div className="information">
-                            <div className="products">
+                    <div className={styles.footer}>
+                        <div className={styles.information}>
+                            <div className={styles.products}>
                                 <SkinOutlined />
                                 <b>{order.product_color_qty}</b>
                             </div>
                         </div>
-                        <div className="total-price">
+                        <div className={styles.totalPrice}>
                             {order.promo_code && (
-                                <div className="discount">
+                                <div className={styles.discount}>
                                     <span>{order.promo_code.code}</span>
                                     {order.promo_code.type === "percent" ? (
                                         <>
@@ -156,7 +155,7 @@ const OrderCard: React.FC<OrderCardProps> = ({order, index}) => {
                                 </div>
                             )}
                             {order.discount && (
-                                <div className="discount">
+                                <div className={styles.discount}>
                                     Скидка
                                     {order.discount.type === "percent" ? (
                                         <>
@@ -169,7 +168,7 @@ const OrderCard: React.FC<OrderCardProps> = ({order, index}) => {
                                     )}
                                 </div>
                             )}
-                            <div className="price">
+                            <div className={styles.price}>
                                 <b>{formatPrice(order.total_price)}</b> сум
                             </div>
                         </div>
