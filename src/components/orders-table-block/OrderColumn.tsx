@@ -8,6 +8,7 @@ import {formatPrice} from "utils/formatPrice"
 import PaymentStateBlock from "../payment-state-block/PaymentStateBlock"
 import {OrderTableColumn} from "./OrderTableColumn"
 import SourceRowBlock from "./SourceRowBlock"
+import {Link} from "react-router-dom"
 
 interface OrderColumnProps {
     order: OrderTableColumn
@@ -28,9 +29,11 @@ const OrderColumn: React.FC<OrderColumnProps> = ({order, access}) => {
                         </span>
                         {access !== "cashier" && (
                             // <OrderMoreAction orderId={order.id}>
+                            <Link to={`/orders/order/more/${order.id}`}>
                                 <Button size="small" icon={<LinkOutlined />}>
                                     Подробнее
                                 </Button>
+                            </Link>
                             // </OrderMoreAction>
                         )}
                     </td>
@@ -56,9 +59,11 @@ const OrderColumn: React.FC<OrderColumnProps> = ({order, access}) => {
                         {order.client &&
                             (access !== "cashier" ? (
                                 // <ClientMoreAction clientId={order.client.id}>
+                                <Link to={`/clients/client/more/${order.client.id}`}>
                                     <Button icon={<UserOutlined />} size="small">
                                         {order.client.full_name}
                                     </Button>
+                                </Link>
                                 // </ClientMoreAction>
                             ) : (
                                 order.client.full_name
@@ -81,31 +86,31 @@ const OrderColumn: React.FC<OrderColumnProps> = ({order, access}) => {
                     </td>
                 </tr>,
                 order.productColors.length > 0 &&
-                    order.productColors.map(
-                        (product, key) =>
-                            key !== 0 && (
-                                <tr key={`${order.id}-${product.id}-${product.size_id}`}>
-                                    <td>{product.title}</td>
-                                    <td>{product.color_title}</td>
-                                    <td>{product.size_title}</td>
-                                    <td>{product.qty}</td>
-                                    <td>{product.discount && `${product.discount}%`}</td>
-                                    <td>{formatPrice(product.price, product.discount)} сум</td>
-                                    <td>{formatPrice(product.price * product.qty, product.discount)} сум</td>
-                                </tr>
-                            )
-                    ),
+                order.productColors.map(
+                    (product, key) =>
+                        key !== 0 && (
+                            <tr key={`${order.id}-${product.id}-${product.size_id}`}>
+                                <td>{product.title}</td>
+                                <td>{product.color_title}</td>
+                                <td>{product.size_title}</td>
+                                <td>{product.qty}</td>
+                                <td>{product.discount && `${product.discount}%`}</td>
+                                <td>{formatPrice(product.price, product.discount)} сум</td>
+                                <td>{formatPrice(product.price * product.qty, product.discount)} сум</td>
+                            </tr>
+                        )
+                ),
                 order.additionalServices.length > 0 &&
-                    order.additionalServices.map(additionalService => (
-                        <tr key={`${order.id}-${additionalService.id}`}>
-                            <td colSpan={3} style={{color: "#ff9758"}}>
-                                {additionalService.title}
-                            </td>
-                            <td colSpan={2}>{additionalService.qty}</td>
-                            <td>{formatPrice(additionalService.price)} сум</td>
-                            <td>{formatPrice(additionalService.price * additionalService.qty)} сум</td>
-                        </tr>
-                    )),
+                order.additionalServices.map(additionalService => (
+                    <tr key={`${order.id}-${additionalService.id}`}>
+                        <td colSpan={3} style={{color: "#ff9758"}}>
+                            {additionalService.title}
+                        </td>
+                        <td colSpan={2}>{additionalService.qty}</td>
+                        <td>{formatPrice(additionalService.price)} сум</td>
+                        <td>{formatPrice(additionalService.price * additionalService.qty)} сум</td>
+                    </tr>
+                )),
                 <tr key={`total-${order.id}`} className="total-row">
                     <td colSpan={access !== "cashier" ? 8 : 6} />
                     <td>Итого</td>
