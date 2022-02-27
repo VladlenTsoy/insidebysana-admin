@@ -55,8 +55,9 @@ const HeaderPage: React.FC<HeaderPageProps> = (
             )}
             <Title level={1}>{title}</Title>
             {action && <div className={styles.action}>
-                {action.map(item =>
+                {action.map((item, key) =>
                     <Button
+                        key={key}
                         type={item.type}
                         icon={item.icon}
                         htmlType={item.htmlType || "button"}
