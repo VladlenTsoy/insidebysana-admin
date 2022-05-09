@@ -23,9 +23,7 @@ module.exports = {
                         name(module) {
                             // получает имя, то есть node_modules/packageName/not/this/part.js
                             // или node_modules/packageName
-                            const packageName = module.context.match(
-                                /[\\/]node_modules[\\/](.*?)([\\/]|$)/
-                            )[1]
+                            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
 
                             // имена npm-пакетов можно, не опасаясь проблем, использовать
                             // в URL, но некоторые серверы не любят символы наподобие @
@@ -38,14 +36,18 @@ module.exports = {
             // paths.appIndexJs = webpackConfig.entry.path = path.resolve(__dirname, 'src/pos.tsx')
             return webpackConfig
         },
-        plugins: [...(isEnvProduction ? [
-            new CompressionPlugin({
-                filename: "[path].gz[query]",
-                algorithm: "gzip",
-                test: /\.(js|css)$/
-            }),
-            new BundleAnalyzerPlugin()
-        ] : [])]
+        plugins: [
+            ...(isEnvProduction
+                ? [
+                      new CompressionPlugin({
+                          filename: "[path].gz[query]",
+                          algorithm: "gzip",
+                          test: /\.(js|css)$/
+                      }),
+                      new BundleAnalyzerPlugin()
+                  ]
+                : [])
+        ]
     },
     plugins: [
         {
