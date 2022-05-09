@@ -32,7 +32,7 @@ module.exports = {
                     }
                 }
             }
-            paths.appBuild = webpackConfig.output.path = path.resolve("build", "admin")
+            // paths.appBuild = webpackConfig.output.path = path.resolve("build", "admin")
             // paths.appIndexJs = webpackConfig.entry.path = path.resolve(__dirname, 'src/pos.tsx')
             return webpackConfig
         },
