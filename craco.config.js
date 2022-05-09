@@ -43,8 +43,8 @@ module.exports = {
                           filename: "[path].gz[query]",
                           algorithm: "gzip",
                           test: /\.(js|css)$/
-                      }),
-                      new BundleAnalyzerPlugin()
+                      })
+                      // new BundleAnalyzerPlugin()
                   ]
                 : [])
         ]
