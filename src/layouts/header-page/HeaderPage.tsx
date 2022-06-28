@@ -77,17 +77,20 @@ const HeaderPage: React.FC<HeaderPageProps> = (
                     arrow
                     placement="bottomRight"
                     overlay={
-                        <Menu>
-                            {more.map((item, key) =>
-                                (!item?.access || item?.access?.includes(user?.access || "manager")) &&
-                                <Menu.Item
-                                    key={key}
-                                    onClick={() => item.link ? history.push(item.link) : null}
-                                >
-                                    {item.icon} {item.text}
-                                </Menu.Item>
-                            )}
-                        </Menu>
+                        <Menu
+                            items={
+                                more.reduce<any[]>((acc, item, key) => {
+                                    if (!item?.access || item?.access?.includes(user?.access || "manager"))
+                                        acc.push({
+                                            key,
+                                            label: item.text,
+                                            icon: item.icon,
+                                            onClick: () => item.link ? history.push(item.link) : null
+                                        })
+                                    return acc
+                                }, [])
+                            }
+                        />
                     }
                 >
                     <Button size="large" icon={<MoreOutlined />} />

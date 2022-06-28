@@ -31,31 +31,41 @@ interface OrderCardProps {
     index: number
 }
 
-const OrderCard: React.FC<OrderCardProps> = ({order, index}) => {
-    const menu = (
-        <Menu>
-            <Menu.Item icon={<InfoCircleOutlined />} key="more">
-                <Link to={`/orders/more/${order.id}`}>
-                    <span>Подробнее</span>
-                </Link>
-            </Menu.Item>
-            <Menu.Item icon={<EditOutlined />} key="edit">
-                <Link to={`/orders/edit/${order.id}`}>
-                    <span>Редактировать</span>
-                </Link>
-            </Menu.Item>
-            <Menu.Item icon={<ContainerOutlined />} key="archive">
-                <SendToArchiveOrder orderId={order.id} />
-            </Menu.Item>
-            <Menu.Item icon={<DeleteOutlined />} key="cart" danger>
-                <HideOrderAction orderId={order.id} />
-            </Menu.Item>
-            {/*<Menu.Item icon={<DeleteOutlined />} key="delete" danger>*/}
-            {/*    <DeleteOrder orderId={order.id} />*/}
-            {/*</Menu.Item>*/}
-        </Menu>
-    )
+const menuItems = (order: OrderCardType) => [
+    {
+        icon: <InfoCircleOutlined />,
+        label: <Link to={`/orders/more/${order.id}`}>
+            <span>Подробнее</span>
+        </Link>,
+        key: "more"
+    },
+    {
+        icon: <EditOutlined />,
+        label: <Link to={`/orders/edit/${order.id}`}>
+            <span>Редактировать</span>
+        </Link>,
+        key: "edit"
+    },
+    {
+        icon: <ContainerOutlined />,
+        label: <SendToArchiveOrder orderId={order.id} />,
+        key: "archive"
+    },
+    {
+        icon: <DeleteOutlined />,
+        label: <HideOrderAction orderId={order.id} />,
+        key: "hide",
+        danger: true
+    }
+    // {
+    //     icon: <DeleteOutlined />,
+    //     label: <DeleteOrder orderId={order.id} />,
+    //     key: "delete",
+    //     danger: true
+    // }
+]
 
+const OrderCard: React.FC<OrderCardProps> = ({order, index}) => {
     return (
         <Draggable draggableId={`order-${order.id}`} key={order.id} index={index}>
             {provided => (
@@ -109,7 +119,12 @@ const OrderCard: React.FC<OrderCardProps> = ({order, index}) => {
                             )}
                         </div>
                         <div className={styles.action}>
-                            <Dropdown overlay={menu} placement="bottomRight" arrow trigger={["click"]}>
+                            <Dropdown
+                                overlay={<Menu items={menuItems(order)} />}
+                                placement="bottomRight"
+                                arrow
+                                trigger={["click"]}
+                            >
                                 <Button icon={<MoreOutlined />} />
                             </Dropdown>
                         </div>

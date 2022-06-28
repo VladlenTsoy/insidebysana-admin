@@ -4,7 +4,7 @@ import app from "./features/app/appSlice"
 import user from "./features/user/userSlice"
 // import color from "./store/admin/color/colorSlice"
 import size from "./features/size/sizeSlice"
-// import tag from "./store/admin/tag/tagSlice"
+import tag from "./features/tag/tagSlice"
 // import category from "./store/common/category/categorySlice"
 // import product from "./store/admin/product/productSlice"
 // import client from "./store/admin/client/clientSlice"
@@ -45,7 +45,7 @@ export const adminReducer = combineReducers({
     size,
     // color,
     // additionalService,
-    // tag,
+    tag,
     // product,
     // client,
     source,
@@ -73,7 +73,7 @@ export const adminReducer = combineReducers({
     [sizeApi.reducerPath]: sizeApi.reducer,
     [tagApi.reducerPath]: tagApi.reducer,
     [homePositionApi.reducerPath]: homePositionApi.reducer,
-    [photoApi.reducerPath]: photoApi.reducer,
+    [photoApi.reducerPath]: photoApi.reducer
 })
 
 export type AppDispatch = typeof store.dispatch

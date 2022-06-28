@@ -13,6 +13,7 @@ const OrdersArchive = React.lazy(() => import("./pages/orders/archive"))
 const EditorOrder = React.lazy(() => import("./pages/orders/order"))
 const Products = React.lazy(() => import("./pages/products"))
 const Product = React.lazy(() => import("./pages/product"))
+const Settings = React.lazy(() => import("./pages/settings"))
 
 const App = () => {
     const {user} = useUser()
@@ -37,6 +38,7 @@ const App = () => {
                                         <Route exact path="/products/product/create" component={Product} />
                                         <Route exact path="/products/product/edit/:id" component={Product} />
                                         <Route exact path="/products/product/edit/:id/:color" component={Product} />
+                                        <Route exact path="/settings/:category/:setting" component={Settings} />
                                     </React.Suspense>
                                 </Layout>
                             ) : (

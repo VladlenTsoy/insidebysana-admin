@@ -3,8 +3,8 @@ import HeaderPage from "../layouts/header-page/HeaderPage"
 import {useHistory, useLocation, useParams} from "react-router-dom"
 import {PlusOutlined, SkinOutlined} from "@ant-design/icons"
 import Tabs, {Tab} from "components/tabs/Tabs"
-import Container from "../layouts/container/Container"
-import ProductList from "../features/product/product-list/ProductList"
+import Container from "layouts/container/Container"
+import ProductList from "features/product/product-list/ProductList"
 
 type StatusType = "all" | "draft" | "published" | "ending" | "archive"
 
@@ -22,26 +22,27 @@ const Products = () => {
     const location = useLocation()
 
     // Смена статусов
-    const onChangeHandler = (status: string) =>
-        history.push({pathname: `/products/${status}`, search: location.search})
+    const onChangeHandler = (status: string) => history.push({pathname: `/products/${status}`, search: location.search})
 
     return (
         <>
             <HeaderPage
                 title="Товары"
-                action={[{
-                    type: "primary",
-                    link: "/products/product/create",
-                    icon: <PlusOutlined />,
-                    text: "Добавить"
-                }]}
+                action={[
+                    {
+                        type: "primary",
+                        link: "/products/product/create",
+                        icon: <PlusOutlined />,
+                        text: "Добавить"
+                    }
+                ]}
                 icon={<SkinOutlined />}
                 tabs
             />
             <Tabs defaultActiveKey={params.status || `all`} onChange={onChangeHandler}>
-                {statusTabs.map(tab =>
+                {statusTabs.map(tab => (
                     <Tab tab={tab.name} key={tab.status} />
-                )}
+                ))}
             </Tabs>
             <Container>
                 <ProductList />

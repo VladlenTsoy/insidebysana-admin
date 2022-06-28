@@ -11,6 +11,35 @@ import {
 } from "@ant-design/icons"
 import {Link, useLocation} from "react-router-dom"
 
+const menuItems = [
+    {icon: <HomeOutlined />, label: <Link to="/">Главная</Link>, key: ""},
+    {
+        icon: <DollarOutlined />,
+        label: <Link to="/orders">Заказы</Link>,
+        key: "orders"
+    },
+    {
+        icon: <SkinOutlined />,
+        label: <Link to="/products/all">Одежда</Link>,
+        key: "products"
+    },
+    {
+        icon: <TeamOutlined />,
+        label: <Link to="/clients">Клиенты</Link>,
+        key: "clients"
+    },
+    {
+        icon: <CrownOutlined />,
+        label: <Link to="/staff">Сотрудники</Link>,
+        key: "staff"
+    },
+    {
+        icon: <SettingOutlined />,
+        label: <Link to="/settings">Настройки</Link>,
+        key: "settings"
+    }
+]
+
 const Sidebar = () => {
     const location = useLocation()
     const pathnameArray = location.pathname.split("/")
@@ -21,28 +50,10 @@ const Sidebar = () => {
             <Menu
                 theme="dark"
                 mode="inline"
+                items={menuItems}
                 defaultSelectedKeys={[pathnameArray[1]]}
                 className={styles.siteLayoutMenu}
-            >
-                <Menu.Item key="" icon={<HomeOutlined />}>
-                    <Link to="/">Главная</Link>
-                </Menu.Item>
-                <Menu.Item key="orders" icon={<DollarOutlined />}>
-                    <Link to="/orders">Заказы</Link>
-                </Menu.Item>
-                <Menu.Item key="products" icon={<SkinOutlined />}>
-                    <Link to="/products/all">Одежда</Link>
-                </Menu.Item>
-                <Menu.Item key="clients" icon={<TeamOutlined />}>
-                    <Link to="/clients">Клиенты</Link>
-                </Menu.Item>
-                <Menu.Item key="staff" icon={<CrownOutlined />}>
-                    <Link to="/staff">Сотрудники</Link>
-                </Menu.Item>
-                <Menu.Item key="settings" icon={<SettingOutlined />}>
-                    <Link to="/settings">Настройки</Link>
-                </Menu.Item>
-            </Menu>
+            />
         </div>
     )
 }

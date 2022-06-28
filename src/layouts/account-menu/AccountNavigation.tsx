@@ -20,30 +20,40 @@ const AccountNavigation = () => {
         })
     }
 
-    return <Menu>
-        <Menu.Item
-            key="profile"
-            className={styles.accountItem}
-            onClick={() => history.push("/profile")}
-        >
-            <UserOutlined /> Профиль
-        </Menu.Item>
-        <Menu.Item
-            key="settings"
-            className={styles.accountItem}
-            onClick={() => history.push("/settings")}
-        >
-            <SettingOutlined /> Настройки
-        </Menu.Item>
-        <Menu.Divider />
-        <Menu.Item
-            className={styles.accountItem}
-            onClick={logoutHandler}
-            key="exit"
-        >
-            <PoweroffOutlined /> Выход
-        </Menu.Item>
-    </Menu>
+    const menuItems = [
+        {
+            key: "profile",
+            className: styles.accountItem,
+            label: (
+                <>
+                    <UserOutlined /> Профиль
+                </>
+            ),
+            onClick: () => history.push("/profile")
+        },
+        {
+            key: "settings",
+            className: styles.accountItem,
+            label: (
+                <>
+                    <SettingOutlined /> Настройки
+                </>
+            ),
+            onClick: () => history.push("/settings")
+        },
+        {
+            key: "exit",
+            className: styles.accountItem,
+            label: (
+                <>
+                    <PoweroffOutlined /> Выход
+                </>
+            ),
+            onClick: logoutHandler
+        }
+    ]
+
+    return <Menu items={menuItems} />
 }
 
 export default AccountNavigation
