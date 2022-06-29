@@ -20,7 +20,7 @@ const Orders = () => {
         <>
             <HeaderPage
                 title="Заказы"
-                action={[{type: "primary", text: "Создать", icon: <PlusOutlined />, link: "/orders/create"}]}
+                action={[{type: "primary", text: "Создать", icon: <PlusOutlined />, link: "/orders/order/create"}]}
                 more={[
                     {text: "Архив", icon: <ContainerOutlined />, link: "/orders/archive"},
                     {text: "Настройка", icon: <SettingOutlined />, access: ["admin"]},

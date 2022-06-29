@@ -11,7 +11,7 @@ import tag from "./features/tag/tagSlice"
 import source from "./features/source/sourceSlice"
 // import productColor from "./store/admin/product-color/productColorSlice"
 // import banner from "./store/admin/banner/bannerSlice"
-// import additionalService from "./store/common/additional-service/additionalServiceSlice"
+import additionalService from "features/additional-service/additionalServiceSlice"
 import status from "./features/status/statusSlice"
 import order from "./features/order/orderSlice"
 // import staff from "./store/admin/staff/staffSlice"
@@ -44,7 +44,7 @@ export const adminReducer = combineReducers({
     // category,
     size,
     // color,
-    // additionalService,
+    additionalService,
     tag,
     // product,
     // client,
