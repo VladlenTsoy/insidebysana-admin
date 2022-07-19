@@ -1,5 +1,5 @@
 export interface PaymentMethod {
     id: number
     title: string
-    logo?: string
+    url_logo?: string
 }
