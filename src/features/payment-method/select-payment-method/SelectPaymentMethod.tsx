@@ -20,13 +20,15 @@ const SelectPaymentMethod = () => {
         }
     }, [dispatch])
 
-    console.log(paymentMethods)
     return (
         <>
             <Title level={3}>Метод оплаты</Title>
             <div className={styles.header}>
                 {paymentMethods.map(paymentMethod => (
-                    <div className={cn(styles.paymentMethod, {[styles.active]: paymentMethod.id === 1})}>
+                    <div
+                        className={cn(styles.paymentMethod, {[styles.active]: paymentMethod.id === 1})}
+                        key={paymentMethod.id}
+                    >
                         <div className={styles.image}>
                             <img src={paymentMethod.url_logo} alt={paymentMethod.title} />
                         </div>
@@ -34,7 +36,7 @@ const SelectPaymentMethod = () => {
                     </div>
                 ))}
             </div>
-            <div className={styles.content}></div>
+            <div className={styles.content} />
         </>
     )
 }
