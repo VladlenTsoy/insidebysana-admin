@@ -2,7 +2,7 @@ import {CheckOutlined, FilterOutlined} from "@ant-design/icons"
 import LoadingBlock from "components/loading-block/LoadingBlock"
 import {Button, Drawer} from "antd"
 import {AnimatePresence, motion} from "framer-motion"
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import {Size} from "types/Size"
 import {Category} from "types/Category"
 import styles from "./FilterButton.module.less"
@@ -45,15 +45,29 @@ const FilterButton: React.FC<FilterButtonProps> = (
     }
 ) => {
     const [visible, setVisible] = useState(false)
+    // Фильтрация категории
     const changeCategoryHandler = (categoryId?: number) =>
         onCategories(categoryId ? (categoryId) : undefined)
+    // Фильтрация размеров
     const changeSizeHandler = (sizeId?: number) => onSizes(sizeId ? (sizeId) : undefined)
+    // Сбросить фильтрацию
     const resetHandler = () => {
         onCategories(undefined)
         onSizes(undefined)
     }
+    // Отрыть фильтрацию
     const onClickHandler = () => setVisible(true)
+    // Закрыть
     const close = () => setVisible(false)
+
+    useEffect(() => {
+        if (visible) {
+            document.body.style.overflow = "hidden"
+            return () => {
+                document.body.style.overflow = "auto"
+            }
+        }
+    }, [visible])
 
     return (
         <>
@@ -68,7 +82,7 @@ const FilterButton: React.FC<FilterButtonProps> = (
                 placement="left"
                 headerStyle={{display: "none"}}
                 style={{left: "auto"}}
-                width="370"
+                width="470"
                 closeIcon={false}
                 zIndex={998}
             >
@@ -201,7 +215,7 @@ const FilterButton: React.FC<FilterButtonProps> = (
                         <Button block size="large" onClick={resetHandler}>
                             Сбросить
                         </Button>
-                        <Button type="primary" block size="large">
+                        <Button type="primary" block size="large" onClick={close}>
                             Применить
                         </Button>
                     </div>
