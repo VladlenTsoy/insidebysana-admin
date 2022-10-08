@@ -67,6 +67,7 @@ const Sidebar: React.FC<SidebarProps> = ({collapsed}) => {
                                 className={styles.text}
                             >
                                 Inside By Sana
+                                <div className={styles.tag}>Admin</div>
                             </motion.div>
                         )}
                     </div>
