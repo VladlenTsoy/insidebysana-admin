@@ -29,17 +29,14 @@ const Layout: React.FC = ({children}) => {
     const dispatch = useDispatch()
     const [collapsed, setCollapsed] = useState(true)
 
-
     const onCollapsedHandler = () => setCollapsed(prevState => !prevState)
 
     useEffect(() => {
         if (history.listen) {
             const unListen = history.listen((location: any) => {
-                if (Titles[location.pathname])
-                    dispatch(changeTitle(Titles[location.pathname]))
+                if (Titles[location.pathname]) dispatch(changeTitle(Titles[location.pathname]))
             })
-            if (Titles[history.location.pathname])
-                dispatch(changeTitle(Titles[history.location.pathname]))
+            if (Titles[history.location.pathname]) dispatch(changeTitle(Titles[history.location.pathname]))
             return () => {
                 unListen()
             }
@@ -55,18 +52,14 @@ const Layout: React.FC = ({children}) => {
                 trigger={null}
                 collapsedWidth={isBreakpoint ? 0 : 80}
             >
-                <Sidebar />
+                <Sidebar collapsed={collapsed} />
             </Sider>
             <AntdLayout className={styles.siteLayout}>
                 <Header className={styles.siteLayoutHeader}>
                     <div className={styles.optionsHeader}>
                         {React.createElement(Button, {
                             onClick: onCollapsedHandler,
-                            icon: collapsed ? (
-                                <MenuUnfoldOutlined />
-                            ) : (
-                                <MenuFoldOutlined />
-                            ),
+                            icon: collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />,
                             size: "large",
                             shape: "circle"
                         })}
@@ -75,10 +68,7 @@ const Layout: React.FC = ({children}) => {
                     </div>
                     <AccountMenu />
                 </Header>
-                <Content
-                    className={styles.siteLayoutContent}
-                    id="site-layout-content"
-                >
+                <Content className={styles.siteLayoutContent} id="site-layout-content">
                     {children}
                 </Content>
             </AntdLayout>
