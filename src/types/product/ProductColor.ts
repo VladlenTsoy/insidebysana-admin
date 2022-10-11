@@ -16,6 +16,7 @@ export interface ProductColor {
     color: {
         id: number
         title: string
+        hex: string
     }
     discount: {
         id?: number
