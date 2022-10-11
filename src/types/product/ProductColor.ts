@@ -42,6 +42,10 @@ export interface ProductColor {
         min_qty: number
         cost_price: number
     }[]
+    storage: {
+        id: number
+        title: string
+    } | null
     url_thumbnail: string
     is_new: boolean
 }
