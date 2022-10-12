@@ -3,11 +3,44 @@
     overflow: hidden;
     padding: .5rem;
     box-shadow: 0 5px 20px 5px rgb(0 0 0 / 5%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     .wrapperImage {
-        padding-bottom: 125%;
+        padding-bottom: 90%;
         position: relative;
         margin-bottom: .5rem;
+
+        .color {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: @white;
+            padding: 0 0.5rem 0 0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            color: @black;
+            z-index: 1;
+
+            .hex {
+                opacity: 0.8;
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                margin-right: 0.35rem;
+                transform: scale(1.1);
+            }
+
+            .title {
+                font-size: @font-size-sm;
+                color: @black;
+                font-weight: normal;
+                margin-bottom: 0;
+            }
+        }
 
         .image {
             border-radius: @border-radius-base;
@@ -24,14 +57,65 @@
                 width: 100%;
             }
         }
+
+        .discount {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            padding: 0 0.5rem 0 0.5rem;
+            border-radius: 10px;
+            background: @primary-color;
+            color: @white !important;
+            z-index: 1;
+        }
+
+        .storage {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            padding: 0 0.5rem 0 0.5rem;
+            border-radius: 10px;
+            font-weight: bold;
+            background: @success-color;
+            font-size: @font-size-sm;
+            color: @white !important;
+            z-index: 1;
+        }
+
+        .size {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            padding: 0 0.5rem 0 0.5rem;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: @font-size-sm;
+            background: @white;
+            z-index: 1;
+        }
     }
 
     .title {
         text-align: center;
         font-size: @font-size-lg;
-        font-weight: bold;
+        //font-weight: bold;
         line-height: 1.25;
         margin-bottom: .5rem;
     }
 
+    .priceDiscount {
+        text-align: center;
+        color: fade(@black, 40%);
+        font-size: @font-size-sm;
+        text-decoration: line-through;
+        line-height: 1;
+    }
+
+    .price {
+        text-align: center;
+        margin-bottom: 0.75rem;
+        font-weight: bold;
+        color: @black;
+        line-height: 1;
+    }
 }

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react"
 import styles from "./Counter.module.less"
 import {Button} from "antd"
-import {MinusOutlined, PlusOutlined} from "@ant-design/icons"
+import {DeleteOutlined, MinusOutlined, PlusOutlined} from "@ant-design/icons"
 
 interface CounterProps {
     defaultValue?: number
@@ -25,14 +25,14 @@ const Counter: React.FC<CounterProps> = ({defaultValue = 0, onChange, onDelete, 
         <div className={styles.actions}>
             <div className={styles.minus}>
                 <Button
-                    disabled={qty <= min}
+                    disabled={!!onDelete ? false : qty <= min}
                     type="primary"
-                    danger={qty <= (min + 1) && !!onDelete}
+                    danger={qty <= min && !!onDelete}
                     className="blue"
                     shape="circle"
                     size="large"
-                    icon={<MinusOutlined />}
-                    onClick={() => qty <= min && onDelete ? onDelete() : onMinus()}
+                    icon={!!onDelete && qty <= min ? <DeleteOutlined /> : <MinusOutlined />}
+                    onClick={() => qty <= min && !!onDelete ? onDelete() : onMinus()}
                 />
             </div>
             <div className={styles.count}>
