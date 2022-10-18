@@ -8,6 +8,8 @@ import SelectProduct from "features/product/select-product/SelectProduct"
 import SelectPaymentMethod from "features/payment-method/select-payment-method/SelectPaymentMethod"
 import {Client} from "types/Client"
 import {Delivery} from "types/Delivery"
+import BaseInformation from "./content/BaseInformation"
+import RightInformation from "./content/RightInformation"
 
 interface OrderEditorProps {
     order?: {
@@ -25,29 +27,37 @@ interface OrderEditorProps {
 }
 
 const OrderEditor: React.FC<OrderEditorProps> = ({order}) => {
+    // Выбранные продукты
     const [products, setProducts] = useState<OrderProduct[]>(order?.products || [])
-
+    // Выбранные доп. услуги
     const [additionalServices, setAdditionalServices] = useState<SelectAdditionalServiceType[]>(
         order?.additionalServices || []
     )
 
+    // Обновить выбранные доп. услуги
     const updateSelectAdditionalServices = useCallback(_additionalServices => {
         setAdditionalServices(_additionalServices)
     }, [])
 
     return (
         <Row gutter={28}>
-            <Col span={19}>
+            <Col span={18}>
+                <BaseInformation />
+                {/* Список продуктов */}
                 <SelectProduct products={products} setProducts={setProducts} />
                 <Divider />
+                {/* Список доп. услуг */}
                 <SelectAdditionalServices
                     selectAdditionalServices={additionalServices}
                     updateSelectAdditionalServices={updateSelectAdditionalServices}
                 />
                 <Divider />
+                {/* Метод оплаты */}
                 <SelectPaymentMethod />
             </Col>
-            <Col span={5} />
+            <Col span={6}>
+                <RightInformation selectProducts={products} selectAdditionalServices={additionalServices} />
+            </Col>
         </Row>
     )
 }

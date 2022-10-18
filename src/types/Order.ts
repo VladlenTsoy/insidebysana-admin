@@ -129,7 +129,7 @@ export type OrderProduct = {
     qty: number
     product_color_id: number
     size_id: number
-    price: number
+    // price: number
     product: ProductColor
 }
 

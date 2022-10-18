@@ -18,13 +18,13 @@ export interface ProductColor {
         title: string
         hex: string
     }
-    discount: {
+    discount?: {
         id?: number
         product_color_id?: number
         discount: number
         end_at?: string
     }
-    price: number
+    // price: number
     tags_id: Tag["id"][]
     //
     url_images: string[]
