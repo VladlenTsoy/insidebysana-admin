@@ -1,6 +1,6 @@
 .container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(6, 1fr);
     gap: 1rem;
 }
 
@@ -8,7 +8,6 @@
     padding: 1rem;
     text-align: center;
     border-radius: @border-radius-base;
-    //border: 1px solid @border-color-base;
     display: flex;
     flex-direction: column;
     box-shadow: 0 5px 20px 5px rgb(0 0 0 / 5%);
