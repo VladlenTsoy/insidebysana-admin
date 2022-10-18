@@ -1,6 +1,6 @@
 import React, {useMemo} from "react"
 import styles from "./RightInformation.module.less"
-import {Typography} from "antd"
+import {Card, Typography} from "antd"
 import {OrderProduct} from "types/Order"
 import {
     SelectAdditionalServiceType
@@ -35,32 +35,39 @@ const RightInformation: React.FC<RightInformationProps> = ({selectProducts, sele
     const totalPriceAdditionalServices = useMemo(() => selectAdditionalServices.reduce((acc, additionalServices) => acc + (additionalServices.qty * additionalServices.price), 0), [selectAdditionalServices])
 
     return (
-        <div className={styles.container}>
+        <>
             <Title level={3}>Итог</Title>
-            {/* Скидка */}
-            <div className={styles.discount}>
-                <Discount />
-            </div>
-            {/* Товары */}
-            <div className={styles.totalPrice}>
-                <div className={styles.title}>Товары:</div>
-                <div className={styles.price}>
-                    <span>{countProducts} x</span> {formatPrice(totalPriceProducts)} сум
+            <Card>
+                <div className={styles.container}>
+                    {/* Скидка */}
+                    <div className={styles.discount}>
+                        <div>Скидка</div>
+                        <Discount />
+                    </div>
+                    {/* Товары */}
+                    <div className={styles.totalPrice}>
+                        <div className={styles.title}>Товары:</div>
+                        <div className={styles.price}>
+                            <span>{countProducts} x</span> {formatPrice(totalPriceProducts)} сум
+                        </div>
+                    </div>
+                    {/* Доп. услуги */}
+                    <div className={styles.totalPrice}>
+                        <div className={styles.title}>Доп. услуги:</div>
+                        <div className={styles.price}>
+                            <span>{countAdditionalServices} x</span> {formatPrice(totalPriceAdditionalServices)} сум
+                        </div>
+                    </div>
+                    {/* Общая сумма к оплате */}
+                    <div className={styles.totalPrice}>
+                        <div className={styles.title}>Сумма к оплате:</div>
+                        <div
+                            className={styles.price}>{formatPrice(totalPriceProducts + totalPriceAdditionalServices)} сум
+                        </div>
+                    </div>
                 </div>
-            </div>
-            {/* Доп. услуги */}
-            <div className={styles.totalPrice}>
-                <div className={styles.title}>Доп. услуги:</div>
-                <div className={styles.price}>
-                    <span>{countAdditionalServices} x</span> {formatPrice(totalPriceAdditionalServices)} сум
-                </div>
-            </div>
-            {/* Общая сумма к оплате */}
-            <div className={styles.totalPrice}>
-                <div className={styles.title}>Сумма к оплате:</div>
-                <div className={styles.price}>{formatPrice(totalPriceProducts + totalPriceAdditionalServices)} сум</div>
-            </div>
-        </div>
+            </Card>
+        </>
     )
 }
 
