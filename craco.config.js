@@ -61,7 +61,7 @@ module.exports = {
                         javascriptEnabled: true,
                         modifyVars: {
                             ...getThemeVariables(),
-                            "max-width": "1200px",
+                            "max-width": "1600px",
                             "@box-shadow": "0 5px 20px rgba(146, 153, 184, 0.1)",
                             "@font-family":
                                 "-apple-system, Montserrat, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
