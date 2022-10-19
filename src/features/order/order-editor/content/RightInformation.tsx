@@ -52,12 +52,14 @@ const RightInformation: React.FC<RightInformationProps> = ({selectProducts, sele
                         </div>
                     </div>
                     {/* Доп. услуги */}
-                    <div className={styles.totalPrice}>
-                        <div className={styles.title}>Доп. услуги:</div>
-                        <div className={styles.price}>
-                            <span>{countAdditionalServices} x</span> {formatPrice(totalPriceAdditionalServices)} сум
+                    {countAdditionalServices > 0 &&
+                        <div className={styles.totalPrice}>
+                            <div className={styles.title}>Доп. услуги:</div>
+                            <div className={styles.price}>
+                                <span>{countAdditionalServices} x</span> {formatPrice(totalPriceAdditionalServices)} сум
+                            </div>
                         </div>
-                    </div>
+                    }
                     {/* Общая сумма к оплате */}
                     <div className={styles.totalPrice}>
                         <div className={styles.title}>Сумма к оплате:</div>
