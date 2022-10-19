@@ -33,6 +33,10 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order}) => {
     const [additionalServices, setAdditionalServices] = useState<SelectAdditionalServiceType[]>(
         order?.additionalServices || []
     )
+    // На обработку
+    const [processing, setProcessing] = useState(order?.processing || false)
+    // Изменить на обработку
+    const changeProcessingHandler = useCallback((val: boolean) => setProcessing(val), [])
 
     // Обновить выбранные доп. услуги
     const updateSelectAdditionalServices = useCallback(_additionalServices => {
@@ -56,7 +60,12 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order}) => {
                 <SelectPaymentMethod />
             </Col>
             <Col span={6}>
-                <RightInformation selectProducts={products} selectAdditionalServices={additionalServices} />
+                <RightInformation
+                    selectProducts={products}
+                    selectAdditionalServices={additionalServices}
+                    processing={processing}
+                    changeProcessingHandler={changeProcessingHandler}
+                />
             </Col>
         </Row>
     )

@@ -2,8 +2,9 @@ import {CloseOutlined, DollarOutlined, PercentageOutlined} from "@ant-design/ico
 import {Button, InputNumber, Radio} from "antd"
 import React, {useState} from "react"
 import {formatPrice} from "utils/formatPrice"
-import "./Discount.less"
+import styles from "./Discount.module.less"
 import {OrderDiscount} from "types/Order"
+import cn from "classnames"
 
 const plainOptions = [
     {label: <PercentageOutlined />, value: "percent"},
@@ -20,17 +21,17 @@ const Discount: React.FC = () => {
     const onCLickHandler = () => setDiscount({discount: 0, type: "percent"})
 
     return (
-        <div className="create-order-discount">
+        <div className={styles.createOrderDiscount}>
             <Radio.Group
                 value={discount.type}
                 options={plainOptions}
                 optionType="button"
                 buttonStyle="solid"
                 size="large"
-                className="discount-radio"
+                className={styles.discountRadio}
                 onChange={onTypeChangeHandler}
             />
-            <div className="discount-input">
+            <div className={cn(styles.discountInput, {[styles.sum]: discount.type === "fixed"})}>
                 <InputNumber
                     type="tel"
                     size="large"

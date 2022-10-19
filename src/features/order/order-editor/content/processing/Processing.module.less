@@ -1,0 +1,28 @@
+.processing {
+    display: flex;
+    background: fade(@divider-color, 2.5);
+    border-radius: @border-radius-base;
+    padding: 1rem;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    cursor: pointer;
+    transition: background-color .2s ease-in-out;
+
+    &:hover {
+        background: fade(@divider-color, 5);
+    }
+
+    &.active {
+        background: fade(@primary-color, 5);
+    }
+
+    &.active:hover {
+        background: fade(@primary-color, 10);
+    }
+
+    span {
+        font-size: 20px;
+        margin-right: 1rem;
+    }
+}

@@ -1,0 +1,45 @@
+.createOrderDiscount {
+    display: grid;
+    font-size: calc(@font-size-lg + 2px);
+    gap: 1rem;
+    grid-template-columns: 96px 1fr 40px;
+
+    .discountRadio {
+        :global .anticon {
+            transform: scale(1.5);
+        }
+    }
+
+    .discountInput {
+        position: relative;
+
+        :global {
+            .ant-input-number {
+                width: 100%;
+                font-size: calc(@font-size-lg + 2px);
+                padding-right: 1.25rem;
+
+                input {
+                    text-align: right;
+                }
+            }
+
+            .icon {
+                position: absolute;
+                right: 10px;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                top: 0;
+            }
+        }
+
+        &.sum {
+            :global {
+                .ant-input-number {
+                    padding-right: 2.5rem;
+                }
+            }
+        }
+    }
+}

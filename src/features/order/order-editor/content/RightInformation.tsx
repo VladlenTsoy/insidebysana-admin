@@ -7,21 +7,33 @@ import {
 } from "features/additional-service/select-additional-services/SelectAdditionalServices"
 import {formatPrice} from "utils/formatPrice"
 import Discount from "./discount/Discount"
+import Processing from "./processing/Processing"
 
 const {Title} = Typography
 
 interface RightInformationProps {
     selectProducts: OrderProduct[]
     selectAdditionalServices: SelectAdditionalServiceType[]
+    processing: boolean
+    changeProcessingHandler: (val: boolean) => void
 }
 
 /**
  * Итог
  * @param selectProducts
  * @param selectAdditionalServices
+ * @param processing
+ * @param changeProcessingHandler
  * @constructor
  */
-const RightInformation: React.FC<RightInformationProps> = ({selectProducts, selectAdditionalServices}) => {
+const RightInformation: React.FC<RightInformationProps> = (
+    {
+        selectProducts,
+        selectAdditionalServices,
+        processing,
+        changeProcessingHandler
+    }
+) => {
     // Кол-во продуктов
     const countProducts = useMemo(() => selectProducts.reduce((acc, product) => acc + product.qty, 0), [selectProducts])
     // Общая сумма продуктов
@@ -41,7 +53,7 @@ const RightInformation: React.FC<RightInformationProps> = ({selectProducts, sele
                 <div className={styles.container}>
                     {/* Скидка */}
                     <div className={styles.discount}>
-                        <div>Скидка</div>
+                        <div className={styles.title}>Скидка</div>
                         <Discount />
                     </div>
                     {/* Товары */}
@@ -54,7 +66,7 @@ const RightInformation: React.FC<RightInformationProps> = ({selectProducts, sele
                     {/* Доп. услуги */}
                     {countAdditionalServices > 0 &&
                         <div className={styles.totalPrice}>
-                            <div className={styles.title}>Доп. услуги:</div>
+                            <div>Доп. услуги:</div>
                             <div className={styles.price}>
                                 <span>{countAdditionalServices} x</span> {formatPrice(totalPriceAdditionalServices)} сум
                             </div>
@@ -67,6 +79,9 @@ const RightInformation: React.FC<RightInformationProps> = ({selectProducts, sele
                             className={styles.price}>{formatPrice(totalPriceProducts + totalPriceAdditionalServices)} сум
                         </div>
                     </div>
+                    <div className={styles.mb}/>
+                    {/* На обработку */}
+                    <Processing isProcessing={processing} onChange={changeProcessingHandler} />
                 </div>
             </Card>
         </>

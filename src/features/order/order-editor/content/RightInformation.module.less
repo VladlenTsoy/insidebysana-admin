@@ -1,25 +1,30 @@
 .container {
     .discount {
+        margin-bottom: 1.5rem;
 
+        .title {
+            font-size: calc(@font-size-lg);
+            margin-bottom: .33rem;
+        }
     }
-
 
     .totalPrice {
         display: flex;
         justify-content: space-between;
-        font-size: calc(@font-size-lg + 2px);
+        font-size: calc(@font-size-lg);
         margin-bottom: .5rem;
-
-        .title {
-
-        }
 
         .price {
             font-weight: bold;
+            font-size: calc(@font-size-lg + 2);
 
             span {
                 color: @primary-color;
             }
         }
+    }
+
+    .mb {
+        margin-bottom: 1.5rem;
     }
 }
