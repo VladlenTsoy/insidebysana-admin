@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, {useState} from "react"
 import styles from "./Counter.module.less"
 import {Button} from "antd"
 import {DeleteOutlined, MinusOutlined, PlusOutlined} from "@ant-design/icons"
@@ -14,12 +14,17 @@ interface CounterProps {
 const Counter: React.FC<CounterProps> = ({defaultValue = 0, onChange, onDelete, max = Infinity, min = 0}) => {
     const [qty, setQty] = useState<number>(defaultValue)
 
-    const onMinus = () => setQty(prevState => prevState <= min ? min : prevState - 1)
-    const onPlus = () => setQty(prevState => prevState >= max ? max : prevState + 1)
-
-    useEffect(() => {
+    const onMinus = () => {
+        const updateQty = qty <= min ? min : qty - 1
         onChange(qty)
-    }, [qty])
+        setQty(updateQty)
+    }
+
+    const onPlus = () => {
+        const updateQty = qty >= max ? max : qty + 1
+        onChange(qty)
+        setQty(updateQty)
+    }
 
     return (
         <div className={styles.actions}>

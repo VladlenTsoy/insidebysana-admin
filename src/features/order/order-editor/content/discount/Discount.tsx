@@ -1,6 +1,6 @@
 import {CloseOutlined, DollarOutlined, PercentageOutlined} from "@ant-design/icons"
 import {Button, InputNumber, Radio} from "antd"
-import React, {useState} from "react"
+import React, {Dispatch, SetStateAction} from "react"
 import {formatPrice} from "utils/formatPrice"
 import styles from "./Discount.module.less"
 import {OrderDiscount} from "types/Order"
@@ -11,8 +11,12 @@ const plainOptions = [
     {label: <DollarOutlined />, value: "fixed"}
 ]
 
-const Discount: React.FC = () => {
-    const [discount, setDiscount] = useState<OrderDiscount>({type: "percent", discount: 0})
+interface DiscountProps {
+    discount: OrderDiscount
+    setDiscount: Dispatch<SetStateAction<OrderDiscount>>
+}
+
+const Discount: React.FC<DiscountProps> = ({discount, setDiscount}) => {
 
     const onTypeChangeHandler = (e: any) => setDiscount(prevState => ({...prevState, type: e.target.value}))
 

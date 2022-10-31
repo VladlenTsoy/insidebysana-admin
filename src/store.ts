@@ -35,6 +35,9 @@ import {sizeApi} from "features/size/sizeApi"
 import {tagApi} from "features/tag/tagApi"
 import {homePositionApi} from "features/home-position/homePositionApi"
 import {photoApi} from "./features/photos-section/photoApi"
+import {cityApi} from "./features/city/cityApi"
+import {countryApi} from "./features/country/countryApi"
+import {clientApi} from "./features/client/clientApi"
 
 export type StoreState = ReturnType<typeof adminReducer>
 
@@ -67,6 +70,9 @@ export const adminReducer = combineReducers({
     // printProduct,
     // homeProduct,
     // lookbookCategory,
+    [clientApi.reducerPath]: clientApi.reducer,
+    [cityApi.reducerPath]: cityApi.reducer,
+    [countryApi.reducerPath]: countryApi.reducer,
     [productApi.reducerPath]: productApi.reducer,
     [categoryApi.reducerPath]: categoryApi.reducer,
     [colorApi.reducerPath]: colorApi.reducer,
@@ -98,5 +104,7 @@ export const store = configureStore({
             .concat(tagApi.middleware)
             .concat(homePositionApi.middleware)
             .concat(photoApi.middleware)
-
+            .concat(clientApi.middleware)
+            .concat(cityApi.middleware)
+            .concat(countryApi.middleware)
 })

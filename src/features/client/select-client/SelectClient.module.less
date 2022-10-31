@@ -1,0 +1,39 @@
+.clientOption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    .fullName {
+        font-weight: bold;
+
+        .id {
+            font-weight: normal;
+            display: inline-block;
+            margin-right: .5rem;
+            color: @text-color-secondary;
+        }
+    }
+}
+
+.loading {
+    text-align: center;
+    padding: .5rem;
+    font-size: 30px;
+    color: @primary-color;
+}
+
+.createClient {
+    display: flex;
+    font-size: @font-size-lg;
+    color: @text-color;
+    align-items: center;
+    gap: .25rem;
+    cursor: pointer;
+    transition: color .2s ease-in-out;
+    padding: .25rem .75rem;
+
+    &:hover {
+        color: @primary-color;
+    }
+}

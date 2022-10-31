@@ -1,4 +1,7 @@
 export interface Country {
     id: number
-    title: string
+    name: string
+    flag: string
+    url_flag: string
+    position: [number, number]
 }

@@ -1,27 +1,25 @@
 import React, {useEffect} from "react"
-import {Menu, Table} from "antd"
+import {Table} from "antd"
 import {useLoadingTag, useSelectAllTags} from "../tagSelectors"
-import DeleteItem from "./delete-item/DeleteItem"
-import {Tag} from "types/Tag"
 import {useDispatch} from "store"
 import {fetchTags} from "../fetchTags"
 // import MenuButton from "components/menu-button/MenuButton"
 // import EditorTagAction from "../../../../../../../lib/components/editors/editor-tag-action/EditorTagAction"
 
-const menu = (tag: Tag) => (
-    <Menu>
-        <Menu.Item>
-            {/*<EditorTagAction tag={tag}>*/}
-            {/*    <div>*/}
-            {/*        <EditOutlined /> Редактировать*/}
-            {/*    </div>*/}
-            {/*</EditorTagAction>*/}
-        </Menu.Item>
-        <Menu.Item>
-            <DeleteItem tag={tag} />
-        </Menu.Item>
-    </Menu>
-)
+// const menu = (tag: Tag) => (
+//     <Menu>
+//         <Menu.Item>
+//             {/*<EditorTagAction tag={tag}>*/}
+//             {/*    <div>*/}
+//             {/*        <EditOutlined /> Редактировать*/}
+//             {/*    </div>*/}
+//             {/*</EditorTagAction>*/}
+//         </Menu.Item>
+//         <Menu.Item>
+//             <DeleteItem tag={tag} />
+//         </Menu.Item>
+//     </Menu>
+// )
 
 const columns = [
     {

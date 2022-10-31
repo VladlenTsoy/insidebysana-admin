@@ -42,7 +42,7 @@ const OptionAdditionalService: React.FC<OptionAdditionalServiceProps> = (
         } else if (val > 0) {
             updateSelectAdditionalServices([...selectAdditionalServices, {...additionalService, qty: val}])
         }
-    }, [selectAdditionalServices, updateSelectAdditionalServices])
+    }, [additionalService, selectAdditionalServices, updateSelectAdditionalServices])
 
     return (
         <div className={styles.additionalService} key={additionalService.id}>

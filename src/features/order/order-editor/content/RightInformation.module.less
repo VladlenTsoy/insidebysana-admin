@@ -1,4 +1,7 @@
 .container {
+    position: sticky;
+    top: 1rem;
+
     .discount {
         margin-bottom: 1.5rem;
 
@@ -17,6 +20,14 @@
         .price {
             font-weight: bold;
             font-size: calc(@font-size-lg + 2);
+
+            &.danger {
+                color: @btn-danger-bg;
+            }
+
+            &.active {
+                color: @primary-color;
+            }
 
             span {
                 color: @primary-color;
