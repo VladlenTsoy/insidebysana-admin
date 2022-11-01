@@ -39,6 +39,14 @@ const SelectClient: React.FC<SelectClientProps> = ({form}) => {
     const onSearchHandler = (val: string) => {
         if (val.trim() !== "") setSearch(val)
     }
+    //
+    const onChangeHandler = (clientId: number) => {
+        if (!data) return
+        const client = data.find(client => client.id === clientId)
+        if (!client) return
+        form.setFieldsValue({delivery_name: client.full_name, delivery_phone: client.phone})
+
+    }
     // Открыть
     const onOpenModalHandler = () => setVisible(true)
     // Закрыть
@@ -48,7 +56,7 @@ const SelectClient: React.FC<SelectClientProps> = ({form}) => {
     // После добавления клиента
     const afterFinishHandler = useCallback(client => {
         setSearch(client.id)
-        form.setFieldsValue({client_id: client.id})
+        form.setFieldsValue({client_id: client.id, delivery_name: client.full_name, delivery_phone: client.phone})
     }, [form])
 
     const createClientView = (
@@ -65,6 +73,7 @@ const SelectClient: React.FC<SelectClientProps> = ({form}) => {
                     showSearch
                     filterOption={false}
                     onSearch={onSearchHandler}
+                    onChange={onChangeHandler}
                     allowClear
                     placeholder="Выберите клиента"
                     options={options}
