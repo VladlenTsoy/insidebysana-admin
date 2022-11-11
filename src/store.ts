@@ -38,6 +38,7 @@ import {photoApi} from "./features/photos-section/photoApi"
 import {cityApi} from "./features/city/cityApi"
 import {countryApi} from "./features/country/countryApi"
 import {clientApi} from "./features/client/clientApi"
+import {statisticApi} from "./features/statistic/statisticApi"
 
 export type StoreState = ReturnType<typeof adminReducer>
 
@@ -79,7 +80,8 @@ export const adminReducer = combineReducers({
     [sizeApi.reducerPath]: sizeApi.reducer,
     [tagApi.reducerPath]: tagApi.reducer,
     [homePositionApi.reducerPath]: homePositionApi.reducer,
-    [photoApi.reducerPath]: photoApi.reducer
+    [photoApi.reducerPath]: photoApi.reducer,
+    [statisticApi.reducerPath]: statisticApi.reducer
 })
 
 export type AppDispatch = typeof store.dispatch
@@ -107,4 +109,5 @@ export const store = configureStore({
             .concat(clientApi.middleware)
             .concat(cityApi.middleware)
             .concat(countryApi.middleware)
+            .concat(statisticApi.middleware)
 })

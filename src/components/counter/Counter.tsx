@@ -22,7 +22,7 @@ const Counter: React.FC<CounterProps> = ({defaultValue = 0, onChange, onDelete, 
 
     const onPlus = () => {
         const updateQty = qty >= max ? max : qty + 1
-        onChange(qty)
+        onChange(updateQty)
         setQty(updateQty)
     }
 
