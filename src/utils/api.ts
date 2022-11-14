@@ -3,8 +3,11 @@ import {message} from "components/message/message"
 import {getCookie, removeCookie, setCookie} from "./cookie"
 
 const CancelToken = axios.CancelToken
-export const DOMAIN_API =
-    process.env.NODE_ENV === "production" ? "https://devapi.insidebysana.uz/api" : "http://localhost:9000/api"
+
+if(!process.env.REACT_APP_DOMAIN) throw Error("Error REACT_APP_DOMAIN not find!")
+
+export const DOMAIN = process.env.REACT_APP_DOMAIN
+export const DOMAIN_API = `${process.env.REACT_APP_DOMAIN}/api`
 
 const TOKEN = getCookie("crm_token_access")
 
@@ -60,16 +63,16 @@ export const apiRequest: ApiRequestProps = async (method = "get", url: string, c
                 ? // @ts-ignore
                 await api[type].get(url, {..._config, params})
                 : method === "patch"
-                ? // @ts-ignore
-                await api[type].patch(url, data, {..._config, params})
-                : method === "delete"
                     ? // @ts-ignore
-                    await api[type].delete(url, {..._config, params, data})
-                    : method === "put"
+                    await api[type].patch(url, data, {..._config, params})
+                    : method === "delete"
                         ? // @ts-ignore
-                        await api[type].put(url, data, {..._config, params})
-                        : // @ts-ignore
-                        await api[type].post(url, data, {..._config, params})
+                        await api[type].delete(url, {..._config, params, data})
+                        : method === "put"
+                            ? // @ts-ignore
+                            await api[type].put(url, data, {..._config, params})
+                            : // @ts-ignore
+                            await api[type].post(url, data, {..._config, params})
 
         return response.data
     } catch (e: any) {
