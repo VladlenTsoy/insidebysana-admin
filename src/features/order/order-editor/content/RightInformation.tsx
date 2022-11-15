@@ -7,7 +7,7 @@ import {
 } from "features/additional-service/select-additional-services/SelectAdditionalServices"
 import {formatPrice} from "utils/formatPrice"
 import Discount from "./discount/Discount"
-import Processing from "./processing/Processing"
+import Processing from "../../../../components/processing/Processing"
 import SelectPaymentMethod from "../../../payment-method/select-payment-method/SelectPaymentMethod"
 import {OrderPaymentMethod} from "../OrderEditor"
 import cn from "classnames"
