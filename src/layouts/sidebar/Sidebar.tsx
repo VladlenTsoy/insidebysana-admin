@@ -37,7 +37,7 @@ const menuItems = [
     },
     {
         icon: <SettingOutlined />,
-        label: <Link to="/settings">Настройки</Link>,
+        label: <Link to="/settings/general/categories">Настройки</Link>,
         key: "settings"
     }
 ]
