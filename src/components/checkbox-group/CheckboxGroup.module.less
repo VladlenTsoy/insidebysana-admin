@@ -1,0 +1,28 @@
+.group {
+    width: 100%;
+}
+
+.grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    background: fade(@divider-color, 2.5);
+    padding: 1rem;
+    border-radius: @border-radius-base;
+
+    .loadingBlock {
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        grid-column-end: 3;
+
+        :global .anticon {
+            font-size: 30px;
+        }
+    }
+
+    .item {
+        user-select: none;
+    }
+}
