@@ -4,9 +4,9 @@ import OrderCard from "features/order/order-card/OrderCard"
 import {useSelectByStatusId} from "features/order/orderSelectors"
 import {Status} from "types/Status"
 import {LoadingOutlined, PushpinFilled, SettingOutlined} from "@ant-design/icons"
-// import EditorStatusAction from "../../../lib/components/editors/editor-status-action/EditorStatusAction"
 import styles from "./StatusColumn.module.less"
 import cn from "classnames"
+import EditorStatusAction from "../editor-status/EditorStatusAction"
 
 interface StatusColumnProps {
     status: Status
@@ -25,11 +25,12 @@ const StatusColumn: React.FC<StatusColumnProps> = ({status, index}) => {
                             {status.loading && <LoadingOutlined />}
                         </span>
                         <span>{status.title}</span>
-                        {/*<EditorStatusAction status={status}>*/}
+                        {/* Настройки статуса */}
+                        <EditorStatusAction status={status}>
                             <span className={styles.actions}>
                                 <SettingOutlined />
                             </span>
-                        {/*</EditorStatusAction>*/}
+                        </EditorStatusAction>
                     </h3>
                     <Droppable droppableId={`drop-${status.id}`} type="order">
                         {provided => (
