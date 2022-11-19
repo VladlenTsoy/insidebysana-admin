@@ -39,12 +39,14 @@ import {cityApi} from "./features/city/cityApi"
 import {countryApi} from "./features/country/countryApi"
 import {clientApi} from "./features/client/clientApi"
 import {statisticApi} from "./features/statistic/statisticApi"
+import typeDelivery from "features/type-delivery/typeDeliverySlice"
 
 export type StoreState = ReturnType<typeof adminReducer>
 
 export const adminReducer = combineReducers({
     app,
     user,
+    typeDelivery,
     // category,
     size,
     // color,

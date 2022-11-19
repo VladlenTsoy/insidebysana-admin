@@ -15,7 +15,7 @@ const SelectCity: React.FC<SelectCityProps> = ({countryId}) => {
     const {data: cities, isLoading: isLoadingCities} = useGetCitiesByCountryIdQuery(countryId || 0, {skip: !countryId})
 
     return (
-        <Form.Item label="Выберите город" name="city_id" rules={[{required: true, message: "Выберите город!"}]}>
+        <Form.Item label="Выберите город" name={["address", "city"]} rules={[{required: true, message: "Выберите город!"}]}>
             <Select loading={isLoadingCities} showSearch optionFilterProp="label" placeholder="Выберите город">
                 {cities?.map(city => (
                     <Select.Option val={city.id} key={city.id}>

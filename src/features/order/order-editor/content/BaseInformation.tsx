@@ -5,12 +5,14 @@ import Delivery from "./delivery/Delivery"
 import {useForm} from "antd/es/form/Form"
 import SelectClient from "features/client/select-client/SelectClient"
 import {CarOutlined, ShopOutlined} from "@ant-design/icons"
+import SelectSource from "../../../source/select-source/SelectSource"
 
 interface BaseInformationProps {
-    createdAt?: string;
+    createdAt?: string
+    onFinish: (values: any) => void
 }
 
-const BaseInformation: React.FC<BaseInformationProps> = ({createdAt}) => {
+const BaseInformation: React.FC<BaseInformationProps> = ({createdAt, onFinish}) => {
     const [form] = useForm()
     const [type, setType] = useState<"pickup" | "delivery">("pickup")
 
@@ -20,7 +22,7 @@ const BaseInformation: React.FC<BaseInformationProps> = ({createdAt}) => {
                 id="editor-order-drawer"
                 form={form}
                 size="large"
-                // onFinish={onSubmitHandler}
+                onFinish={onFinish}
                 layout="vertical"
                 initialValues={{
                     country_id: "1",
@@ -37,10 +39,13 @@ const BaseInformation: React.FC<BaseInformationProps> = ({createdAt}) => {
                             <DatePicker format="DD-MM-YYYY" style={{width: "100%"}} />
                         </Form.Item>
                     </Col>
-                    <Col span={9}>
+                    <Col span={8}>
                         <SelectClient form={form} />
                     </Col>
-                    <Col span={11}>
+                    <Col span={5}>
+                        <SelectSource />
+                    </Col>
+                    <Col span={7}>
                         <Form.Item label="Доставка">
                             <Space align="end">
                                 <Button

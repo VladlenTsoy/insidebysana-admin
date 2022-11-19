@@ -44,7 +44,7 @@ const SelectClient: React.FC<SelectClientProps> = ({form}) => {
         if (!data) return
         const client = data.find(client => client.id === clientId)
         if (!client) return
-        form.setFieldsValue({delivery_name: client.full_name, delivery_phone: client.phone})
+        form.setFieldsValue({address: {full_name: client.full_name, phone: client.phone}})
 
     }
     // Открыть
@@ -56,7 +56,7 @@ const SelectClient: React.FC<SelectClientProps> = ({form}) => {
     // После добавления клиента
     const afterFinishHandler = useCallback(client => {
         setSearch(client.id)
-        form.setFieldsValue({client_id: client.id, delivery_name: client.full_name, delivery_phone: client.phone})
+        form.setFieldsValue({client_id: client.id, address: {full_name: client.full_name, phone: client.phone}})
     }, [form])
 
     const createClientView = (
@@ -67,7 +67,7 @@ const SelectClient: React.FC<SelectClientProps> = ({form}) => {
 
     return (
         <>
-            <Form.Item label="Клиент" name="client_id" rules={[{required: true, message: "Выберите клиента!"}]}>
+            <Form.Item label="Клиент" name={["client", "id"]} rules={[{required: true, message: "Выберите клиента!"}]}>
                 <Select
                     loading={loading || isLoading}
                     showSearch
