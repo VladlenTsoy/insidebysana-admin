@@ -2,10 +2,14 @@ import {ProductColor} from "./product/ProductColor"
 import {PromoCode} from "./PromoCode"
 import {Source} from "./Source"
 import {Status} from "./Status"
+import {Delivery} from "./Delivery"
 
 export interface Order {
     id: number
+    address: OrderAddress
+    delivery: Delivery | null
     source_id: Source["id"]
+    source: Source
     total_price: number
     discount: OrderDiscount
     promo_code: PromoCode
@@ -14,6 +18,7 @@ export interface Order {
         full_name: string
     }
     status_id: Status["id"]
+    status: Status
     position: number
     payment_state: number
     payments: {
@@ -48,6 +53,7 @@ export interface OrderAddress {
     country: string
     city: string
     address: string
+    position: [number, number]
 }
 
 export interface OrderProductColor {

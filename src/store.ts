@@ -40,6 +40,8 @@ import {countryApi} from "./features/country/countryApi"
 import {clientApi} from "./features/client/clientApi"
 import {statisticApi} from "./features/statistic/statisticApi"
 import typeDelivery from "features/type-delivery/typeDeliverySlice"
+import {orderApi} from "./features/order/orderApi"
+import {orderProductApi} from "./features/order-product/orderProductApi"
 
 export type StoreState = ReturnType<typeof adminReducer>
 
@@ -73,6 +75,8 @@ export const adminReducer = combineReducers({
     // printProduct,
     // homeProduct,
     // lookbookCategory,
+    [orderApi.reducerPath]: orderApi.reducer,
+    [orderProductApi.reducerPath]: orderProductApi.reducer,
     [clientApi.reducerPath]: clientApi.reducer,
     [cityApi.reducerPath]: cityApi.reducer,
     [countryApi.reducerPath]: countryApi.reducer,
@@ -112,4 +116,6 @@ export const store = configureStore({
             .concat(cityApi.middleware)
             .concat(countryApi.middleware)
             .concat(statisticApi.middleware)
+            .concat(orderApi.middleware)
+            .concat(orderProductApi.middleware)
 })

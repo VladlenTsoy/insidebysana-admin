@@ -4,7 +4,6 @@ import {StoreState} from "store"
 import {fetchOrders} from "./fetchOrders"
 import {updateStatusOrder} from "./updateStatusOrder"
 // import {createOrder} from "../../store/admin/order/createOrder"
-// import {fetchOrderById} from "../../store/admin/order/fetchOrderById"
 import {changePaymentStateOrder} from "./changePaymentStateOrder"
 import {cancelOrder} from "./cancelOrder"
 // import {editOrder} from "../../store/admin/order/editOrder"
@@ -38,7 +37,7 @@ const orderSlice = createSlice({
         // builder.addCase(fetchOrderById.fulfilled, (state, action) => {
         //     orderAdapter.addOne(state, action.payload)
         // })
-        //
+
         builder.addCase(cancelOrder.fulfilled, (state, action) => {
             const {orderId, paymentState} = action.payload
             orderAdapter.updateOne(state, {id: orderId, changes: {payment_state: paymentState}})

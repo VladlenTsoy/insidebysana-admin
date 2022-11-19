@@ -34,14 +34,14 @@ interface OrderCardProps {
 const menuItems = (order: OrderCardType) => [
     {
         icon: <InfoCircleOutlined />,
-        label: <Link to={`/orders/more/${order.id}`}>
+        label: <Link to={`/orders/order/more/${order.id}`}>
             <span>Подробнее</span>
         </Link>,
         key: "more"
     },
     {
         icon: <EditOutlined />,
-        label: <Link to={`/orders/edit/${order.id}`}>
+        label: <Link to={`/orders/order/edit/${order.id}`}>
             <span>Редактировать</span>
         </Link>,
         key: "edit"
