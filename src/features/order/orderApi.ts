@@ -7,6 +7,7 @@ export const orderApi = createApi({
     baseQuery,
     tagTypes: ["orders"],
     endpoints: build => ({
+        // Вывести заказ по id
         getOrderById: build.query<Order, Partial<string>>({
             query: orderId => ({
                 url: `user/admin/order/${orderId}`,
