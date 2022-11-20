@@ -42,6 +42,8 @@ import {statisticApi} from "./features/statistic/statisticApi"
 import typeDelivery from "features/type-delivery/typeDeliverySlice"
 import {orderApi} from "./features/order/orderApi"
 import {orderProductApi} from "./features/order-product/orderProductApi"
+import {productStorageApi} from "./features/product-storage/productStorageApi"
+import {selloCategoryApi} from "./features/sello/category/selloCategoryApi"
 
 export type StoreState = ReturnType<typeof adminReducer>
 
@@ -87,7 +89,9 @@ export const adminReducer = combineReducers({
     [tagApi.reducerPath]: tagApi.reducer,
     [homePositionApi.reducerPath]: homePositionApi.reducer,
     [photoApi.reducerPath]: photoApi.reducer,
-    [statisticApi.reducerPath]: statisticApi.reducer
+    [statisticApi.reducerPath]: statisticApi.reducer,
+    [productStorageApi.reducerPath]: productStorageApi.reducer,
+    [selloCategoryApi.reducerPath]: selloCategoryApi.reducer
 })
 
 export type AppDispatch = typeof store.dispatch
@@ -118,4 +122,6 @@ export const store = configureStore({
             .concat(statisticApi.middleware)
             .concat(orderApi.middleware)
             .concat(orderProductApi.middleware)
+            .concat(productStorageApi.middleware)
+            .concat(selloCategoryApi.middleware)
 })

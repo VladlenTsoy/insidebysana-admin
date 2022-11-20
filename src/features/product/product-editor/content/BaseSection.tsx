@@ -5,6 +5,8 @@ import SizesFormSelect from "features/size/SizesFormSelect"
 import SelectColor from "features/color/SelectColor"
 import TagsFormSelect from "features/tag/TagsFormSelect"
 import {Element} from "react-scroll"
+import ProductStoragesFormSelect from "../../../product-storage/ProductStoragesFormSelect"
+import SelloCategoryFormSelect from "../../../sello/category/SelloCategoryFormSelect"
 
 const {Title} = Typography
 
@@ -22,6 +24,12 @@ const BaseSection: React.FC<BaseSectionProps> = ({onSelectSizesHandler}) => {
                 </Col>
                 <Col xl={12} md={12} xs={24}>
                     <SelectColor />
+                </Col>
+                <Col xl={12} md={12} xs={24}>
+                    <ProductStoragesFormSelect />
+                </Col>
+                <Col xl={12} md={12} xs={24}>
+                    <SelloCategoryFormSelect />
                 </Col>
             </Row>
             <Form.Item
