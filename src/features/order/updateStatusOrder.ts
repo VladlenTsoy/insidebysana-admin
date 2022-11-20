@@ -20,12 +20,12 @@ export const updateStatusOrder = createAsyncThunk<ReturnedType, AgrProps, AppThu
             "order_update_status_and_position",
             nextStatusId !== prevStatusId
                 ? {
-                      order_id: id,
-                      status_id: nextStatusId,
-                      position,
-                      prev_position: prevPosition,
-                      prev_status_id: prevStatusId
-                  }
+                    order_id: id,
+                    status_id: nextStatusId,
+                    position,
+                    prev_position: prevPosition,
+                    prev_status_id: prevStatusId
+                }
                 : {order_id: id, position, prev_position: prevPosition}
         )
         //

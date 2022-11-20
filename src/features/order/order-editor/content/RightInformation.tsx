@@ -7,12 +7,16 @@ import {
 } from "features/additional-service/select-additional-services/SelectAdditionalServices"
 import {formatPrice} from "utils/formatPrice"
 import Discount from "./discount/Discount"
-import Processing from "./processing/Processing"
+import Processing from "../../../../components/processing/Processing"
 import SelectPaymentMethod from "../../../payment-method/select-payment-method/SelectPaymentMethod"
 import {OrderPaymentMethod} from "../OrderEditor"
 import cn from "classnames"
 
 interface RightInformationProps {
+    leftToPay: number
+    totalPriceAdditionalServices: number
+    totalPriceDiscount: number
+    totalPriceProducts: number
     paymentMethods: OrderPaymentMethod[]
     discount: OrderDiscount
     setDiscount: Dispatch<SetStateAction<OrderDiscount>>
@@ -26,6 +30,10 @@ interface RightInformationProps {
 
 /**
  * Итог
+ * @param leftToPay
+ * @param totalPriceAdditionalServices
+ * @param totalPriceDiscount
+ * @param totalPriceProducts
  * @param paymentMethods
  * @param discount
  * @param setDiscount
@@ -39,6 +47,10 @@ interface RightInformationProps {
  */
 const RightInformation: React.FC<RightInformationProps> = (
     {
+        leftToPay,
+        totalPriceAdditionalServices,
+        totalPriceDiscount,
+        totalPriceProducts,
         paymentMethods,
         discount,
         setDiscount,
@@ -52,25 +64,8 @@ const RightInformation: React.FC<RightInformationProps> = (
 ) => {
     // Кол-во продуктов
     const countProducts = useMemo(() => selectProducts.reduce((acc, product) => acc + product.qty, 0), [selectProducts])
-    // Общая сумма продуктов
-    const totalPriceProducts = useMemo(() => selectProducts.reduce((acc, {
-        qty,
-        product
-    }) => acc + (qty * (product.discount ? (product.details.price - (product.details.price / 100) * product.discount.discount) : product.details.price)), 0), [selectProducts])
     // Кол-во доп. услуг
     const countAdditionalServices = useMemo(() => selectAdditionalServices.reduce((acc, additionalServices) => acc + additionalServices.qty, 0), [selectAdditionalServices])
-    // Общая сумма доп. услуг
-    const totalPriceAdditionalServices = useMemo(() => selectAdditionalServices.reduce((acc, additionalServices) => acc + (additionalServices.qty * additionalServices.price), 0), [selectAdditionalServices])
-    // Общая сумма
-    const totalPrice = useMemo(() => totalPriceProducts + totalPriceAdditionalServices, [totalPriceProducts, totalPriceAdditionalServices])
-    // Общая сумма со скидкой
-    const totalPriceDiscount = useMemo(() => discount.type === "fixed"
-        ? totalPrice - discount.discount
-        : totalPrice - discount.discount * (totalPrice / 100), [discount, totalPrice])
-    // Оплата пользователя
-    const customerTotalPayments = useMemo(() => paymentMethods.reduce((acc, paymentMethod) => acc + paymentMethod.price, 0), [paymentMethods])
-    // Осталось оплатить
-    const leftToPay = useMemo(() => totalPriceDiscount - customerTotalPayments, [totalPriceDiscount, customerTotalPayments])
 
     return (
         <div className={styles.container}>
@@ -119,7 +114,9 @@ const RightInformation: React.FC<RightInformationProps> = (
                 {/* Осталось внести */}
                 <div className={styles.totalPrice}>
                     <div className={styles.title}>Осталось внести:</div>
-                    <div className={cn(styles.price, styles.danger, {[styles.active]: leftToPay === 0})}>{formatPrice(leftToPay)} сум</div>
+                    <div
+                        className={cn(styles.price, styles.danger, {[styles.active]: leftToPay === 0})}>{formatPrice(leftToPay)} сум
+                    </div>
                 </div>
                 {/* Общая сумма к оплате */}
                 <div className={styles.totalPrice}>

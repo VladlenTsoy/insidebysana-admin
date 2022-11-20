@@ -15,7 +15,11 @@ const SelectCountry: React.FC<SelectCountryProps> = ({onChange}) => {
     const {data: countries, isLoading: isLoadingCountries} = useGetCountriesQuery()
 
     return (
-        <Form.Item label="Выберите страну" name="country_id" rules={[{required: true, message: "Выберите страну!"}]}>
+        <Form.Item
+            label="Выберите страну"
+            name={["address", "country"]}
+            rules={[{required: true, message: "Выберите страну!"}]}
+        >
             <Select
                 loading={isLoadingCountries}
                 showSearch

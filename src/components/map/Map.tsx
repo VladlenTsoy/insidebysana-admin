@@ -54,8 +54,10 @@ const MapComponent = withYMaps(({ymaps, updateCountryName, updateCityName, form,
                 updateCityName(city)
                 // Обновить данные адреса и координат
                 form.setFieldsValue({
-                    address: address,
-                    position: coords
+                    address: {
+                        address,
+                        position: coords
+                    }
                 })
             }
 
@@ -162,4 +164,4 @@ const MapComponent = withYMaps(({ymaps, updateCountryName, updateCityName, form,
     )
 })
 
-export default MapComponent
+export default React.memo(MapComponent)

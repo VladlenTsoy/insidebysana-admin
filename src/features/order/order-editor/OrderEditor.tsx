@@ -1,5 +1,5 @@
-import React, {useCallback, useState} from "react"
-import {Col, Divider, Row} from "antd"
+import React, {useCallback, useMemo, useState} from "react"
+import {Col, Divider, message, Row} from "antd"
 import SelectAdditionalServices, {
     SelectAdditionalServiceType
 } from "features/additional-service/select-additional-services/SelectAdditionalServices"
@@ -9,6 +9,9 @@ import {Client} from "types/Client"
 import {Delivery} from "types/Delivery"
 import BaseInformation from "./content/BaseInformation"
 import RightInformation from "./content/RightInformation"
+import {createOrder} from "../createOrder"
+import {useDispatch} from "../../../store"
+import {useHistory} from "react-router-dom"
 
 export interface OrderPaymentMethod {
     payment_id: number
@@ -17,6 +20,7 @@ export interface OrderPaymentMethod {
 }
 
 interface OrderEditorProps {
+    updateLoading: (loading: boolean) => void
     order?: {
         id: number
         processing?: boolean
@@ -31,7 +35,9 @@ interface OrderEditorProps {
     }
 }
 
-const OrderEditor: React.FC<OrderEditorProps> = ({order}) => {
+const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
+    const history = useHistory()
+    const dispatch = useDispatch()
     // Метод оплаты
     const [paymentMethods, setPaymentMethods] = useState<OrderPaymentMethod[]>([])
     // Скидки
@@ -42,6 +48,25 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order}) => {
     const [additionalServices, setAdditionalServices] = useState<SelectAdditionalServiceType[]>(order?.additionalServices || [])
     // На обработку
     const [processing, setProcessing] = useState(order?.processing || false)
+
+    // Общая сумма доп. услуг
+    const totalPriceAdditionalServices = useMemo(() => additionalServices.reduce((acc, additionalServices) => acc + (additionalServices.qty * additionalServices.price), 0), [additionalServices])
+    // Общая сумма продуктов
+    const totalPriceProducts = useMemo(() => products.reduce((acc, {
+        qty,
+        product
+    }) => acc + (qty * (product.discount ? (product.details.price - (product.details.price / 100) * product.discount.discount) : product.details.price)), 0), [products])
+    // Общая сумма
+    const totalPrice = useMemo(() => totalPriceProducts + totalPriceAdditionalServices, [totalPriceProducts, totalPriceAdditionalServices])
+    // Общая сумма со скидкой
+    const totalPriceDiscount = useMemo(() => discount.type === "fixed"
+        ? totalPrice - discount.discount
+        : totalPrice - discount.discount * (totalPrice / 100), [discount, totalPrice])
+    // Оплата пользователя
+    const customerTotalPayments = useMemo(() => paymentMethods.reduce((acc, paymentMethod) => acc + paymentMethod.price, 0), [paymentMethods])
+    // Осталось оплатить
+    const leftToPay = useMemo(() => totalPriceDiscount - customerTotalPayments, [totalPriceDiscount, customerTotalPayments])
+
     // Изменить на обработку
     const changeProcessingHandler = useCallback((val: boolean) => setProcessing(val), [])
 
@@ -65,10 +90,45 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order}) => {
         setPaymentMethods(prevState => prevState.filter(val => val.payment_id !== paymentMethodId))
     }, [])
 
+    // Сохранить данные
+    const onSubmitHandler = useCallback(async (values: any) => {
+        console.log(products)
+        // Проверка наличия продуктов
+        if (!products.length)
+            return message.error("Необходимо добавить товар к заказу!")
+        // Проверка оплаты
+        if (leftToPay !== 0)
+            return message.error(`Значение "Осталось внести" должно быть 0!`)
+        // Загрузка
+        updateLoading(true)
+        // Продукты для заказа
+        const orderProducts = products.map(
+            ({product, product_color_id, qty, size_id}) => ({
+                discount: product?.discount,
+                id: product_color_id,
+                qty,
+                size_id,
+                price: product.details.price
+            })
+        )
+        // Создать сделку
+        dispatch(createOrder({
+            payments: paymentMethods,
+            discount,
+            products: orderProducts,
+            additionalServices,
+            processing,
+            total_price: totalPriceDiscount,
+            ...values
+        }))
+        // Перейти на главную страницу
+        history.push("/orders")
+    }, [dispatch, paymentMethods, discount, products, additionalServices, processing, totalPriceDiscount])
+
     return (
         <Row gutter={28}>
             <Col span={18}>
-                <BaseInformation />
+                <BaseInformation onFinish={onSubmitHandler} />
                 {/* Список продуктов */}
                 <SelectProduct products={products} setProducts={setProducts} />
                 <Divider />
@@ -80,6 +140,10 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order}) => {
             </Col>
             <Col span={6}>
                 <RightInformation
+                    leftToPay={leftToPay}
+                    totalPriceAdditionalServices={totalPriceAdditionalServices}
+                    totalPriceDiscount={totalPriceDiscount}
+                    totalPriceProducts={totalPriceProducts}
                     paymentMethods={paymentMethods}
                     discount={discount}
                     setDiscount={setDiscount}

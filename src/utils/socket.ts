@@ -1,10 +1,10 @@
 import {io} from "socket.io-client"
 import {getCookie} from "./cookie"
-import {DOMAIN_API} from "./api"
+import {DOMAIN} from "./api"
 
 const TOKEN = getCookie("crm_token_access")
 
-const socket = io(DOMAIN_API, {
+const socket = io(DOMAIN, {
     auth: {
         token: TOKEN
     }

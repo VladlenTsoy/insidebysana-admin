@@ -3,11 +3,8 @@ import {OrderCardType} from "types/Order"
 import {StoreState} from "store"
 import {fetchOrders} from "./fetchOrders"
 import {updateStatusOrder} from "./updateStatusOrder"
-// import {createOrder} from "../../store/admin/order/createOrder"
-// import {fetchOrderById} from "../../store/admin/order/fetchOrderById"
 import {changePaymentStateOrder} from "./changePaymentStateOrder"
 import {cancelOrder} from "./cancelOrder"
-// import {editOrder} from "../../store/admin/order/editOrder"
 import {hideOrder} from "./order-card/hideOrder"
 import {sendToArchiveOrder} from "./order-card/sendToArchiveOrder"
 
@@ -38,7 +35,7 @@ const orderSlice = createSlice({
         // builder.addCase(fetchOrderById.fulfilled, (state, action) => {
         //     orderAdapter.addOne(state, action.payload)
         // })
-        //
+
         builder.addCase(cancelOrder.fulfilled, (state, action) => {
             const {orderId, paymentState} = action.payload
             orderAdapter.updateOne(state, {id: orderId, changes: {payment_state: paymentState}})
@@ -59,15 +56,6 @@ const orderSlice = createSlice({
         builder.addCase(fetchOrders.rejected, state => {
             state.loading = false
         })
-        // Создать сделку
-        // builder.addCase(createOrder.fulfilled, (state, action) => {
-        //     orderAdapter.addOne(state, action.payload)
-        // })
-        // // Обновить сделку
-        // builder.addCase(editOrder.fulfilled, (state, action) => {
-        //     orderAdapter.upsertOne(state, action.payload)
-        // })
-        //
         builder.addCase(sendToArchiveOrder.fulfilled, (state, action) => {
             orderAdapter.removeOne(state, action.payload)
         })

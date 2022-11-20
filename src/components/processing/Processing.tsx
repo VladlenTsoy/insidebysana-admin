@@ -10,12 +10,12 @@ interface ProcessingProps {
 
 const Processing: React.FC<ProcessingProps> = ({isProcessing, onChange}) => {
     return (
-        <div>
+        <>
             <label className={cn(styles.processing, {[styles.active]: isProcessing})}>
                 <span>На обработку</span>
                 <Switch onChange={onChange} checked={isProcessing} />
             </label>
-        </div>
+        </>
     )
 }
 
