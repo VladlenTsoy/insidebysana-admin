@@ -30,7 +30,7 @@ const OrderMore: React.FC<OrderMoreProps> = ({id}) => {
                 <OrderInformation order={data} />
                 {data.payments.length ? <OrderPayments payments={data.payments} /> : null}
                 {data.address ? <OrderAddress address={data.address} /> : null}
-                <ClientCard client={data.client} />
+                {data.client && <ClientCard client={data.client} />}
             </Col>
             <Col span={18}>
                 <Title level={5} style={{marginBottom: "1.5rem"}}>Товары</Title>

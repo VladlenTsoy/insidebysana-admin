@@ -6,19 +6,19 @@ import {Delivery} from "./Delivery"
 
 export interface Order {
     id: number
-    address: OrderAddress
-    delivery: Delivery | null
+    address?: OrderAddress
+    delivery?: Delivery | null
     source_id: Source["id"]
-    source: Source
+    source?: Source
     total_price: number
-    discount: OrderDiscount
-    promo_code: PromoCode
+    discount?: OrderDiscount
+    promo_code?: PromoCode
     user: {
         id: number
         full_name: string
     }
     status_id: Status["id"]
-    status: Status
+    status?: Status
     position: number
     payment_state: number
     payments: {
@@ -28,7 +28,7 @@ export interface Order {
     }[]
     loading?: boolean
     next_status_id?: Status["id"]
-    client: {
+    client?: {
         id: number
         full_name: string
         phone: string

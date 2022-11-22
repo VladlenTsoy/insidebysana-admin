@@ -32,10 +32,10 @@ const OrderInformation: React.FC<OrderInformationProps> = ({order}) => {
                 <PaymentStateBlock paymentState={order.payment_state} isEdit orderId={order.id} />
             </Descriptions.Item>
             <Descriptions.Item label="Статус">
-                {order.status.title || unknown}
+                {order.status?.title || unknown}
             </Descriptions.Item>
             <Descriptions.Item label="Откуда">
-                {order.source.title || unknown}
+                {order.source?.title || unknown}
             </Descriptions.Item>
             <Descriptions.Item label="Менеджер">
                 {order.user?.full_name || unknown}
