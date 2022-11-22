@@ -16,9 +16,9 @@ const OrderAddress: React.FC<OrderAddressProps> = ({address}) => {
             column={1}
             style={{marginBottom: "1.5rem"}}
         >
-            <Descriptions.Item label="Имя">{address.full_name}</Descriptions.Item>
-            <Descriptions.Item label="Телефон">{formatPhone(address.phone)}</Descriptions.Item>
-            <Descriptions.Item label="Адрес">{address.address}</Descriptions.Item>
+            <Descriptions.Item label="Имя">{address?.full_name}</Descriptions.Item>
+            <Descriptions.Item label="Телефон">{address?.phone ? formatPhone(address?.phone) : null}</Descriptions.Item>
+            <Descriptions.Item label="Адрес">{address?.address}</Descriptions.Item>
             <Descriptions.Item label="Карта"><Button>Посмотреть на карте</Button></Descriptions.Item>
         </Descriptions>
     )
