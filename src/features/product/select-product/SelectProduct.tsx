@@ -87,7 +87,7 @@ const SelectProduct: React.FC<SelectProductProps> = ({products, setProducts}) =>
                 </div>
             </div>
             {/* Вывод поиска товаров */}
-            <Drawer title="Добавить товар" visible={visible} onClose={onCloseHandler} width="1200px" footer={false}>
+            <Drawer title="Добавить товар" visible={visible} onClose={onCloseHandler} width={window.innerWidth >= 1200 ? 1200 : window.innerWidth} footer={false}>
                 <SearchProductTable
                     addProduct={addProduct}
                     addedProducts={products}

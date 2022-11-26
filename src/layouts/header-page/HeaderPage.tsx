@@ -22,7 +22,7 @@ interface HeaderPageProps {
         form?: string
         htmlType?: ButtonHTMLType
         loading?: boolean
-    }[]
+    }[] | React.ReactFragment[]
     more?: {
         icon: React.ReactFragment
         text: string
@@ -60,18 +60,19 @@ const HeaderPage: React.FC<HeaderPageProps> = (
             <Title level={1}>{title}</Title>
             {action && <div className={styles.action}>
                 {action.map((item, key) =>
-                    <Button
-                        key={key}
-                        type={item.type}
-                        icon={item.icon}
-                        htmlType={item.htmlType || "button"}
-                        size="large"
-                        form={item.form}
-                        loading={item.loading}
-                        onClick={() => item.link ? history.push(item.link) : null}
-                    >
-                        {item.text}
-                    </Button>
+                    "icon" in item ?
+                        <Button
+                            key={key}
+                            type={item.type}
+                            icon={item.icon}
+                            htmlType={item.htmlType || "button"}
+                            size="large"
+                            form={item.form}
+                            loading={item.loading}
+                            onClick={() => item.link ? history.push(item.link) : null}
+                        >
+                            {item.text}
+                        </Button> : item
                 )}
                 {more && <Dropdown
                     arrow

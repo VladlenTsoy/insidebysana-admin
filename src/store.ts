@@ -44,6 +44,7 @@ import {orderApi} from "./features/order/orderApi"
 import {orderProductApi} from "./features/order-product/orderProductApi"
 import {productStorageApi} from "./features/product-storage/productStorageApi"
 import {selloCategoryApi} from "./features/sello/category/selloCategoryApi"
+import {staffApi} from "./features/staff/staffApi"
 
 export type StoreState = ReturnType<typeof adminReducer>
 
@@ -77,6 +78,7 @@ export const adminReducer = combineReducers({
     // printProduct,
     // homeProduct,
     // lookbookCategory,
+    [staffApi.reducerPath]: staffApi.reducer,
     [orderApi.reducerPath]: orderApi.reducer,
     [orderProductApi.reducerPath]: orderProductApi.reducer,
     [clientApi.reducerPath]: clientApi.reducer,
@@ -124,4 +126,5 @@ export const store = configureStore({
             .concat(orderProductApi.middleware)
             .concat(productStorageApi.middleware)
             .concat(selloCategoryApi.middleware)
+            .concat(staffApi.middleware)
 })
