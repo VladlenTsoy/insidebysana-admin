@@ -32,7 +32,7 @@ const Delivery: React.FC<DeliveryProps & any> = ({form, type}) => {
                             <Input />
                         </Form.Item>
                         <Row gutter={16}>
-                            <Col span={12}>
+                            <Col md={12} xs={24}>
                                 {/* Карта */}
                                 <div className={styles.map}>
                                     <YMaps query={{apikey: "4c39433a-67d6-42f4-b776-4ba711ce9508"}}>
@@ -46,33 +46,33 @@ const Delivery: React.FC<DeliveryProps & any> = ({form, type}) => {
                                     </YMaps>
                                 </div>
                             </Col>
-                            <Col span={12}>
+                            <Col md={12} xs={24}>
                                 <Row gutter={16}>
-                                    <Col span={24}>
+                                    <Col md={24}>
                                         {/* Выбор тип доставки */}
                                         <SelectTypeDelivery countryId={selectedCountryId} />
                                     </Col>
-                                    <Col span={12}>
+                                    <Col md={12}>
                                         {/* Выбор города */}
                                         <SelectCountry onChange={onChangeCountryId} />
                                     </Col>
-                                    <Col span={12}>
+                                    <Col md={12}>
                                         {/* Выбор города */}
                                         <SelectCity countryId={selectedCountryId} />
                                     </Col>
-                                    <Col span={24}>
+                                    <Col md={24}>
                                         {/* Выбор адрес */}
                                         <Form.Item label="Адрес" name={["address", "address"]}>
                                             <Input placeholder="Введите адрес" id="address" />
                                         </Form.Item>
                                     </Col>
-                                    <Col span={12}>
+                                    <Col md={12}>
                                         {/* Имя */}
                                         <Form.Item label="Имя" name={["address", "full_name"]}>
                                             <Input placeholder="Введите имя" />
                                         </Form.Item>
                                     </Col>
-                                    <Col span={12}>
+                                    <Col md={12}>
                                         {/* Номер телефона */}
                                         <Form.Item label="Номер телефона" name={["address", "phone"]}>
                                             <Input placeholder="Введите номер телефона" />

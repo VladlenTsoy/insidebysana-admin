@@ -123,11 +123,11 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
         }))
         // Перейти на главную страницу
         history.push("/orders")
-    }, [dispatch, paymentMethods, discount, products, additionalServices, processing, totalPriceDiscount])
+    }, [dispatch, paymentMethods, discount, products, additionalServices, processing, totalPriceDiscount, leftToPay, history, updateLoading])
 
     return (
         <Row gutter={28}>
-            <Col span={18}>
+            <Col md={18} xs={24}>
                 <BaseInformation onFinish={onSubmitHandler} />
                 {/* Список продуктов */}
                 <SelectProduct products={products} setProducts={setProducts} />
@@ -138,7 +138,7 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
                     updateSelectAdditionalServices={updateSelectAdditionalServices}
                 />
             </Col>
-            <Col span={6}>
+            <Col md={6} xs={24}>
                 <RightInformation
                     leftToPay={leftToPay}
                     totalPriceAdditionalServices={totalPriceAdditionalServices}
