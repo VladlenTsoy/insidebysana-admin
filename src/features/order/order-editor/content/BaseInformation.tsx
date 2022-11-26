@@ -30,7 +30,7 @@ const BaseInformation: React.FC<BaseInformationProps> = ({createdAt, onFinish}) 
                 }}
             >
                 <Row gutter={16}>
-                    <Col span={4}>
+                    <Col md={4} xs={24}>
                         <Form.Item
                             label="Дата создания"
                             name="created_at"
@@ -39,13 +39,13 @@ const BaseInformation: React.FC<BaseInformationProps> = ({createdAt, onFinish}) 
                             <DatePicker format="DD-MM-YYYY" style={{width: "100%"}} />
                         </Form.Item>
                     </Col>
-                    <Col span={8}>
+                    <Col md={8} xs={24}>
                         <SelectClient form={form} />
                     </Col>
-                    <Col span={5}>
+                    <Col md={5} xs={24}>
                         <SelectSource />
                     </Col>
-                    <Col span={7}>
+                    <Col md={7} xs={24}>
                         <Form.Item label="Доставка">
                             <Space align="end">
                                 <Button
