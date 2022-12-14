@@ -3,7 +3,7 @@ import {Button, InputNumber, Radio} from "antd"
 import React, {Dispatch, SetStateAction} from "react"
 import {formatPrice} from "utils/formatPrice"
 import styles from "./Discount.module.less"
-import {OrderDiscount} from "types/Order"
+import {OrderDiscount} from "types/order/Order"
 import cn from "classnames"
 
 const plainOptions = [

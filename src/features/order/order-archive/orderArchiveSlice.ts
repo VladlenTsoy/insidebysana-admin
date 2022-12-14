@@ -1,6 +1,6 @@
 import {createEntityAdapter, createSlice, PayloadAction} from "@reduxjs/toolkit"
 import moment from "moment"
-import {ArchiveOrder} from "types/Order"
+import {ArchiveOrder} from "types/order/Order"
 import {StoreState} from "../../../store"
 import {fetchOrdersArchive} from "./fetchOrdersArchive"
 

@@ -1,6 +1,6 @@
 import React from "react"
 import {Button, Descriptions} from "antd"
-import {Order} from "types/Order"
+import {Order} from "types/order/Order"
 import {formatPhone} from "../../../utils/formatPhone"
 
 interface OrderAddressProps {

@@ -1,18 +1,23 @@
 import React, {useState} from "react"
 import {Button, Col, DatePicker, Form, Row, Space} from "antd"
-import moment from "moment"
+import {Moment} from "moment"
 import Delivery from "./delivery/Delivery"
 import {useForm} from "antd/es/form/Form"
 import SelectClient from "features/client/select-client/SelectClient"
 import {CarOutlined, ShopOutlined} from "@ant-design/icons"
-import SelectSource from "../../../source/select-source/SelectSource"
+import SelectSource from "features/source/select-source/SelectSource"
 
 interface BaseInformationProps {
-    createdAt?: string
+    initialValues?: {
+        client?: any
+        country_id?: string
+        source_id?: string
+        created_at?: Moment
+    }
     onFinish: (values: any) => void
 }
 
-const BaseInformation: React.FC<BaseInformationProps> = ({createdAt, onFinish}) => {
+const BaseInformation: React.FC<BaseInformationProps> = ({initialValues, onFinish}) => {
     const [form] = useForm()
     const [type, setType] = useState<"pickup" | "delivery">("pickup")
 
@@ -24,10 +29,7 @@ const BaseInformation: React.FC<BaseInformationProps> = ({createdAt, onFinish}) 
                 size="large"
                 onFinish={onFinish}
                 layout="vertical"
-                initialValues={{
-                    country_id: "1",
-                    created_at: createdAt ? moment(createdAt) : moment()
-                }}
+                initialValues={initialValues}
             >
                 <Row gutter={16}>
                     <Col md={4} xs={24}>

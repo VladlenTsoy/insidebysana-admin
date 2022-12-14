@@ -3,7 +3,7 @@ import {Descriptions, Typography} from "antd"
 import {formatDate} from "utils/formatDate"
 import PaymentStateBlock from "components/payment-state-block/PaymentStateBlock"
 import {formatPrice} from "utils/formatPrice"
-import {Order} from "types/Order"
+import {Order} from "types/order/Order"
 
 const {Text} = Typography
 

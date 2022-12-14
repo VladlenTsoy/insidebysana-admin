@@ -1,8 +1,8 @@
-import {ProductColor} from "./product/ProductColor"
-import {PromoCode} from "./PromoCode"
-import {Source} from "./Source"
-import {Status} from "./Status"
-import {Delivery} from "./Delivery"
+import {ProductColor} from "../product/ProductColor"
+import {PromoCode} from "../PromoCode"
+import {Source} from "../Source"
+import {Status} from "../Status"
+import {Delivery} from "../Delivery"
 
 export interface Order {
     id: number

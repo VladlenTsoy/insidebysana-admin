@@ -1,7 +1,7 @@
 import React from "react"
 import {Descriptions} from "antd"
 import {formatPrice} from "utils/formatPrice"
-import {Order} from "types/Order"
+import {Order} from "types/order/Order"
 
 interface OrderPaymentsProps {
     payments: Order["payments"]

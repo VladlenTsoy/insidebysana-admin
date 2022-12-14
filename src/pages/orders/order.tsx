@@ -1,16 +1,21 @@
 import React, {useCallback, useState} from "react"
 import {useParams} from "react-router"
-import HeaderPage from "../../layouts/header-page/HeaderPage"
+import HeaderPage from "layouts/header-page/HeaderPage"
 import {SaveOutlined} from "@ant-design/icons"
-import Container from "../../layouts/container/Container"
-import OrderEditor from "../../features/order/order-editor/OrderEditor"
+import Container from "layouts/container/Container"
+import OrderEditor from "features/order/order-editor/OrderEditor"
+import {useGetOrderForEditByIdQuery} from "features/order/orderApi"
+import LoadingBlock from "../../components/loading-block/LoadingBlock"
 
 const Order = () => {
     const params = useParams<{id?: string}>()
     const [loading, setLoading] = useState(false)
+    const {data, isLoading} = useGetOrderForEditByIdQuery(params.id, {skip: !params.id})
 
     // Изменить состояние загрузки
     const updateLoading = useCallback((val: boolean) => setLoading(val), [])
+
+    if (isLoading) return <LoadingBlock />
 
     return (
         <>
@@ -28,7 +33,7 @@ const Order = () => {
                 ]}
             />
             <Container>
-                <OrderEditor updateLoading={updateLoading}/>
+                <OrderEditor updateLoading={updateLoading} order={data} />
             </Container>
         </>
     )

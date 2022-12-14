@@ -1,5 +1,5 @@
 import {createEntityAdapter, createSlice, PayloadAction} from "@reduxjs/toolkit"
-import {OrderCardType} from "types/Order"
+import {OrderCardType} from "types/order/Order"
 import {StoreState} from "store"
 import {fetchOrders} from "./fetchOrders"
 import {updateStatusOrder} from "./updateStatusOrder"

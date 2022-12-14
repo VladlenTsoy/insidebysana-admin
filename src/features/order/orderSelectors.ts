@@ -1,4 +1,4 @@
-import {Order} from "types/Order"
+import {Order} from "types/order/Order"
 import {useSelector} from "react-redux"
 import {StoreState} from "store"
 import {selectAllOrders, getOrderById} from "features/order/orderSlice"

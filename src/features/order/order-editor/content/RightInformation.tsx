@@ -1,7 +1,7 @@
 import React, {Dispatch, SetStateAction, useMemo} from "react"
 import styles from "./RightInformation.module.less"
 import {Card} from "antd"
-import {OrderDiscount, OrderProduct} from "types/Order"
+import {OrderDiscount, OrderProduct} from "types/order/Order"
 import {
     SelectAdditionalServiceType
 } from "features/additional-service/select-additional-services/SelectAdditionalServices"
@@ -131,4 +131,4 @@ const RightInformation: React.FC<RightInformationProps> = (
     )
 }
 
-export default RightInformation
+export default React.memo(RightInformation)
