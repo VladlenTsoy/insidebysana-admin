@@ -7,7 +7,7 @@ export const clientApi = createApi({
     baseQuery,
     tagTypes: ["clients"],
     endpoints: build => ({
-        getClientBySearch: build.query<Client[], Partial<{search: string}>>({
+        getClientBySearch: build.query<Client[], Partial<{search: string | number | undefined}>>({
             query: body => ({
                 url: `user/cashier/clients`,
                 method: "POST",

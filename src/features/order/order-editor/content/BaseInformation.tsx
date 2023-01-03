@@ -42,7 +42,7 @@ const BaseInformation: React.FC<BaseInformationProps> = ({initialValues, onFinis
                         </Form.Item>
                     </Col>
                     <Col md={8} xs={24}>
-                        <SelectClient form={form} />
+                        <SelectClient form={form} clientId={initialValues?.client?.id} />
                     </Col>
                     <Col md={5} xs={24}>
                         <SelectSource />
