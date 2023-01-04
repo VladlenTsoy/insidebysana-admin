@@ -120,7 +120,8 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
                         created_at: order.created_at ? moment(order.created_at) : moment(),
                         country_id: String(order.country_id),
                         source_id: String(order.source_id),
-                        client: order.client
+                        client: order.client,
+                        delivery_id: order?.delivery?.id
                     } : undefined}
                     onFinish={onSubmitHandler}
                 />

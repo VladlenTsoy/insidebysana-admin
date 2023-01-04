@@ -13,13 +13,14 @@ interface BaseInformationProps {
         country_id?: string
         source_id?: string
         created_at?: Moment
+        delivery_id?: number
     }
     onFinish: (values: any) => void
 }
 
 const BaseInformation: React.FC<BaseInformationProps> = ({initialValues, onFinish}) => {
     const [form] = useForm()
-    const [type, setType] = useState<"pickup" | "delivery">("pickup")
+    const [type, setType] = useState<"pickup" | "delivery">(initialValues?.delivery_id ? "delivery" : "pickup")
 
     return (
         <>
