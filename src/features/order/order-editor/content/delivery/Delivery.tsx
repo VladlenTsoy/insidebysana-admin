@@ -10,9 +10,10 @@ import SelectTypeDelivery from "features/type-delivery/select-type-delivery/Sele
 interface DeliveryProps {
     type: "pickup" | "delivery"
     form: FormInstance;
+    position: [number, number]
 }
 
-const Delivery: React.FC<DeliveryProps & any> = ({form, type}) => {
+const Delivery: React.FC<DeliveryProps & any> = ({form, type, position}) => {
     const [selectedCountryId, setSelectedCountryId] = useState<number>(1)
 
     const onChangeCountryId = (id: number) => {
@@ -41,7 +42,7 @@ const Delivery: React.FC<DeliveryProps & any> = ({form, type}) => {
                                             updateCityName={() => null}
                                             form={form}
                                             autoGeolocation
-                                            position={[41.311158, 69.279737]}
+                                            position={position || [41.311158, 69.279737]}
                                         />
                                     </YMaps>
                                 </div>

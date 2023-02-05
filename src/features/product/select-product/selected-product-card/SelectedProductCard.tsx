@@ -1,6 +1,6 @@
 import React, {useCallback, useMemo} from "react"
 import styles from "./SelectedProductCard.module.less"
-import {OrderProduct} from "types/Order"
+import {OrderProduct} from "types/order/Order"
 import ImageBlock from "components/image-block/ImageBlock"
 import Counter from "components/counter/Counter"
 import {DeleteProductType, UpdateProductQtyType} from "../SelectProduct"

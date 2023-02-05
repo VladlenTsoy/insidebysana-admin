@@ -1,5 +1,5 @@
 import {createEntityAdapter, createSlice, PayloadAction} from "@reduxjs/toolkit"
-import {OrderCardType} from "types/Order"
+import {OrderCardType} from "types/order/Order"
 import {StoreState} from "store"
 import {fetchOrders} from "./fetchOrders"
 import {updateStatusOrder} from "./updateStatusOrder"
@@ -7,6 +7,8 @@ import {changePaymentStateOrder} from "./changePaymentStateOrder"
 import {cancelOrder} from "./cancelOrder"
 import {hideOrder} from "./order-card/hideOrder"
 import {sendToArchiveOrder} from "./order-card/sendToArchiveOrder"
+import {createOrder} from "./createOrder"
+import {editOrder} from "./editOrder"
 
 export const orderAdapter = createEntityAdapter<OrderCardType>({
     sortComparer: (a, b) => (a.position > b.position ? 1 : -1)
@@ -102,6 +104,14 @@ const orderSlice = createSlice({
 
             items.push({id, changes: {loading: true, position, next_status_id: nextStatusId}})
             orderAdapter.updateMany(state, items)
+        })
+        builder.addCase(createOrder.fulfilled, (state, action) => {
+            const order = action.payload
+            orderAdapter.upsertOne(state, order)
+        })
+        builder.addCase(editOrder.fulfilled, (state, action) => {
+            const order = action.payload
+            orderAdapter.upsertOne(state, order)
         })
         builder.addCase(updateStatusOrder.fulfilled, (state, action) => {
             const {id, nextStatusId, position} = action.meta.arg

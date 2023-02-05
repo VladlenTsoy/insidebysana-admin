@@ -2,7 +2,7 @@ import React from "react"
 import printJS from "print-js"
 import ReactDOMServer from "react-dom/server"
 import Print from "./Print"
-import {OrderPayment} from "types/Order"
+import {OrderPayment} from "types/order/Order"
 
 const styled = (h: number) => `
 @media print {

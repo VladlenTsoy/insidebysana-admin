@@ -3,7 +3,7 @@ import LogoPng from "assets/images/logo.png"
 import QRPng from "assets/images/qr.png"
 import "./print.css"
 import {formatPrice} from "utils/formatPrice"
-import {OrderPayment} from "types/Order"
+import {OrderPayment} from "types/order/Order"
 
 interface PrintProps {
     order: any

@@ -1,6 +1,6 @@
 import {CheckOutlined, ClockCircleFilled, StopFilled} from "@ant-design/icons"
 import {Select, Tag, Modal} from "antd"
-import {Order} from "types/Order"
+import {Order} from "types/order/Order"
 import React, {useState} from "react"
 import {cancelOrder} from "features/order/cancelOrder"
 import {changePaymentStateOrder} from "features/order/changePaymentStateOrder"

@@ -4,7 +4,7 @@ import {Drawer, Typography} from "antd"
 import {PlusOutlined} from "@ant-design/icons"
 import SearchProductTable from "./SearchProductTable"
 import SelectedProductCard from "./selected-product-card/SelectedProductCard"
-import {OrderProduct} from "types/Order"
+import {OrderProduct} from "types/order/Order"
 
 const {Title} = Typography
 

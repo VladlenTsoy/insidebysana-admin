@@ -2,13 +2,13 @@ import {createAsyncThunk} from "@reduxjs/toolkit"
 import {AppThunkProps} from "store"
 import {apiRequest} from "utils/api"
 import {message} from "components/message/message"
-import {Order, OrderAddress, OrderDiscount, OrderPayment} from "types/Order"
+import {Order, OrderAddress, OrderCardType, OrderDiscount, OrderPayment} from "types/order/Order"
 import {Client} from "types/Client"
 import {ProductColor} from "types/product/ProductColor"
 import {Size} from "types/Size"
 import {Delivery} from "types/Delivery"
 
-type ReturnedType = Order
+type ReturnedType = OrderCardType
 
 interface AgrProps {
     id: Order["id"]

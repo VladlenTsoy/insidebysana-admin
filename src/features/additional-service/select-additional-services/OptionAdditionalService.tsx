@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useCallback} from "react"
+import React, {Dispatch, SetStateAction, useCallback, useMemo} from "react"
 import styles from "./SelectAdditionalServices.module.less"
 import {formatPrice} from "utils/formatPrice"
 import Counter from "components/counter/Counter"
@@ -18,6 +18,8 @@ const OptionAdditionalService: React.FC<OptionAdditionalServiceProps> = (
         updateSelectAdditionalServices
     }
 ) => {
+    const selectAdditionalService = useMemo(() => selectAdditionalServices.find(val => val.title === additionalService.title), [additionalService, selectAdditionalServices])
+
     const onChangeHandler = useCallback(val => {
         // Поиск в добавленных
         const checkAdditionalService = selectAdditionalServices.find(
@@ -48,7 +50,7 @@ const OptionAdditionalService: React.FC<OptionAdditionalServiceProps> = (
         <div className={styles.additionalService} key={additionalService.id}>
             <div className={styles.title}>{additionalService.title}</div>
             <div className={styles.price}>{formatPrice(additionalService.price)} сум</div>
-            <Counter onChange={onChangeHandler} />
+            <Counter onChange={onChangeHandler} defaultValue={selectAdditionalService?.qty} />
         </div>
     )
 }
