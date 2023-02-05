@@ -14,6 +14,7 @@ interface BaseInformationProps {
         source_id?: string
         created_at?: Moment
         delivery_id?: number
+        address?: any
     }
     onFinish: (values: any) => void
 }
@@ -69,7 +70,7 @@ const BaseInformation: React.FC<BaseInformationProps> = ({initialValues, onFinis
                         </Form.Item>
                     </Col>
                 </Row>
-                <Delivery form={form} type={type} />
+                <Delivery form={form} type={type} position={initialValues?.address?.position} />
             </Form>
         </>
     )

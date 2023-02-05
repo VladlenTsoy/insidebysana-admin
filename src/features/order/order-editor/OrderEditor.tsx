@@ -11,6 +11,7 @@ import {createOrder} from "../createOrder"
 import {useDispatch} from "../../../store"
 import {useHistory} from "react-router-dom"
 import moment from "moment"
+import {editOrder} from "../editOrder"
 
 export interface OrderPaymentMethod {
     payment_id: number
@@ -98,16 +99,31 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
                 price: product.details.price
             })
         )
-        // Создать сделку
-        dispatch(createOrder({
-            payments: paymentMethods,
-            discount,
-            products: orderProducts,
-            additionalServices,
-            processing,
-            total_price: totalPriceDiscount,
-            ...values
-        }))
+        if (order)
+            // Изменить сделку
+            dispatch(editOrder({
+                id: order.id,
+                data: {
+                    payments: paymentMethods,
+                    discount,
+                    products: orderProducts,
+                    additionalServices,
+                    processing,
+                    total_price: totalPriceDiscount,
+                    ...values
+                }
+            }))
+        else
+            // Создать сделку
+            dispatch(createOrder({
+                payments: paymentMethods,
+                discount,
+                products: orderProducts,
+                additionalServices,
+                processing,
+                total_price: totalPriceDiscount,
+                ...values
+            }))
         // Перейти на главную страницу
         history.push("/orders")
     }, [dispatch, paymentMethods, discount, products, additionalServices, processing, totalPriceDiscount, leftToPay, history, updateLoading])
@@ -121,8 +137,11 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
                         country_id: String(order.country_id),
                         source_id: String(order.source_id),
                         client: order.client,
-                        delivery_id: order?.delivery?.id
-                    } : undefined}
+                        delivery_id: order?.delivery?.id,
+                        address: order.address
+                    } : {
+                        created_at: moment()
+                    }}
                     onFinish={onSubmitHandler}
                 />
                 {/* Список продуктов */}

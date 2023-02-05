@@ -19,7 +19,7 @@ const SelectClient: React.FC<SelectClientProps> = ({form, clientId}) => {
     const [visible, setVisible] = useState(false)
     const [loading, setLoading] = useState(false)
     const [search, setSearch] = useState<string | number | undefined>(clientId)
-    const {isLoading, data} = useGetClientBySearchQuery({search: search}, {skip: !clientId})
+    const {isLoading, data} = useGetClientBySearchQuery({search: search}, {skip: !clientId && !search})
 
     // Вывод клиентов
     const options =
