@@ -1,7 +1,7 @@
 import React from "react"
 import {Modal, Tooltip} from "antd"
 import {ExclamationCircleOutlined, StopOutlined} from "@ant-design/icons"
-import {OrderCardType} from "types/Order"
+import {OrderCardType} from "types/order/Order"
 import {useDispatch} from "react-redux"
 import {cancelOrder} from "features/order/cancelOrder"
 

@@ -1,6 +1,6 @@
 import React from "react"
 import {Table} from "antd"
-import {Order} from "types/Order"
+import {Order} from "types/order/Order"
 import PriceBlock from "components/price-block/PriceBlock"
 
 const columns = [

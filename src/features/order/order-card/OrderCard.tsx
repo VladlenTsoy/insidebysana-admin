@@ -18,7 +18,7 @@ import {
     UserOutlined
 } from "@ant-design/icons"
 import {formatPrice} from "utils/formatPrice"
-import {OrderCardType} from "types//Order"
+import {OrderCardType} from "types/order/Order"
 import {formatDate} from "utils/formatDate"
 import HideOrderAction from "./HideOrderAction"
 import {Link} from "react-router-dom"

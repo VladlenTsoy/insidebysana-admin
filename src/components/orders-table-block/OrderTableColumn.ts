@@ -1,4 +1,4 @@
-import {OrderDiscount, OrderProductColor} from "types/Order"
+import {OrderDiscount, OrderProductColor} from "types/order/Order"
 import {PromoCode} from "types/PromoCode"
 import {Source} from "types/Source"
 

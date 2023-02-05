@@ -2,7 +2,7 @@ import {createAsyncThunk} from "@reduxjs/toolkit"
 import {AppThunkProps} from "store"
 import {apiRequest} from "../../../utils/api"
 import {message} from "components/message/message"
-import {Order} from "types/Order"
+import {Order} from "types/order/Order"
 
 type ReturnedType = Order["id"]
 

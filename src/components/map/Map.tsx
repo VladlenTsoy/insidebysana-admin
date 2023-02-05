@@ -62,7 +62,7 @@ const MapComponent = withYMaps(({ymaps, updateCountryName, updateCityName, form,
             }
 
             // Задать маркеру параметры
-            placemarkRef.current.properties.set({
+            placemarkRef.current?.properties.set({
                 // Формирование строки с данными объекта
                 iconCaption: address,
                 // Указание строки с адресом объекта в качестве содержимого балуна.

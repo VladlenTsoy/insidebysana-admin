@@ -1,7 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit"
 import {AppThunkProps} from "store"
 import socket from "utils/socket"
-import {Order} from "types/Order"
+import {Order} from "types/order/Order"
 
 type ReturnedType = null
 

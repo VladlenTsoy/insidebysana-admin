@@ -8,17 +8,18 @@ import EditorClientModal from "../editor-client/EditorClientModal"
 
 interface SelectClientProps {
     form: FormInstance;
+    clientId?: number;
 }
 
 /**
  * Выбрать клиента
  * @constructor
  */
-const SelectClient: React.FC<SelectClientProps> = ({form}) => {
+const SelectClient: React.FC<SelectClientProps> = ({form, clientId}) => {
     const [visible, setVisible] = useState(false)
     const [loading, setLoading] = useState(false)
-    const [search, setSearch] = useState<string>()
-    const {isLoading, data} = useGetClientBySearchQuery({search: search})
+    const [search, setSearch] = useState<string | number | undefined>(clientId)
+    const {isLoading, data} = useGetClientBySearchQuery({search: search}, {skip: !clientId && !search})
 
     // Вывод клиентов
     const options =
@@ -39,7 +40,7 @@ const SelectClient: React.FC<SelectClientProps> = ({form}) => {
     const onSearchHandler = (val: string) => {
         if (val.trim() !== "") setSearch(val)
     }
-    //
+    // Изменения при выборе
     const onChangeHandler = (clientId: number) => {
         if (!data) return
         const client = data.find(client => client.id === clientId)
@@ -58,7 +59,7 @@ const SelectClient: React.FC<SelectClientProps> = ({form}) => {
         setSearch(client.id)
         form.setFieldsValue({client_id: client.id, address: {full_name: client.full_name, phone: client.phone}})
     }, [form])
-
+    // Кнопка добавить
     const createClientView = (
         <div className={styles.createClient} onClick={onOpenModalHandler}>
             <PlusOutlined /> Создать клиента

@@ -1,6 +1,6 @@
 import {createApi} from "@reduxjs/toolkit/query/react"
 import baseQuery from "utils/apiConfig"
-import {Order} from "types/Order"
+import {Order} from "types/order/Order"
 
 export const orderProductApi = createApi({
     reducerPath: "orderProductApi",

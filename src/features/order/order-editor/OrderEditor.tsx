@@ -3,15 +3,15 @@ import {Col, Divider, message, Row} from "antd"
 import SelectAdditionalServices, {
     SelectAdditionalServiceType
 } from "features/additional-service/select-additional-services/SelectAdditionalServices"
-import {OrderAddress, OrderDiscount, OrderPayment, OrderProduct} from "types/Order"
+import {OrderDiscount, OrderProduct} from "types/order/Order"
 import SelectProduct from "features/product/select-product/SelectProduct"
-import {Client} from "types/Client"
-import {Delivery} from "types/Delivery"
 import BaseInformation from "./content/BaseInformation"
 import RightInformation from "./content/RightInformation"
 import {createOrder} from "../createOrder"
 import {useDispatch} from "../../../store"
 import {useHistory} from "react-router-dom"
+import moment from "moment"
+import {editOrder} from "../editOrder"
 
 export interface OrderPaymentMethod {
     payment_id: number
@@ -21,27 +21,16 @@ export interface OrderPaymentMethod {
 
 interface OrderEditorProps {
     updateLoading: (loading: boolean) => void
-    order?: {
-        id: number
-        processing?: boolean
-        additionalServices: SelectAdditionalServiceType[]
-        products: OrderProduct[]
-        client?: Client
-        delivery?: Delivery
-        discount?: OrderDiscount
-        address?: OrderAddress
-        payments?: OrderPayment[]
-        created_at: string
-    }
+    order: any
 }
 
 const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
     const history = useHistory()
     const dispatch = useDispatch()
     // Метод оплаты
-    const [paymentMethods, setPaymentMethods] = useState<OrderPaymentMethod[]>([])
+    const [paymentMethods, setPaymentMethods] = useState<OrderPaymentMethod[]>(order?.payments || [])
     // Скидки
-    const [discount, setDiscount] = useState<OrderDiscount>({type: "percent", discount: 0})
+    const [discount, setDiscount] = useState<OrderDiscount>(order?.discount || {type: "percent", discount: 0})
     // Выбранные продукты
     const [products, setProducts] = useState<OrderProduct[]>(order?.products || [])
     // Выбранные доп. услуги
@@ -92,7 +81,6 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
 
     // Сохранить данные
     const onSubmitHandler = useCallback(async (values: any) => {
-        console.log(products)
         // Проверка наличия продуктов
         if (!products.length)
             return message.error("Необходимо добавить товар к заказу!")
@@ -111,16 +99,31 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
                 price: product.details.price
             })
         )
-        // Создать сделку
-        dispatch(createOrder({
-            payments: paymentMethods,
-            discount,
-            products: orderProducts,
-            additionalServices,
-            processing,
-            total_price: totalPriceDiscount,
-            ...values
-        }))
+        if (order)
+            // Изменить сделку
+            dispatch(editOrder({
+                id: order.id,
+                data: {
+                    payments: paymentMethods,
+                    discount,
+                    products: orderProducts,
+                    additionalServices,
+                    processing,
+                    total_price: totalPriceDiscount,
+                    ...values
+                }
+            }))
+        else
+            // Создать сделку
+            dispatch(createOrder({
+                payments: paymentMethods,
+                discount,
+                products: orderProducts,
+                additionalServices,
+                processing,
+                total_price: totalPriceDiscount,
+                ...values
+            }))
         // Перейти на главную страницу
         history.push("/orders")
     }, [dispatch, paymentMethods, discount, products, additionalServices, processing, totalPriceDiscount, leftToPay, history, updateLoading])
@@ -128,7 +131,19 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
     return (
         <Row gutter={28}>
             <Col md={18} xs={24}>
-                <BaseInformation onFinish={onSubmitHandler} />
+                <BaseInformation
+                    initialValues={order ? {
+                        created_at: order.created_at ? moment(order.created_at) : moment(),
+                        country_id: String(order.country_id),
+                        source_id: String(order.source_id),
+                        client: order.client,
+                        delivery_id: order?.delivery?.id,
+                        address: order.address
+                    } : {
+                        created_at: moment()
+                    }}
+                    onFinish={onSubmitHandler}
+                />
                 {/* Список продуктов */}
                 <SelectProduct products={products} setProducts={setProducts} />
                 <Divider />
