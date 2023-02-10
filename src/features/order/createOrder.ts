@@ -27,6 +27,7 @@ interface AgrProps {
     payments: OrderPayment[]
     total_price: number
     additionalServices: any[]
+    payment_state?: -1 | 0 | 1
 }
 
 export const createOrder = createAsyncThunk<ReturnedType, AgrProps, AppThunkProps>(
