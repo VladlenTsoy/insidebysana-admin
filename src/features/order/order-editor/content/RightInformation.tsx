@@ -1,6 +1,6 @@
 import React, {Dispatch, SetStateAction, useMemo} from "react"
 import styles from "./RightInformation.module.less"
-import {Card} from "antd"
+import {Card, Switch} from "antd"
 import {OrderDiscount, OrderProduct} from "types/order/Order"
 import {
     SelectAdditionalServiceType
@@ -26,6 +26,8 @@ interface RightInformationProps {
     changeProcessingHandler: (val: boolean) => void
     updateSelectPaymentMethod: (paymentMethod: OrderPaymentMethod) => void
     deleteSelectPaymentMethod: (paymentMethodId: OrderPaymentMethod["payment_id"]) => void
+    paymentState: boolean
+    onChangePayment: () => void
 }
 
 /**
@@ -43,6 +45,8 @@ interface RightInformationProps {
  * @param changeProcessingHandler
  * @param updateSelectPaymentMethod
  * @param deleteSelectPaymentMethod
+ * @param paymentState
+ * @param onChangePayment
  * @constructor
  */
 const RightInformation: React.FC<RightInformationProps> = (
@@ -59,24 +63,42 @@ const RightInformation: React.FC<RightInformationProps> = (
         processing,
         changeProcessingHandler,
         updateSelectPaymentMethod,
-        deleteSelectPaymentMethod
+        deleteSelectPaymentMethod,
+        paymentState,
+        onChangePayment
     }
 ) => {
     // Кол-во продуктов
     const countProducts = useMemo(() => selectProducts.reduce((acc, product) => acc + product.qty, 0), [selectProducts])
     // Кол-во доп. услуг
     const countAdditionalServices = useMemo(() => selectAdditionalServices.reduce((acc, additionalServices) => acc + additionalServices.qty, 0), [selectAdditionalServices])
+    //
 
     return (
         <div className={styles.container}>
             <Card>
+                {/* Оплата */}
+                <label className={styles.paymentStatus}>
+                    <div className={styles.content}>
+                        <div className={styles.title}>Статус оплаты</div>
+                        <Switch onChange={onChangePayment} checked={paymentState} checkedChildren="Оплачен"
+                                unCheckedChildren="Ожидание" />
+                    </div>
+                    <div className={styles.desc}>
+                        При указании статуса "оплачен", необходимо указать форму и сумму оплаты
+                    </div>
+                </label>
                 {/* Выбор оплаты */}
-                <SelectPaymentMethod
-                    selectedPaymentMethods={paymentMethods}
-                    deleteSelectPaymentMethod={deleteSelectPaymentMethod}
-                    updateSelectPaymentMethod={updateSelectPaymentMethod}
-                />
-                <div className={styles.mb} />
+                {paymentState &&
+                    <>
+                        <SelectPaymentMethod
+                            selectedPaymentMethods={paymentMethods}
+                            deleteSelectPaymentMethod={deleteSelectPaymentMethod}
+                            updateSelectPaymentMethod={updateSelectPaymentMethod}
+                        />
+                        <div className={styles.mb} />
+                    </>
+                }
                 {/* Скидка */}
                 <div className={styles.discount}>
                     <div className={styles.title}>Скидка</div>

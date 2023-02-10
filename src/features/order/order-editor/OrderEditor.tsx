@@ -37,6 +37,8 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
     const [additionalServices, setAdditionalServices] = useState<SelectAdditionalServiceType[]>(order?.additionalServices || [])
     // На обработку
     const [processing, setProcessing] = useState(order?.processing || false)
+    // Статус оплаты
+    const [paymentState, setPaymentState] = useState(false)
 
     // Общая сумма доп. услуг
     const totalPriceAdditionalServices = useMemo(() => additionalServices.reduce((acc, additionalServices) => acc + (additionalServices.qty * additionalServices.price), 0), [additionalServices])
@@ -63,7 +65,8 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
     const updateSelectAdditionalServices = useCallback(_additionalServices => {
         setAdditionalServices(_additionalServices)
     }, [])
-
+    // Изменить статус оплаты
+    const onChangePayment = useCallback(() => setPaymentState(prevState => !prevState), [])
     // Добавить метод оплаты
     const updateSelectPaymentMethod = useCallback((paymentMethod: OrderPaymentMethod) => {
         setPaymentMethods(prevState => {
@@ -85,7 +88,7 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
         if (!products.length)
             return message.error("Необходимо добавить товар к заказу!")
         // Проверка оплаты
-        if (leftToPay !== 0)
+        if (leftToPay !== 0 && paymentState)
             return message.error(`Значение "Осталось внести" должно быть 0!`)
         // Загрузка
         updateLoading(true)
@@ -110,6 +113,7 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
                     additionalServices,
                     processing,
                     total_price: totalPriceDiscount,
+                    payment_state: paymentState,
                     ...values
                 }
             }))
@@ -122,11 +126,12 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
                 additionalServices,
                 processing,
                 total_price: totalPriceDiscount,
+                payment_state: paymentState,
                 ...values
             }))
         // Перейти на главную страницу
         history.push("/orders")
-    }, [dispatch, paymentMethods, discount, products, additionalServices, processing, totalPriceDiscount, leftToPay, history, updateLoading])
+    }, [dispatch, paymentMethods, discount, products, additionalServices, processing, totalPriceDiscount, leftToPay, history, updateLoading, order, paymentState])
 
     return (
         <Row gutter={28}>
@@ -168,6 +173,8 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
                     changeProcessingHandler={changeProcessingHandler}
                     updateSelectPaymentMethod={updateSelectPaymentMethod}
                     deleteSelectPaymentMethod={deleteSelectPaymentMethod}
+                    paymentState={paymentState}
+                    onChangePayment={onChangePayment}
                 />
             </Col>
         </Row>
