@@ -38,7 +38,7 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
     // На обработку
     const [processing, setProcessing] = useState(order?.processing || false)
     // Статус оплаты
-    const [paymentState, setPaymentState] = useState(false)
+    const [paymentState, setPaymentState] = useState<boolean>(Boolean(order.payment_state))
 
     // Общая сумма доп. услуг
     const totalPriceAdditionalServices = useMemo(() => additionalServices.reduce((acc, additionalServices) => acc + (additionalServices.qty * additionalServices.price), 0), [additionalServices])
