@@ -6,14 +6,16 @@ import SelectCity from "features/city/select-city/SelectCity"
 import SelectCountry from "features/country/select-country/SelectCountry"
 import MapComponent from "components/map/Map"
 import SelectTypeDelivery from "features/type-delivery/select-type-delivery/SelectTypeDelivery"
+import {Delivery as DeliveryType} from "types/Delivery"
 
 interface DeliveryProps {
     type: "pickup" | "delivery"
     form: FormInstance;
     position: [number, number]
+    onDeliveryChange?: (data?: DeliveryType) => void
 }
 
-const Delivery: React.FC<DeliveryProps & any> = ({form, type, position}) => {
+const Delivery: React.FC<DeliveryProps & any> = ({form, type, position, onDeliveryChange}) => {
     const [selectedCountryId, setSelectedCountryId] = useState<number>(1)
 
     const onChangeCountryId = (id: number) => {
@@ -51,7 +53,10 @@ const Delivery: React.FC<DeliveryProps & any> = ({form, type, position}) => {
                                 <Row gutter={16}>
                                     <Col md={24}>
                                         {/* Выбор тип доставки */}
-                                        <SelectTypeDelivery countryId={selectedCountryId} />
+                                        <SelectTypeDelivery
+                                            countryId={selectedCountryId}
+                                            onChange={onDeliveryChange}
+                                        />
                                     </Col>
                                     <Col md={12}>
                                         {/* Выбор города */}
