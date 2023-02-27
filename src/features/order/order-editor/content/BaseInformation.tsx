@@ -6,6 +6,7 @@ import {useForm} from "antd/es/form/Form"
 import SelectClient from "features/client/select-client/SelectClient"
 import {CarOutlined, ShopOutlined} from "@ant-design/icons"
 import SelectSource from "features/source/select-source/SelectSource"
+import {Delivery as DeliveryType} from "types/Delivery"
 
 interface BaseInformationProps {
     initialValues?: {
@@ -17,9 +18,11 @@ interface BaseInformationProps {
         address?: any
     }
     onFinish: (values: any) => void
+    onDeliveryChange?: (data?: DeliveryType) => void
+
 }
 
-const BaseInformation: React.FC<BaseInformationProps> = ({initialValues, onFinish}) => {
+const BaseInformation: React.FC<BaseInformationProps> = ({initialValues, onFinish, onDeliveryChange}) => {
     const [form] = useForm()
     const [type, setType] = useState<"pickup" | "delivery">(initialValues?.delivery_id ? "delivery" : "pickup")
 
@@ -70,7 +73,8 @@ const BaseInformation: React.FC<BaseInformationProps> = ({initialValues, onFinis
                         </Form.Item>
                     </Col>
                 </Row>
-                <Delivery form={form} type={type} position={initialValues?.address?.position} />
+                <Delivery form={form} type={type} position={initialValues?.address?.position}
+                          onDeliveryChange={onDeliveryChange} />
             </Form>
         </>
     )

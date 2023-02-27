@@ -12,6 +12,7 @@ import {useDispatch} from "../../../store"
 import {useHistory} from "react-router-dom"
 import moment from "moment"
 import {editOrder} from "../editOrder"
+import {Delivery} from "../../../types/Delivery"
 
 export interface OrderPaymentMethod {
     payment_id: number
@@ -39,6 +40,8 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
     const [processing, setProcessing] = useState(order?.processing || false)
     // Статус оплаты
     const [paymentState, setPaymentState] = useState<boolean>(Boolean(order?.payment_state))
+    // Доставка
+    const [selectedDelivery, setSelectedDelivery] = useState<Delivery | undefined>(order?.delivery)
 
     // Общая сумма доп. услуг
     const totalPriceAdditionalServices = useMemo(() => additionalServices.reduce((acc, additionalServices) => acc + (additionalServices.qty * additionalServices.price), 0), [additionalServices])
@@ -47,8 +50,10 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
         qty,
         product
     }) => acc + (qty * (product.discount ? (product.details.price - (product.details.price / 100) * product.discount.discount) : product.details.price)), 0), [products])
+    //
+    const totalPriceDelivery = useMemo(() => selectedDelivery ? selectedDelivery.price : 0, [selectedDelivery])
     // Общая сумма
-    const totalPrice = useMemo(() => totalPriceProducts + totalPriceAdditionalServices, [totalPriceProducts, totalPriceAdditionalServices])
+    const totalPrice = useMemo(() => totalPriceProducts + totalPriceAdditionalServices + totalPriceDelivery, [totalPriceProducts, totalPriceAdditionalServices, totalPriceDelivery])
     // Общая сумма со скидкой
     const totalPriceDiscount = useMemo(() => discount.type === "fixed"
         ? totalPrice - discount.discount
@@ -57,6 +62,8 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
     const customerTotalPayments = useMemo(() => paymentMethods.reduce((acc, paymentMethod) => acc + paymentMethod.price, 0), [paymentMethods])
     // Осталось оплатить
     const leftToPay = useMemo(() => totalPriceDiscount - customerTotalPayments, [totalPriceDiscount, customerTotalPayments])
+    //
+    const onDeliveryChangeHandler = useCallback((delivery?: Delivery) => setSelectedDelivery(delivery), [])
 
     // Изменить на обработку
     const changeProcessingHandler = useCallback((val: boolean) => setProcessing(val), [])
@@ -147,6 +154,7 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
                     } : {
                         created_at: moment()
                     }}
+                    onDeliveryChange={onDeliveryChangeHandler}
                     onFinish={onSubmitHandler}
                 />
                 {/* Список продуктов */}
@@ -162,6 +170,7 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
                 <RightInformation
                     leftToPay={leftToPay}
                     totalPriceAdditionalServices={totalPriceAdditionalServices}
+                    totalPriceDelivery={totalPriceDelivery}
                     totalPriceDiscount={totalPriceDiscount}
                     totalPriceProducts={totalPriceProducts}
                     paymentMethods={paymentMethods}

@@ -15,6 +15,7 @@ import cn from "classnames"
 interface RightInformationProps {
     leftToPay: number
     totalPriceAdditionalServices: number
+    totalPriceDelivery: number
     totalPriceDiscount: number
     totalPriceProducts: number
     paymentMethods: OrderPaymentMethod[]
@@ -33,6 +34,7 @@ interface RightInformationProps {
 /**
  * Итог
  * @param leftToPay
+ * @param totalPriceDelivery
  * @param totalPriceAdditionalServices
  * @param totalPriceDiscount
  * @param totalPriceProducts
@@ -52,6 +54,7 @@ interface RightInformationProps {
 const RightInformation: React.FC<RightInformationProps> = (
     {
         leftToPay,
+        totalPriceDelivery,
         totalPriceAdditionalServices,
         totalPriceDiscount,
         totalPriceProducts,
@@ -120,6 +123,15 @@ const RightInformation: React.FC<RightInformationProps> = (
                         <div>Доп. услуги:</div>
                         <div className={styles.price}>
                             <span>{countAdditionalServices} x</span> {formatPrice(totalPriceAdditionalServices)} сум
+                        </div>
+                    </div>
+                }
+                {/* Доставка */}
+                {totalPriceDelivery > 0 &&
+                    <div className={styles.totalPrice}>
+                        <div>Доставка:</div>
+                        <div className={styles.price}>
+                            {formatPrice(totalPriceDelivery)} сум
                         </div>
                     </div>
                 }
