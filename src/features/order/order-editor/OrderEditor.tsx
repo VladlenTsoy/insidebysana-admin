@@ -95,7 +95,7 @@ const OrderEditor: React.FC<OrderEditorProps> = ({order, updateLoading}) => {
         if (!products.length)
             return message.error("Необходимо добавить товар к заказу!")
         // Проверка оплаты
-        if (Math.floor(leftToPay) !== 0 && paymentState)
+        if (Number(leftToPay.toFixed(0)) !== 0 && paymentState)
             return message.error(`Значение "Осталось внести" должно быть 0!`)
         // Загрузка
         updateLoading(true)
