@@ -22,13 +22,12 @@ const ItemPaymentMethod: React.FC<ItemPaymentMethodProps> = (
     }
 ) => {
     // Добавить метод оплаты
-    const onUpdateHandler = useCallback((qty: number) =>
+    const onUpdateHandler = useCallback((qty: number | null) =>
         onUpdate({
             label: paymentMethod.title,
             payment_id: paymentMethod.id,
-            price: qty
-        }), [onUpdate, paymentMethod]
-    )
+            price: qty || 0
+        }), [onUpdate, paymentMethod])
     // Удалить
     const onDeleteHandler = useCallback(() => onDelete(paymentMethod.id), [onDelete, paymentMethod])
 
