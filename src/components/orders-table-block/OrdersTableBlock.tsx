@@ -8,8 +8,6 @@ import {formatPrice} from "utils/formatPrice"
 import OrderColumn from "./OrderColumn"
 import "./OrdersTableBlock.less"
 import {OrderTableColumn} from "./OrderTableColumn"
-//@ts-ignore
-import ReactHTMLTableToExcel from "react-html-table-to-excel"
 import {Source} from "types/Source"
 
 const {Text} = Typography
@@ -70,13 +68,6 @@ const OrdersTableBlock: React.FC<OrdersTableBlockProps> = (
                         onChange={onChangeHandler}
                         // defaultValue={[moment(), moment()]}
                         format="DD-MM-YYYY"
-                    />
-                    <ReactHTMLTableToExcel
-                        className="ant-btn ant-btn-lg"
-                        table="table-to-xls"
-                        filename="Заказы"
-                        sheet="Заказы"
-                        buttonText="Скачать в XSL"
                     />
                 </div>
             )}
