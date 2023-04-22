@@ -1,10 +1,11 @@
-import React from "react"
+import React, {useCallback, useEffect, useRef, useState} from "react"
 import {Draggable} from "react-beautiful-dnd"
-import {Button, Dropdown, Menu, Tooltip} from "antd"
+import {Button, Dropdown, Menu, notification, Tooltip} from "antd"
 import {
     CalendarOutlined,
     CarOutlined,
-    CheckOutlined, ContainerOutlined,
+    CheckOutlined,
+    ContainerOutlined,
     DeleteOutlined,
     EditOutlined,
     FieldNumberOutlined,
@@ -25,6 +26,9 @@ import {Link} from "react-router-dom"
 import cn from "classnames"
 import styles from "./OrderCard.module.less"
 import SendToArchiveOrder from "./SendToArchiveOrderAction"
+import {useDispatch} from "../../../store"
+import {clearPrevStatusId} from "../orderSlice"
+import {sendStatusNotification} from "../../notification/sendStatusNotification"
 
 interface OrderCardProps {
     order: OrderCardType
@@ -66,6 +70,55 @@ const menuItems = (order: OrderCardType) => [
 ]
 
 const OrderCard: React.FC<OrderCardProps> = ({order, index}) => {
+    const timeoutRef = useRef<NodeJS.Timeout>()
+    const [isSentMessage, setIsSentMessage] = useState(false)
+    const dispatch = useDispatch()
+    const key = `open-${order.id}`
+
+    const cleatTimeoutSendMessage = useCallback(() => {
+        timeoutRef.current && clearTimeout(timeoutRef.current)
+        dispatch(clearPrevStatusId(order.id))
+    }, [timeoutRef, dispatch, order])
+
+    const onCancelHandler = () => {
+        setIsSentMessage(true)
+        timeoutRef.current = setTimeout(() => {
+            dispatch(sendStatusNotification(order.id))
+            setIsSentMessage(false)
+        }, 10000)
+        notification.close(key)
+    }
+
+    const btn = (
+        <Button type="primary" ghost onClick={onCancelHandler}>
+            Возобновить
+        </Button>
+    )
+
+    const cancelSentSMSHandler = () => {
+        cleatTimeoutSendMessage()
+        setIsSentMessage(false)
+        notification.warning({
+            message: "Остановка смс-уведомления",
+            description: `Вы остановили отправку смс-уведомления, чтоб возобновить нажмите "Возобновить".`,
+            btn,
+            key
+        })
+    }
+
+    useEffect(() => {
+        if (order.prev_status_id) {
+            setIsSentMessage(true)
+            timeoutRef.current = setTimeout(() => {
+                dispatch(sendStatusNotification(order.id))
+                setIsSentMessage(false)
+            }, 10000)
+            return () => {
+                cleatTimeoutSendMessage()
+            }
+        }
+    }, [timeoutRef, order, dispatch, cleatTimeoutSendMessage])
+
     return (
         <Draggable draggableId={`order-${order.id}`} key={order.id} index={index}>
             {provided => (
@@ -119,14 +172,22 @@ const OrderCard: React.FC<OrderCardProps> = ({order, index}) => {
                             )}
                         </div>
                         <div className={styles.action}>
-                            <Dropdown
-                                overlay={<Menu items={menuItems(order)} />}
-                                placement="bottomRight"
-                                arrow
-                                trigger={["click"]}
-                            >
-                                <Button icon={<MoreOutlined />} />
-                            </Dropdown>
+                            {isSentMessage ?
+                                <div className={styles.progress} onClick={cancelSentSMSHandler}>
+                                    <svg className={styles.icon} viewBox="0 0 100 100">
+                                        <path d="M 50 96 a 46 46 0 0 1 0 -92 46 46 0 0 1 0 92" />
+                                    </svg>
+                                    <StopOutlined />
+                                </div> :
+                                <Dropdown
+                                    overlay={<Menu items={menuItems(order)} />}
+                                    placement="bottomRight"
+                                    arrow
+                                    trigger={["click"]}
+                                >
+                                    <Button icon={<MoreOutlined />} />
+                                </Dropdown>
+                            }
                         </div>
                     </div>
                     {!!order.client && (

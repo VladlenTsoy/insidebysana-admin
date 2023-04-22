@@ -9,6 +9,7 @@ import {hideOrder} from "./order-card/hideOrder"
 import {sendToArchiveOrder} from "./order-card/sendToArchiveOrder"
 import {createOrder} from "./createOrder"
 import {editOrder} from "./editOrder"
+import {sendStatusNotification} from "../notification/sendStatusNotification"
 
 export const orderAdapter = createEntityAdapter<OrderCardType>({
     sortComparer: (a, b) => (a.position > b.position ? 1 : -1)
@@ -31,6 +32,9 @@ const orderSlice = createSlice({
         },
         updateOrder: (state, action: PayloadAction<OrderCardType>) => {
             orderAdapter.upsertOne(state, action.payload)
+        },
+        clearPrevStatusId: (state, action: PayloadAction<OrderCardType["id"]>) => {
+            orderAdapter.updateOne(state, {id: action.payload, changes: {prev_status_id: undefined}})
         }
     },
     extraReducers: builder => {
@@ -114,16 +118,25 @@ const orderSlice = createSlice({
             orderAdapter.upsertOne(state, order)
         })
         builder.addCase(updateStatusOrder.fulfilled, (state, action) => {
-            const {id, nextStatusId, position} = action.meta.arg
+            const {id, nextStatusId, position, prevStatusId} = action.meta.arg
             orderAdapter.updateOne(state, {
                 id,
-                changes: {position, status_id: nextStatusId}
+                changes: {
+                    position,
+                    status_id: nextStatusId,
+                    prev_status_id: nextStatusId !== prevStatusId ? prevStatusId : undefined
+                }
             })
+        })
+        //
+        builder.addCase(sendStatusNotification.fulfilled, (state, action) => {
+            const orderId = action.meta.arg
+            orderAdapter.updateOne(state, {id: orderId, changes: {prev_status_id: undefined}})
         })
     }
 })
 
-export const {addOrder, updateOrder} = orderSlice.actions
+export const {addOrder, updateOrder, clearPrevStatusId} = orderSlice.actions
 
 export const {selectById: getOrderById, selectAll: selectAllOrders} = orderAdapter.getSelectors<StoreState>(
     state => state.order

@@ -83,6 +83,54 @@
         .action {
             transition: all 0.1s ease-in-out;
             cursor: pointer;
+
+            .progress {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                svg.icon {
+                    max-width: 32px;
+
+                    path {
+                        stroke: @blue-color;
+                        stroke-width: 8;
+                        stroke-dasharray: 288.5;
+                        stroke-linecap: round;
+                        fill: none;
+                        transform-origin: 50px 50px;
+                        animation: pathStroke 10s forwards ease-in-out;
+                        transform: rotate(-180deg);
+                    }
+                }
+
+                @keyframes pathStroke {
+                    0% {
+                        stroke-dashoffset: 288.5;
+                    }
+                    100% {
+                        stroke-dashoffset: 0;
+                    }
+                }
+
+                :global .anticon {
+                    font-size: @heading-4-size;
+                    color: @text-color-secondary;
+                    position: absolute;
+                    opacity: 0;
+                    transition: opacity 0.3s ease-in-out;
+                }
+
+                &:hover {
+                    :global .anticon {
+                        opacity: 1;
+                    }
+                }
+            }
         }
     }
 

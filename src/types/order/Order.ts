@@ -168,6 +168,8 @@ export interface OrderCardType {
     }
     product_color_qty: number
     //
+    prev_status_id?: number
+    //
     // loading?: boolean
     // next_status_id?: number
 }
