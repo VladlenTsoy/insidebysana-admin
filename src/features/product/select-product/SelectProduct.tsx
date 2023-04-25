@@ -46,7 +46,7 @@ const SelectProduct: React.FC<SelectProductProps> = ({products, setProducts}) =>
                 prevState.map((product) => {
                     // Поиск товара и обновление кол-во
                     if (product.size_id === size_id && product.product_color_id === product_color_id)
-                        product.qty = qty
+                        return {...product, qty}
                     return product
                 })
             )
@@ -87,7 +87,8 @@ const SelectProduct: React.FC<SelectProductProps> = ({products, setProducts}) =>
                 </div>
             </div>
             {/* Вывод поиска товаров */}
-            <Drawer title="Добавить товар" visible={visible} onClose={onCloseHandler} width={window.innerWidth >= 1200 ? 1200 : window.innerWidth} footer={false}>
+            <Drawer title="Добавить товар" visible={visible} onClose={onCloseHandler}
+                    width={window.innerWidth >= 1200 ? 1200 : window.innerWidth} footer={false}>
                 <SearchProductTable
                     addProduct={addProduct}
                     addedProducts={products}
