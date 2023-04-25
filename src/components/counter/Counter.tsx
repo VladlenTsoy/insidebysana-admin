@@ -16,7 +16,7 @@ const Counter: React.FC<CounterProps> = ({defaultValue = 0, onChange, onDelete, 
 
     const onMinus = () => {
         const updateQty = qty <= min ? min : qty - 1
-        onChange(qty)
+        onChange(updateQty)
         setQty(updateQty)
     }
 
