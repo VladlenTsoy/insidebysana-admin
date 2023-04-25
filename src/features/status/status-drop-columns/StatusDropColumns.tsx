@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react"
 import StatusColumn from "./StatusColumn"
 import styles from "./StatusDropColumns.module.less"
-import {DragDropContext, Droppable} from "react-beautiful-dnd"
+import {DragDropContext, Droppable, DropResult} from "react-beautiful-dnd"
 import ScrollContainer from "react-indiana-drag-scroll"
 import {updateStatusOrder} from "features/order/updateStatusOrder"
 import {updatePositionStatus} from "features/status/updatePositionStatus"
@@ -16,9 +16,9 @@ const StatusDropColumns = () => {
     const dispatch = useDispatch()
     const loading = useLoadingStatuses()
     const statuses = useSelectAllStatuses()
-    const [, setCacheDispatches] = useState<any[]>([])
+    const [, setCacheDispatches] = useState<{orderId: number, dispatcher: any}[]>([])
 
-    const onDragEnd = (result: any) => {
+    const onDragEnd = (result: DropResult) => {
         const {type, destination, source, draggableId} = result
         // Проверка на следующую колонну если не выбранная
         if (!destination) return
@@ -26,25 +26,30 @@ const StatusDropColumns = () => {
         if (destination.droppableId === source.droppableId && destination.index === source.index) return
         if (type === "order") {
             const orderId = Number(draggableId.replace("order-", ""))
-            //
-            if (typeof destination.droppableId === "string" && destination.droppableId?.includes("options")) {
+            // Проверка специальные параметры
+            if (destination.droppableId?.includes("options")) {
+                // В корзину
                 if (destination.droppableId === "option-trash") dispatch(hideOrder(orderId))
+                // В архив
                 if (destination.droppableId === "option-archive") dispatch(sendToArchiveOrder(orderId))
             } else {
-                const startStatusId = Number(source.droppableId.replace("drop-", ""))
-                const finishStatusId = Number(destination.droppableId.replace("drop-", ""))
+                // Предыдущий статус / Следующий статус
+                const prevStatusId = Number(source.droppableId.replace("drop-", ""))
+                const nextStatusId = Number(destination.droppableId.replace("drop-", ""))
+
                 // Загрузить обновлении
                 const dispatcher = dispatch(
                     updateStatusOrder({
                         id: orderId,
-                        prevStatusId: startStatusId,
-                        nextStatusId: finishStatusId,
+                        prevStatusId: prevStatusId,
+                        nextStatusId: nextStatusId,
                         position: destination.index,
                         prevPosition: source.index
                     })
                 )
-                // Отменить предыдущее действие
+                // Отменить предыдущие действия
                 setCacheDispatches(prevState => {
+                    // Действия только текущего orderId
                     const caches = prevState.filter(item => item.orderId === orderId)
                     if (caches.length) {
                         caches.map(cache => cache.dispatcher.abort())

@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from "react"
+import React, {useCallback, useRef, useState} from "react"
 import {Draggable} from "react-beautiful-dnd"
 import {Button, Dropdown, Menu, notification, Tooltip} from "antd"
 import {
@@ -106,18 +106,19 @@ const OrderCard: React.FC<OrderCardProps> = ({order, index}) => {
         })
     }
 
-    useEffect(() => {
-        if (order.prev_status_id) {
-            setIsSentMessage(true)
-            timeoutRef.current = setTimeout(() => {
-                dispatch(sendStatusNotification(order.id))
-                setIsSentMessage(false)
-            }, 10000)
-            return () => {
-                cleatTimeoutSendMessage()
-            }
-        }
-    }, [timeoutRef, order, dispatch, cleatTimeoutSendMessage])
+    // useEffect(() => {
+    //     if (order.prev_status_id) {
+    //         console.log(order.id, order.prev_status_id)
+    //         setIsSentMessage(true)
+    //         timeoutRef.current = setTimeout(() => {
+    //             dispatch(sendStatusNotification(order.id))
+    //             setIsSentMessage(false)
+    //         }, 10000)
+    //         return () => {
+    //             cleatTimeoutSendMessage()
+    //         }
+    //     }
+    // }, [timeoutRef, order.prev_status_id, order.id, dispatch, cleatTimeoutSendMessage])
 
     return (
         <Draggable draggableId={`order-${order.id}`} key={order.id} index={index}>

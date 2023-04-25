@@ -105,7 +105,7 @@ export interface AppThunkProps {
     rejectValue?: unknown
 }
 
-export const useDispatch = () => useStoreDispatch<any>()
+export const useDispatch = () => useStoreDispatch<AppDispatch>()
 
 export const store = configureStore({
     reducer: adminReducer,
