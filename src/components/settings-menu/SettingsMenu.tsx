@@ -4,6 +4,7 @@ import {Col, Menu, Row} from "antd"
 import CategorySetting from "../../features/category/category-setting/CategorySetting"
 import TagSetting from "../../features/tag/tag-setting/TagSetting"
 import SourceSetting from "../../features/source/source-setting/SourceSetting"
+import ColorSetting from "../../features/color/color-setting/ColorSetting"
 
 type SettingsType = "site_management" | "general" | "print"
 
@@ -56,7 +57,7 @@ const SettingsMenu = () => {
                 case "tags":
                     return <TagSetting />
                 case "colors":
-                    return <TagSetting />
+                    return <ColorSetting />
                 case "sources":
                     return <SourceSetting />
                 case "sizes":
