@@ -46,6 +46,7 @@ import {productStorageApi} from "./features/product-storage/productStorageApi"
 import {selloCategoryApi} from "./features/sello/category/selloCategoryApi"
 import {staffApi} from "./features/staff/staffApi"
 import {sourceApi} from "./features/source/sourceApi"
+import {newsletterApi} from "./features/newsletter/newsletterApi"
 
 export type StoreState = ReturnType<typeof adminReducer>
 
@@ -95,7 +96,8 @@ export const adminReducer = combineReducers({
     [statisticApi.reducerPath]: statisticApi.reducer,
     [productStorageApi.reducerPath]: productStorageApi.reducer,
     [selloCategoryApi.reducerPath]: selloCategoryApi.reducer,
-    [sourceApi.reducerPath]: sourceApi.reducer
+    [sourceApi.reducerPath]: sourceApi.reducer,
+    [newsletterApi.reducerPath]: newsletterApi.reducer
 })
 
 export type AppDispatch = typeof store.dispatch
@@ -130,4 +132,5 @@ export const store = configureStore({
             .concat(selloCategoryApi.middleware)
             .concat(staffApi.middleware)
             .concat(sourceApi.middleware)
+            .concat(newsletterApi.middleware)
 })
