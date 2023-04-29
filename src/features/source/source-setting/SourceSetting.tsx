@@ -46,7 +46,7 @@ const SourceSetting = () => {
                     </Button>
                 </EditorSourceAction>
             </HeaderSettingTable>
-            <Table columns={columns} rowKey="id" loading={isLoading} dataSource={data} />
+            <Table columns={columns} rowKey="id" loading={isLoading} dataSource={data} pagination={false} />
         </>
     )
 }
