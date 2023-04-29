@@ -3,6 +3,7 @@ import {useHistory, useParams} from "react-router-dom"
 import {Col, Menu, Row} from "antd"
 import CategorySetting from "../../features/category/category-setting/CategorySetting"
 import TagSetting from "../../features/tag/tag-setting/TagSetting"
+import SourceSetting from "../../features/source/source-setting/SourceSetting"
 
 type SettingsType = "site_management" | "general" | "print"
 
@@ -57,7 +58,7 @@ const SettingsMenu = () => {
                 case "colors":
                     return <TagSetting />
                 case "sources":
-                    return <TagSetting />
+                    return <SourceSetting />
                 case "sizes":
                     return <TagSetting />
                 case "newsletter":
