@@ -39,6 +39,7 @@ const SettingsMenu = () => {
                 case "banners":
                     return <TagSetting />
                 case "lookbook":
+                    return <TagSetting />
             }
         } else if (params.category === "print") {
             switch (params.setting) {
