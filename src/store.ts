@@ -45,6 +45,14 @@ import {orderProductApi} from "./features/order-product/orderProductApi"
 import {productStorageApi} from "./features/product-storage/productStorageApi"
 import {selloCategoryApi} from "./features/sello/category/selloCategoryApi"
 import {staffApi} from "./features/staff/staffApi"
+import {sourceApi} from "./features/source/sourceApi"
+import {newsletterApi} from "./features/newsletter/newsletterApi"
+import {promocodeApi} from "./features/promo-code/promocodeApi"
+import {bannerApi} from "./features/banner/bannerApi"
+import {lookbookApi} from "./features/lookbook/lookbookApi"
+import {printCategoryApi} from "./features/print-category/printCategoryApi"
+import {printProductApi} from "./features/print-product/printProductApi"
+import {printImageApi} from "./features/print-image/printImageApi"
 
 export type StoreState = ReturnType<typeof adminReducer>
 
@@ -93,7 +101,15 @@ export const adminReducer = combineReducers({
     [photoApi.reducerPath]: photoApi.reducer,
     [statisticApi.reducerPath]: statisticApi.reducer,
     [productStorageApi.reducerPath]: productStorageApi.reducer,
-    [selloCategoryApi.reducerPath]: selloCategoryApi.reducer
+    [selloCategoryApi.reducerPath]: selloCategoryApi.reducer,
+    [sourceApi.reducerPath]: sourceApi.reducer,
+    [newsletterApi.reducerPath]: newsletterApi.reducer,
+    [promocodeApi.reducerPath]: promocodeApi.reducer,
+    [bannerApi.reducerPath]: bannerApi.reducer,
+    [lookbookApi.reducerPath]: lookbookApi.reducer,
+    [printCategoryApi.reducerPath]: printCategoryApi.reducer,
+    [printProductApi.reducerPath]: printProductApi.reducer,
+    [printImageApi.reducerPath]: printImageApi.reducer,
 })
 
 export type AppDispatch = typeof store.dispatch
@@ -127,4 +143,12 @@ export const store = configureStore({
             .concat(productStorageApi.middleware)
             .concat(selloCategoryApi.middleware)
             .concat(staffApi.middleware)
+            .concat(sourceApi.middleware)
+            .concat(newsletterApi.middleware)
+            .concat(promocodeApi.middleware)
+            .concat(bannerApi.middleware)
+            .concat(lookbookApi.middleware)
+            .concat(printCategoryApi.middleware)
+            .concat(printProductApi.middleware)
+            .concat(printImageApi.middleware)
 })

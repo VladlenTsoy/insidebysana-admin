@@ -3,6 +3,17 @@ import {useHistory, useParams} from "react-router-dom"
 import {Col, Menu, Row} from "antd"
 import CategorySetting from "../../features/category/category-setting/CategorySetting"
 import TagSetting from "../../features/tag/tag-setting/TagSetting"
+import SourceSetting from "../../features/source/source-setting/SourceSetting"
+import ColorSetting from "../../features/color/color-setting/ColorSetting"
+import SizeSetting from "../../features/size/size-setting/SizeSetting"
+import NewsletterSetting from "../../features/newsletter/newsletter-setting/NewsletterSetting"
+import PromocodeSetting from "../../features/promo-code/promocode-setting/PromocodeSetting"
+import AdditionalServiceSetting
+    from "../../features/additional-service/additional-service-setting/AdditionalServiceSetting"
+import BannerSetting from "../../features/banner/banner-setting/BannerSetting"
+import LookbookSetting from "../../features/lookbook/lookbook-setting/LookbookSetting"
+import PrintCategorySetting from "../../features/print-category/print-category-setting/PrintCategorySetting"
+import PrintProductSetting from "../../features/print-product/print-product-setting/PrintProductSetting"
 
 type SettingsType = "site_management" | "general" | "print"
 
@@ -37,15 +48,16 @@ const SettingsMenu = () => {
         if (params.category === "site_management") {
             switch (params.setting) {
                 case "banners":
-                    return <TagSetting />
+                    return <BannerSetting />
                 case "lookbook":
+                    return <LookbookSetting />
             }
         } else if (params.category === "print") {
             switch (params.setting) {
                 case "categories":
-                    return <TagSetting />
+                    return <PrintCategorySetting />
                 case "images":
-                    return <TagSetting />
+                    return <PrintProductSetting />
             }
         } else {
             switch (params.setting) {
@@ -54,17 +66,17 @@ const SettingsMenu = () => {
                 case "tags":
                     return <TagSetting />
                 case "colors":
-                    return <TagSetting />
+                    return <ColorSetting />
                 case "sources":
-                    return <TagSetting />
+                    return <SourceSetting />
                 case "sizes":
-                    return <TagSetting />
+                    return <SizeSetting />
                 case "newsletter":
-                    return <TagSetting />
+                    return <NewsletterSetting />
                 case "promo-codes":
-                    return <TagSetting />
+                    return <PromocodeSetting />
                 case "additional-services":
-                    return <TagSetting />
+                    return <AdditionalServiceSetting />
             }
         }
     }, [params])
