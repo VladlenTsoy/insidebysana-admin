@@ -11,6 +11,7 @@ import PromocodeSetting from "../../features/promo-code/promocode-setting/Promoc
 import AdditionalServiceSetting
     from "../../features/additional-service/additional-service-setting/AdditionalServiceSetting"
 import BannerSetting from "../../features/banner/banner-setting/BannerSetting"
+import LookbookSetting from "../../features/lookbook/lookbook-setting/LookbookSetting"
 
 type SettingsType = "site_management" | "general" | "print"
 
@@ -47,7 +48,7 @@ const SettingsMenu = () => {
                 case "banners":
                     return <BannerSetting />
                 case "lookbook":
-                    return <TagSetting />
+                    return <LookbookSetting />
             }
         } else if (params.category === "print") {
             switch (params.setting) {
