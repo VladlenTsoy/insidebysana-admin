@@ -12,6 +12,7 @@ import AdditionalServiceSetting
     from "../../features/additional-service/additional-service-setting/AdditionalServiceSetting"
 import BannerSetting from "../../features/banner/banner-setting/BannerSetting"
 import LookbookSetting from "../../features/lookbook/lookbook-setting/LookbookSetting"
+import PrintCategorySetting from "../../features/print-category/print-category-setting/PrintCategorySetting"
 
 type SettingsType = "site_management" | "general" | "print"
 
@@ -53,7 +54,7 @@ const SettingsMenu = () => {
         } else if (params.category === "print") {
             switch (params.setting) {
                 case "categories":
-                    return <TagSetting />
+                    return <PrintCategorySetting />
                 case "images":
                     return <TagSetting />
             }
