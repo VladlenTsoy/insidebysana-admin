@@ -7,3 +7,12 @@ export interface PromoCode {
     client_id: number
     end_at: string
 }
+
+export interface CreatePromoCodeType {
+
+}
+
+export interface EditPromoCodeType {
+    data: any
+    id: PromoCode["id"]
+}
