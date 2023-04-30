@@ -10,6 +10,7 @@ import NewsletterSetting from "../../features/newsletter/newsletter-setting/News
 import PromocodeSetting from "../../features/promo-code/promocode-setting/PromocodeSetting"
 import AdditionalServiceSetting
     from "../../features/additional-service/additional-service-setting/AdditionalServiceSetting"
+import BannerSetting from "../../features/banner/banner-setting/BannerSetting"
 
 type SettingsType = "site_management" | "general" | "print"
 
@@ -44,7 +45,7 @@ const SettingsMenu = () => {
         if (params.category === "site_management") {
             switch (params.setting) {
                 case "banners":
-                    return <TagSetting />
+                    return <BannerSetting />
                 case "lookbook":
                     return <TagSetting />
             }
