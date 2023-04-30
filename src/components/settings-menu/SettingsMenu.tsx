@@ -7,6 +7,7 @@ import SourceSetting from "../../features/source/source-setting/SourceSetting"
 import ColorSetting from "../../features/color/color-setting/ColorSetting"
 import SizeSetting from "../../features/size/size-setting/SizeSetting"
 import NewsletterSetting from "../../features/newsletter/newsletter-setting/NewsletterSetting"
+import PromocodeSetting from "../../features/promo-code/promocode-setting/PromocodeSetting"
 
 type SettingsType = "site_management" | "general" | "print"
 
@@ -67,7 +68,7 @@ const SettingsMenu = () => {
                 case "newsletter":
                     return <NewsletterSetting />
                 case "promo-codes":
-                    return <TagSetting />
+                    return <PromocodeSetting />
                 case "additional-services":
                     return <TagSetting />
             }
