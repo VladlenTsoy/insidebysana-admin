@@ -8,6 +8,8 @@ import ColorSetting from "../../features/color/color-setting/ColorSetting"
 import SizeSetting from "../../features/size/size-setting/SizeSetting"
 import NewsletterSetting from "../../features/newsletter/newsletter-setting/NewsletterSetting"
 import PromocodeSetting from "../../features/promo-code/promocode-setting/PromocodeSetting"
+import AdditionalServiceSetting
+    from "../../features/additional-service/additional-service-setting/AdditionalServiceSetting"
 
 type SettingsType = "site_management" | "general" | "print"
 
@@ -70,7 +72,7 @@ const SettingsMenu = () => {
                 case "promo-codes":
                     return <PromocodeSetting />
                 case "additional-services":
-                    return <TagSetting />
+                    return <AdditionalServiceSetting />
             }
         }
     }, [params])
