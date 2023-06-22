@@ -53,6 +53,7 @@ import {lookbookApi} from "./features/lookbook/lookbookApi"
 import {printCategoryApi} from "./features/print-category/printCategoryApi"
 import {printProductApi} from "./features/print-product/printProductApi"
 import {printImageApi} from "./features/print-image/printImageApi"
+import {clientsApi} from "./features/clients/clientsApi";
 
 export type StoreState = ReturnType<typeof adminReducer>
 
@@ -110,6 +111,7 @@ export const adminReducer = combineReducers({
     [printCategoryApi.reducerPath]: printCategoryApi.reducer,
     [printProductApi.reducerPath]: printProductApi.reducer,
     [printImageApi.reducerPath]: printImageApi.reducer,
+    [clientsApi.reducerPath]: clientsApi.reducer,
 })
 
 export type AppDispatch = typeof store.dispatch
@@ -151,4 +153,5 @@ export const store = configureStore({
             .concat(printCategoryApi.middleware)
             .concat(printProductApi.middleware)
             .concat(printImageApi.middleware)
+            .concat(clientsApi.middleware)
 })
