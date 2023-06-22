@@ -1,7 +1,7 @@
 import React from "react"
 import {Col, Form, Input, Row, Select, DatePicker} from "antd"
 import {Client} from "types/Client"
-import {emailRules} from "utils/formRules"
+import {emailRules, passwordRules} from "utils/formRules"
 import {useCreateClientMutation, useUpdateClientMutation} from "../clientsApi"
 import moment from "moment"
 
@@ -51,11 +51,20 @@ const EditorClients: React.FC<EditorClientsProps> = ({client, setLoading, close}
                     <Form.Item
                         label="Телефон"
                         name="phone"
-                        rules={[{required: true, message: "Номер телефона"}]}
+                        rules={[{required: true, message: "Введите номер телефона"}]}
                     >
                         <Input />
                     </Form.Item>
                     <Form.Item
+                        label="Пароль"
+                        name="password"
+                        rules={passwordRules({required: !client})}
+                    >
+                        <Input.Password />
+                    </Form.Item>
+                </Col>
+                <Col xl={12} md={12} xs={24}>
+                <Form.Item
                         label="Дата рождения"
                         name="date_of_birth"
                         rules={[{required: false, message: "Дата рождения"}]}
@@ -65,19 +74,10 @@ const EditorClients: React.FC<EditorClientsProps> = ({client, setLoading, close}
                         format={'DD/MM/YYYY'}
                         />
                     </Form.Item>
-                </Col>
-                <Col xl={12} md={12} xs={24}>
                     <Form.Item
                         label="Facebook"
                         name="facebook"
                         rules={[{required: false, message: "Facebook"}]}
-                    >
-                        <Input />
-                    </Form.Item>
-                    <Form.Item
-                        label="Telegram"
-                        name="telegram"
-                        rules={[{required: false, message: "Telegram"}]}
                     >
                         <Input />
                     </Form.Item>
@@ -94,6 +94,19 @@ const EditorClients: React.FC<EditorClientsProps> = ({client, setLoading, close}
                         label="Откуда"
                         name="source_id"
                         rules={[{required: false}]}
+                    >
+                        <Select>
+                            <Option value="1">Facebook</Option>
+                            <Option value="2">Instagram</Option>
+                            <Option value="3">Сайт</Option>
+                        </Select>
+                    </Form.Item>
+                </Col>
+                <Col xl={12} md={12} xs={24}>
+                <Form.Item
+                        label="Telegram"
+                        name="telegram"
+                        rules={[{required: false, message: "Telegram"}]}
                     >
                         <Input />
                     </Form.Item>

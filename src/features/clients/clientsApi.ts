@@ -20,17 +20,16 @@ interface GetAllProps {
 }
 
 interface CreateProps {
-    data: {
-        id: number
-        full_name: string
-        phone: string
-        email: string
-        instagram: string
-        facebook: string
-        telegram: string
-        date_of_birth: string
-        created_at: string
-    }
+    id: number
+    full_name: string
+    phone: string
+    email?: string
+    password?: string
+    instagram: string
+    facebook: string
+    telegram: string
+    date_of_birth: string
+    created_at: string
 }
 
 interface UpdateProps {
@@ -40,6 +39,7 @@ interface UpdateProps {
         full_name: string
         phone: string
         email: string
+        password?: string
         instagram: string
         facebook: string
         telegram: string

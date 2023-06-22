@@ -56,8 +56,17 @@ const columns = [
     },
     {
         title: "Откуда",
-        dataIndex: "source",
-        key: "source",
+        dataIndex: "source_id",
+        key: "source_id",
+        render: (source_id: string) => {if (source_id === '3') {
+                return 'Сайт'
+            } else if (source_id === '2') {
+                return 'Instagram'
+            } else if (source_id === '1') {
+                return 'Facebook'
+            }
+
+        }
     },
     {
         title: "Дата рождения",
