@@ -109,7 +109,6 @@ const ClientsTable = () => {
         })
         setPagination(pagination)
     }
-    console.log(data)
 
     return (
         <>
