@@ -6,6 +6,7 @@ import {useUser} from "hooks/use-user"
 import Layout from "./layouts/Layout"
 import Auth from "./features/user/auth/Auth"
 import LoadingBlock from "./components/loading-block/LoadingBlock"
+import Client from "pages/clients/client"
 
 const Home = React.lazy(() => import("./pages/home"))
 const Orders = React.lazy(() => import("./pages/orders/orders"))
@@ -16,7 +17,7 @@ const Products = React.lazy(() => import("./pages/products"))
 const Product = React.lazy(() => import("./pages/product"))
 const Settings = React.lazy(() => import("./pages/settings"))
 const Staff = React.lazy(() => import("./pages/staff"))
-const Clients = React.lazy(() => import("./pages/clients"))
+const Clients = React.lazy(() => import("./pages/clients/clients"))
 
 const App = () => {
     const {user} = useUser()
@@ -44,6 +45,7 @@ const App = () => {
                                         <Route exact path="/settings/:category/:setting" component={Settings} />
                                         <Route exact path="/staff" component={Staff} />
                                         <Route exact path="/clients" component={Clients} />
+                                        <Route exact path="/clients/client/:id" component={Client} />
                                     </React.Suspense>
                                 </Layout>
                             ) : (
