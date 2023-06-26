@@ -6,6 +6,7 @@ import EditorClientsAction from "../editor-clients-action/EditorClientsAction";
 import {EditOutlined} from "@ant-design/icons";
 import {Client} from "../../../types/Client";
 import MenuButton from "../../../components/menu-button/MenuButton";
+import { Link } from "react-router-dom";
 
 const {Search} = Input
 
@@ -18,6 +19,14 @@ const menu = (client: Client) => (
                 </div>
             </EditorClientsAction>
         </Menu.Item>
+        <Menu.Item>
+            <Link to={{
+                    pathname: "/clients/client/" + client.id,
+                    state: client.id 
+                }}>
+                Подробнее
+            </Link>
+        </Menu.Item>
     </Menu>
 )
 
@@ -26,7 +35,17 @@ const columns = [
         title: "Имя",
         dataIndex: "full_name",
         key: "full_name",
-        sorter: true
+        sorter: true,
+        render: (title: string, record: any) => (
+            <>
+                <Link to={{
+                    pathname: "/clients/client/" + record.id,
+                    state: record.id 
+                }}>
+                    {title}
+                </Link>
+            </>
+        )
     },
     {
         title: "Телефон",
