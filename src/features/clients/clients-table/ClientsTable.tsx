@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import {Input, Menu, Table, Tag} from "antd"
+import {Input, Menu, Table} from "antd"
 import {formatDate} from "utils/formatDate"
 import {useGetAllClientsQuery} from "../clientsApi"
 import EditorClientsAction from "../editor-clients-action/EditorClientsAction";
