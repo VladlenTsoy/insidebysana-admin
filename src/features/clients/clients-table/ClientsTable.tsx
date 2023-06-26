@@ -19,6 +19,14 @@ const menu = (client: Client) => (
                 </div>
             </EditorClientsAction>
         </Menu.Item>
+        <Menu.Item>
+            <Link to={{
+                    pathname: "/clients/client/" + client.id,
+                    state: client.id 
+                }}>
+                Подробнее
+            </Link>
+        </Menu.Item>
     </Menu>
 )
 
@@ -30,7 +38,12 @@ const columns = [
         sorter: true,
         render: (title: string, record: any) => (
             <>
-            <Link to={"clients/client/" + record.id}>{title}</Link>
+                <Link to={{
+                    pathname: "/clients/client/" + record.id,
+                    state: record.id 
+                }}>
+                    {title}
+                </Link>
             </>
         )
     },
