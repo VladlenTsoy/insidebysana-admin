@@ -51,7 +51,7 @@ interface UpdateProps {
 export const clientsApi = createApi({
     reducerPath: "clientsApi",
     baseQuery,
-    tagTypes: ["clients"],
+    tagTypes: ["clients", "client"],
     endpoints: build => ({
         // Получить клиентов
         getAllClients: build.query<GetAllType, Partial<GetAllProps>>({
@@ -78,9 +78,17 @@ export const clientsApi = createApi({
                 method: "PATCH",
                 body: data
             }),
-            invalidatesTags: ["clients"]
+            invalidatesTags: ["clients", "client"]
+        }),
+
+        getClient: build.query({
+            query: id => ({
+                url: `user/admin/client/${id}`,
+                method: "GET"
+            }),
+            providesTags: ["client"]
         })
     })
 })
 
-export const {useGetAllClientsQuery, useCreateClientMutation, useUpdateClientMutation} = clientsApi
+export const {useGetAllClientsQuery, useCreateClientMutation, useUpdateClientMutation, useGetClientQuery} = clientsApi

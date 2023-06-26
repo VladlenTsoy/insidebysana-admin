@@ -16,7 +16,8 @@ const Products = React.lazy(() => import("./pages/products"))
 const Product = React.lazy(() => import("./pages/product"))
 const Settings = React.lazy(() => import("./pages/settings"))
 const Staff = React.lazy(() => import("./pages/staff"))
-const Clients = React.lazy(() => import("./pages/clients"))
+const Clients = React.lazy(() => import("./pages/clients/clients"))
+const clientProfile = React.lazy(() => import("./pages/clients/clientProfile"))
 
 const App = () => {
     const {user} = useUser()
@@ -44,6 +45,7 @@ const App = () => {
                                         <Route exact path="/settings/:category/:setting" component={Settings} />
                                         <Route exact path="/staff" component={Staff} />
                                         <Route exact path="/clients" component={Clients} />
+                                        <Route exact path="/clients/client/:id" component={clientProfile} />
                                     </React.Suspense>
                                 </Layout>
                             ) : (
