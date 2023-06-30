@@ -8,6 +8,7 @@ import HeaderPage from 'layouts/header-page/HeaderPage';
 import EditorClientsAction from 'features/clients/editor-clients-action/EditorClientsAction';
 import { EditOutlined, UserOutlined } from '@ant-design/icons';
 import ClientInfo from 'features/clients/client-info/clientInfo';
+import ClientOrders from 'features/clients/client-orders/ClientOrders';
 
 const ClientProfile = () => {
     const params = useParams<{id: string}>()
@@ -31,6 +32,7 @@ const ClientProfile = () => {
             />
             <Container>
                 <ClientInfo client={data}/>
+                <ClientOrders />
             </Container>
         </>
     )

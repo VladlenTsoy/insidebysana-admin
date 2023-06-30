@@ -80,15 +80,22 @@ export const clientsApi = createApi({
             }),
             invalidatesTags: ["clients", "client"]
         }),
-
+        // Получить клиента
         getClient: build.query({
             query: id => ({
                 url: `user/admin/client/${id}`,
                 method: "GET"
             }),
             providesTags: ["client"]
+        }),
+        // Получить заказы клиента
+        getClientOrders: build.query({
+            query: id => ({
+                url: `user/admin/client/${id}/orders`,
+                method: "GET"
+            }),
         })
     })
 })
 
-export const {useGetAllClientsQuery, useCreateClientMutation, useUpdateClientMutation, useGetClientQuery} = clientsApi
+export const {useGetAllClientsQuery, useCreateClientMutation, useUpdateClientMutation, useGetClientQuery, useGetClientOrdersQuery} = clientsApi
