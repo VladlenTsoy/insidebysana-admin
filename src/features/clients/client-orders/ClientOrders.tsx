@@ -66,18 +66,16 @@ const ClientOrders = () => {
     
     return (
     <>
-        <h2>Заказы</h2>
-        <>
-            <Table
-                loading={isLoading}
-                scroll={{x: "100%"}}
-                rowKey="id"
-                dataSource={data}
-                columns={columns}
-                pagination={{...pagination, total: data?.total}}
-                onChange={onChangeHandler}
-            />
-        </>
+        <Table
+            loading={isLoading}
+            scroll={{x: "100%"}}
+            rowKey="id"
+            dataSource={data}
+            columns={columns}
+            pagination={{...pagination, total: data?.total}}
+            onChange={onChangeHandler}
+            style={{marginBottom: '50px'}}
+        />
     </>
     )
 }

@@ -11,7 +11,10 @@ interface ClientInfoProps {
 const ClientInfo: React.FC<ClientInfoProps> = ({client}) => {
 
     return (
-        <Descriptions layout="vertical" bordered style={{marginBottom: '50px'}}>
+        <Descriptions 
+            layout="vertical" bordered
+            style={{marginBottom: "2rem"}}
+        >
             <Descriptions.Item label="Имя">{client?.full_name}</Descriptions.Item>
             <Descriptions.Item label="Email">{client?.email}</Descriptions.Item>
             <Descriptions.Item label="Телефон">{formatPhone(client?.phone ?? '')}</Descriptions.Item>

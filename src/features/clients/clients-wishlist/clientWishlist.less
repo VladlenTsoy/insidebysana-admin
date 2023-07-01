@@ -1,0 +1,33 @@
+.title-block {
+    .title {
+        display: flex;
+        align-items: center;
+        font-size: @font-size-lg;
+        font-weight: 500;
+        margin-bottom: 0.25rem;
+
+        .is-new {
+            font-size: @font-size-sm - 2;
+            background-color: fade(@primary-color, 20%);
+            color: @primary-color;
+            padding: 0.1rem 0.3rem;
+            border-radius: 10px;
+            margin-left: 0.5rem;
+        }
+    }
+
+    .color-hex-block {
+        display: flex;
+        align-items: center;
+        font-size: @font-size-sm;
+
+        .color-hex-circle {
+            display: inline-block;
+            height: 20px;
+            width: 20px;
+            margin-right: 0.5rem;
+            border-radius: 50%;
+            box-shadow: 0 2.5px 5px 0 rgb(0 0 0 / 10%);
+        }
+    }
+}
