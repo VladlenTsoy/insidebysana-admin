@@ -1,12 +1,14 @@
 import React, {useState} from "react"
 import {Input, Menu, Table} from "antd"
-import {formatDate} from "utils/formatDate"
-import {useGetAllClientsQuery} from "../clientsApi"
-import EditorClientsAction from "../editor-clients-action/EditorClientsAction";
-import {EditOutlined} from "@ant-design/icons";
-import {Client} from "../../../types/Client";
-import MenuButton from "../../../components/menu-button/MenuButton";
 import { Link } from "react-router-dom";
+import { formatDate } from "utils/formatDate"
+import { formatPhone } from "utils/formatPhone";
+import { useGetAllClientsQuery } from "../clientsApi"
+import EditorClientsAction from "../editor-clients-action/EditorClientsAction";
+import { EditOutlined } from "@ant-design/icons";
+import { Client } from "../../../types/Client";
+import MenuButton from "../../../components/menu-button/MenuButton";
+import SourceRowBlock from "components/orders-table-block/SourceRowBlock";
 
 const {Search} = Input
 
@@ -22,7 +24,7 @@ const menu = (client: Client) => (
         <Menu.Item>
             <Link to={{
                     pathname: "/clients/client/" + client.id,
-                    state: client.id 
+                    state: client.id
                 }}>
                 Подробнее
             </Link>
@@ -50,7 +52,8 @@ const columns = [
     {
         title: "Телефон",
         dataIndex: "phone",
-        key: "phone"
+        key: "phone",
+        render: (phone: string) => formatPhone(phone)
     },
     {
         title: "Почта",
@@ -77,15 +80,7 @@ const columns = [
         title: "Откуда",
         dataIndex: "source_id",
         key: "source_id",
-        render: (source_id: string) => {if (source_id === '3') {
-                return 'Сайт'
-            } else if (source_id === '2') {
-                return 'Instagram'
-            } else if (source_id === '1') {
-                return 'Facebook'
-            }
-
-        }
+        render: (source_id: string) => <SourceRowBlock sourdeId={+source_id}/>
     },
     {
         title: "Дата рождения",
