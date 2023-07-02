@@ -15,7 +15,7 @@ const columns = [
         title: "Менеджер",
         dataIndex: "user",
         key: "user",
-        render: (user: any) => user.full_name
+        render: (user: any) => user?.full_name
     },
     {
         title: "Статус оплаты",

@@ -32,7 +32,7 @@ const columns = [
         render: (_: any, product: any) => (
             <PriceBlock
                 price={product.price}
-                discount={product.discount ? {discount: product.discount} : undefined}
+                discount={product?.discount?.discount ? {discount: product?.discount?.discount} : undefined}
             />
         )
     },
