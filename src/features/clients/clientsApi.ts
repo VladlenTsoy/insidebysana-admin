@@ -80,15 +80,44 @@ export const clientsApi = createApi({
             }),
             invalidatesTags: ["clients", "client"]
         }),
-
+        // Получить клиента
         getClient: build.query({
             query: id => ({
                 url: `user/admin/client/${id}`,
                 method: "GET"
             }),
             providesTags: ["client"]
+        }),
+        // Получить заказы клиента
+        getClientOrders: build.query({
+            query: id => ({
+                url: `user/admin/client/${id}/orders`,
+                method: "GET"
+            }),
+        }),
+        // Получить избранное клиента
+        getClientWishlist: build.query({
+            query: id => ({
+                url: `user/admin/client/${id}/wishlist`,
+                method: "GET"
+            }),
+        }),
+        // Получить корзину клиента
+        getClientCart: build.query({
+            query: id => ({
+                url: `user/admin/client/${id}/cart`,
+                method: "GET"
+            })
         })
     })
 })
 
-export const {useGetAllClientsQuery, useCreateClientMutation, useUpdateClientMutation, useGetClientQuery} = clientsApi
+export const {
+    useGetAllClientsQuery,
+    useCreateClientMutation,
+    useUpdateClientMutation,
+    useGetClientQuery,
+    useGetClientOrdersQuery,
+    useGetClientWishlistQuery,
+    useGetClientCartQuery
+} = clientsApi

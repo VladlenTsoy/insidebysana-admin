@@ -1,11 +1,10 @@
 import React from "react"
-import {Col, Form, Input, Row, Select, DatePicker} from "antd"
+import {Col, Form, Input, Row, DatePicker} from "antd"
 import {Client} from "types/Client"
 import {emailRules, passwordRules} from "utils/formRules"
 import {useCreateClientMutation, useUpdateClientMutation} from "../clientsApi"
 import moment from "moment"
-
-const {Option} = Select
+import SelectSource from "features/source/select-source/SelectSource"
 
 interface EditorClientsProps {
     setLoading: any
@@ -91,15 +90,10 @@ const EditorClients: React.FC<EditorClientsProps> = ({client, setLoading, close}
                         <Input />
                     </Form.Item>
                     <Form.Item
-                        label="Откуда"
                         name="source_id"
                         rules={[{required: false}]}
                     >
-                        <Select>
-                            <Option value="1">Facebook</Option>
-                            <Option value="2">Instagram</Option>
-                            <Option value="3">Сайт</Option>
-                        </Select>
+                        <SelectSource />
                     </Form.Item>
                 </Col>
                 <Col xl={12} md={12} xs={24}>
