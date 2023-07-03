@@ -1,5 +1,5 @@
 import React from "react"
-import {Button, Typography} from "antd"
+import {Button, Tabs} from "antd"
 import {useParams} from "react-router-dom"
 import {useGetClientQuery} from "features/clients/clientsApi"
 import LoadingBlock from "components/loading-block/LoadingBlock"
@@ -12,7 +12,7 @@ import ClientWishlist from "features/clients/clients-wishlist/ClientWishlist"
 import Container from "layouts/container/Container"
 import ClientCart from "features/clients/client-cart/ClientCart"
 
-const {Title} = Typography
+const { TabPane } = Tabs;
 
 const ClientProfile = () => {
     const params = useParams<{id: string}>()
@@ -20,7 +20,17 @@ const ClientProfile = () => {
 
     if (isLoading) return <LoadingBlock title="Загрузка страницы..." />
 
-    return (
+    if (!data) {
+        return (
+            <>
+                <HeaderPage
+                    title="Клиента не существует"
+                    tabs
+                />
+            </>  
+        )
+    } else {
+         return (
         <>
             <HeaderPage
                 title="Информация о клиенте"
@@ -35,15 +45,21 @@ const ClientProfile = () => {
             />
             <Container>
                 <ClientInfo client={data} />
-                <Title level={5} style={{marginBottom: "1.5rem"}}>Заказы</Title>
-                <ClientOrders />
-                <Title level={5} style={{marginTop: "1rem", marginBottom: "1.5rem"}}>Избранное</Title>
-                <ClientWishlist />
-                <Title level={5} style={{marginTop: "1rem", marginBottom: "1.5rem"}}>Корзина</Title>
-                <ClientCart />
+                <Tabs defaultActiveKey="1">
+                    <TabPane tab="Сделки" key="1">
+                        <ClientOrders/>
+                    </TabPane>
+                    <TabPane tab="Избранное" key="2">
+                        <ClientWishlist/>
+                    </TabPane>
+                    <TabPane tab="Корзина" key="3">
+                        <ClientCart/>
+                    </TabPane>
+                </Tabs>
             </Container>
         </>
     )
+    }
 }
 
 
