@@ -1,22 +1,10 @@
 import {createApi} from "@reduxjs/toolkit/query/react"
 import baseQuery from "utils/apiConfig"
-import {Client} from "types/Client"
+import {Client, SelectClientsFilterParams} from "types/Client"
 
 type GetAllType = {
     total: number
     results: Client[]
-}
-
-interface GetAllProps {
-    search: string
-    pagination: {
-        current: number
-        pageSize: number
-    }
-    sorter: {
-        field: string | string[]
-        order: string
-    }
 }
 
 interface CreateProps {
@@ -54,13 +42,21 @@ export const clientsApi = createApi({
     tagTypes: ["clients", "client"],
     endpoints: build => ({
         // Получить клиентов
-        getAllClients: build.query<GetAllType, Partial<GetAllProps>>({
+        getAllClients: build.query<GetAllType, SelectClientsFilterParams>({
             query: data => ({
                 url: `user/admin/clients/table`,
                 method: "POST",
                 body: data
             }),
             providesTags: ["clients"]
+        }),
+        createQuery: build.mutation<GetAllType, SelectClientsFilterParams>({
+            query: data => ({
+                url: `user/admin/clients/table`,
+                method: "POST",
+                body: data
+            }),
+            invalidatesTags: ["clients"],
         }),
         // Создать клиента
         createClient: build.mutation<Client, Partial<CreateProps>>({
@@ -114,6 +110,7 @@ export const clientsApi = createApi({
 
 export const {
     useGetAllClientsQuery,
+    useCreateQueryMutation,
     useCreateClientMutation,
     useUpdateClientMutation,
     useGetClientQuery,

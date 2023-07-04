@@ -1,14 +1,15 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import {Input, Menu, Table} from "antd"
 import { Link } from "react-router-dom";
 import { formatDate } from "utils/formatDate"
 import { formatPhone } from "utils/formatPhone";
-import { useGetAllClientsQuery } from "../clientsApi"
+import { useCreateQueryMutation, useGetAllClientsQuery } from "../clientsApi"
 import EditorClientsAction from "../editor-clients-action/EditorClientsAction";
 import { EditOutlined } from "@ant-design/icons";
 import { Client } from "../../../types/Client";
 import MenuButton from "../../../components/menu-button/MenuButton";
 import SourceRowBlock from "components/orders-table-block/SourceRowBlock";
+import { useGetParams } from "features/clients/useGetParams";
 
 const {Search} = Input
 
@@ -37,7 +38,7 @@ const columns = [
         title: "Имя",
         dataIndex: "full_name",
         key: "full_name",
-        sorter: true,
+        sorter: (a: any, b: any) => a.full_name.localeCompare(b.full_name),
         render: (title: string, record: any) => (
             <>
                 <Link to={{
@@ -86,7 +87,6 @@ const columns = [
         title: "Дата рождения",
         dataIndex: "date_of_birth",
         key: "date_of_birth",
-        sorter: true,
         defaultSortOrder: "descend" as "descend",
         render: (created: string) => formatDate(created)
     },
@@ -94,7 +94,6 @@ const columns = [
         title: "Дата создания",
         dataIndex: "created_at",
         key: "created_at",
-        sorter: true,
         defaultSortOrder: "descend" as "descend",
         render: (created: string) => formatDate(created)
     },
@@ -104,25 +103,24 @@ const columns = [
 ]
 
 const ClientsTable = () => {
-    const [search, setSearch] = useState("")
-    const [sorter, setSorter] = useState({
-        field: "created_at",
-        order: "descend"
-    })
-    const [pagination, setPagination] = useState({current: 1, pageSize: 20})
-    const {data, isLoading} = useGetAllClientsQuery({search, sorter, pagination})
+    const {params, updateParams} = useGetParams()
+    const {data, isLoading} = useGetAllClientsQuery(params)
+    const [fetchAllClients] = useCreateQueryMutation()
 
     const onSearchHandler = (val: string) => {
-        setSearch(val)
+        updateParams("search", val)
+    }
+    
+    const onChangeHandler = (pagination: any) => {
+        updateParams("pagination", pagination)
     }
 
-    const onChangeHandler = (pagination: any, filters: any, sorter: any) => {
-        setSorter({
-            field: sorter.field,
-            order: sorter.order
-        })
-        setPagination(pagination)
-    }
+    useEffect(() => {
+        const promise = fetchAllClients(params)
+        return () => {
+            promise.abort()
+        }
+    }, [fetchAllClients, params])
 
     return (
         <>
@@ -141,7 +139,7 @@ const ClientsTable = () => {
                     rowKey="id"
                     dataSource={data?.results}
                     columns={columns}
-                    pagination={{...pagination, total: data?.total}}
+                    pagination={{...params.pagination, total: data?.total}}
                     onChange={onChangeHandler}
                 />
             </>

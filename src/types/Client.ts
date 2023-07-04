@@ -13,3 +13,9 @@ export interface Client {
   source: Source
   created_at: string
 }
+
+export interface SelectClientsFilterParams {
+  pagination: {current: number, pageSize: number}
+  search: string
+  sorter: {field: string, order: "ascend" | "descend"}
+}

@@ -41,7 +41,7 @@ const columns = [
         title: "Статус заказа",
         dataIndex: "status",
         key: "status",
-        render: (status: any) => status.title
+        render: (status: any) => status?.title || "Без статуса"
     },
     {
         title: "Дата создания",
