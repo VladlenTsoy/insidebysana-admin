@@ -31,12 +31,6 @@ export const useGetParams = () => {
         pagination: {current, pageSize}
     })
 
-    const checkArray = useCallback((arr: number[], val: number) => {
-        return arr.includes(val)
-            ? arr.filter(_val => _val !== val)
-            : [...arr, Number(val)]
-    }, [])
-
     const updateParams = useCallback(
         (key, val) => {
             const {query} = selectParams(history.location)
@@ -53,7 +47,7 @@ export const useGetParams = () => {
                 search: query.toString()
             })
         },
-        [history, checkArray]
+        [history]
     )
 
     const checkParams = useCallback(location => {

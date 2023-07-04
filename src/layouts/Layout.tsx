@@ -29,7 +29,13 @@ const Layout: React.FC = ({children}) => {
     const dispatch = useDispatch()
     const [collapsed, setCollapsed] = useState(true)
 
-    const onCollapsedHandler = () => setCollapsed(prevState => !prevState)
+    const onCollapsedHandler = () => {
+        setCollapsed(prevState => !prevState )
+    }
+
+    const onCollapsedMenuItems = () => {
+        setCollapsed(prevState => prevState === false ? !prevState : prevState )
+    }
 
     useEffect(() => {
         if (history.listen) {
@@ -52,7 +58,7 @@ const Layout: React.FC = ({children}) => {
                 trigger={null}
                 collapsedWidth={isBreakpoint ? 0 : 80}
             >
-                <Sidebar collapsed={collapsed} />
+                <Sidebar collapsed={collapsed} onCollapsedMenuItems={onCollapsedMenuItems}/>
             </Sider>
             <AntdLayout className={styles.siteLayout}>
                 <Header className={styles.siteLayoutHeader}>
