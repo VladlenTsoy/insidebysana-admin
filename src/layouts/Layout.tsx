@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react"
 import {Button, Layout as AntdLayout} from "antd"
-import {useHistory} from "react-router-dom"
+import {useHistory, useLocation} from "react-router-dom"
 import {useScreenWindow} from "../hooks/use-screen-window.effect"
 import styles from "./Layout.module.less"
 import {useDispatch} from "store"
@@ -28,16 +28,18 @@ const Layout: React.FC = ({children}) => {
     const history = useHistory()
     const dispatch = useDispatch()
     const [collapsed, setCollapsed] = useState(true)
+    const location = useLocation()
 
     const onCollapsedHandler = () => {
         setCollapsed(prevState => !prevState )
     }
-
+    
     const onCollapsedMenuItems = () => {
         setCollapsed(prevState => prevState === false ? !prevState : prevState )
     }
-
+    
     useEffect(() => {
+        setCollapsed(true)
         if (history.listen) {
             const unListen = history.listen((location: any) => {
                 if (Titles[location.pathname]) dispatch(changeTitle(Titles[location.pathname]))
@@ -47,7 +49,7 @@ const Layout: React.FC = ({children}) => {
                 unListen()
             }
         }
-    }, [history, dispatch])
+    }, [history, dispatch, location])
 
     return (
         <AntdLayout className={styles.layout}>
