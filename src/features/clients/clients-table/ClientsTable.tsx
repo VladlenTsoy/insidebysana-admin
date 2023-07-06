@@ -1,5 +1,5 @@
-import React, {useEffect} from "react"
-import {Input, Menu, Table} from "antd"
+import React, { useEffect } from "react"
+import { Input, Menu, Table } from "antd"
 import { Link } from "react-router-dom";
 import { formatDate } from "utils/formatDate"
 import { formatPhone } from "utils/formatPhone";
@@ -10,8 +10,9 @@ import { Client } from "../../../types/Client";
 import MenuButton from "../../../components/menu-button/MenuButton";
 import SourceRowBlock from "components/orders-table-block/SourceRowBlock";
 import { useGetParams } from "features/clients/useGetParams";
+import type { ColumnsType } from "antd/es/table";
 
-const {Search} = Input
+const { Search } = Input
 
 const menu = (client: Client) => (
     <Menu>
@@ -24,26 +25,26 @@ const menu = (client: Client) => (
         </Menu.Item>
         <Menu.Item>
             <Link to={{
-                    pathname: "/clients/client/" + client.id,
-                    state: client.id
-                }}>
+                pathname: "/clients/client/" + client.id + "/orders",
+                state: client.id
+            }}>
                 Подробнее
             </Link>
         </Menu.Item>
     </Menu>
 )
 
-const columns = [
+const columns: ColumnsType<Client> = [
     {
         title: "Имя",
         dataIndex: "full_name",
         key: "full_name",
-        sorter: (a: any, b: any) => a.full_name.localeCompare(b.full_name),
-        render: (title: string, record: any) => (
+        sorter: (a, b) => a.full_name.localeCompare(b.full_name),
+        render: (title, record) => (
             <>
                 <Link to={{
-                    pathname: "/clients/client/" + record.id,
-                    state: record.id 
+                    pathname: "/clients/client/" + record.id + "/orders",
+                    state: record.id
                 }}>
                     {title}
                 </Link>
@@ -54,7 +55,7 @@ const columns = [
         title: "Телефон",
         dataIndex: "phone",
         key: "phone",
-        render: (phone: string) => formatPhone(phone)
+        render: (phone) => formatPhone(phone)
     },
     {
         title: "Почта",
@@ -81,36 +82,36 @@ const columns = [
         title: "Откуда",
         dataIndex: "source_id",
         key: "source_id",
-        render: (source_id: string) => <SourceRowBlock sourdeId={+source_id}/>
+        render: (source_id) => <SourceRowBlock sourdeId={+source_id} />
     },
     {
         title: "Дата рождения",
         dataIndex: "date_of_birth",
         key: "date_of_birth",
         defaultSortOrder: "descend" as "descend",
-        render: (created: string) => formatDate(created)
+        render: (created) => formatDate(created)
     },
     {
         title: "Дата создания",
         dataIndex: "created_at",
         key: "created_at",
         defaultSortOrder: "descend" as "descend",
-        render: (created: string) => formatDate(created)
+        render: (created) => formatDate(created)
     },
     {
-        render: (_: undefined, record: any) => <MenuButton overlay={menu(record)} size="large" />
+        render: (_: undefined, record) => <MenuButton overlay={menu(record)} size="large" />
     }
 ]
 
-const ClientsTable = () => {
-    const {params, updateParams} = useGetParams()
-    const {data, isLoading} = useGetAllClientsQuery(params)
+const ClientsTable: React.FC = () => {
+    const { params, updateParams } = useGetParams()
+    const { data, isLoading } = useGetAllClientsQuery(params)
     const [fetchAllClients] = useCreateQueryMutation()
 
     const onSearchHandler = (val: string) => {
         updateParams("search", val)
     }
-    
+
     const onChangeHandler = (pagination: any) => {
         updateParams("pagination", pagination)
     }
@@ -131,15 +132,15 @@ const ClientsTable = () => {
                     enterButton="Поиск"
                     size="large"
                     onSearch={onSearchHandler}
-                    style={{marginBottom: "1.5rem"}}
+                    style={{ marginBottom: "1.5rem" }}
                 />
                 <Table
                     loading={isLoading}
-                    scroll={{x: "100%"}}
+                    scroll={{ x: "100%" }}
                     rowKey="id"
                     dataSource={data?.results}
                     columns={columns}
-                    pagination={{...params.pagination, total: data?.total}}
+                    pagination={{ ...params.pagination, total: data?.total }}
                     onChange={onChangeHandler}
                 />
             </>
