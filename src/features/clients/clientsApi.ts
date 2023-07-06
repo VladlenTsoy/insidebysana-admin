@@ -1,6 +1,6 @@
 import {createApi} from "@reduxjs/toolkit/query/react"
 import baseQuery from "utils/apiConfig"
-import {Client, SelectClientsFilterParams} from "types/Client"
+import {Client, IClientCart, IClientOrder, IClientWishlist, SelectClientsFilterParams} from "types/Client"
 
 type GetAllType = {
     total: number
@@ -77,7 +77,7 @@ export const clientsApi = createApi({
             invalidatesTags: ["clients", "client"]
         }),
         // Получить клиента
-        getClient: build.query({
+        getClient: build.query<Client, string>({
             query: id => ({
                 url: `user/admin/client/${id}`,
                 method: "GET"
@@ -85,26 +85,26 @@ export const clientsApi = createApi({
             providesTags: ["client"]
         }),
         // Получить заказы клиента
-        getClientOrders: build.query({
+        getClientOrders: build.query<IClientOrder[], string>({
             query: id => ({
                 url: `user/admin/client/${id}/orders`,
                 method: "GET"
             }),
         }),
         // Получить избранное клиента
-        getClientWishlist: build.query({
+        getClientWishlist: build.query<IClientWishlist[], string>({
             query: id => ({
                 url: `user/admin/client/${id}/wishlist`,
                 method: "GET"
             }),
         }),
         // Получить корзину клиента
-        getClientCart: build.query({
+        getClientCart: build.query<IClientCart[], string>({
             query: id => ({
                 url: `user/admin/client/${id}/cart`,
                 method: "GET"
             })
-        })
+        }),
     })
 })
 

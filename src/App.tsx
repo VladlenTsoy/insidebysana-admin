@@ -45,7 +45,8 @@ const App = () => {
                                         <Route exact path="/settings/:category/:setting" component={Settings} />
                                         <Route exact path="/staff" component={Staff} />
                                         <Route exact path="/clients" component={Clients} />
-                                        <Route exact path="/clients/client/:id" component={clientProfile} />
+                                        <Route exact path="/clients/client/:id/" component={clientProfile} />
+                                        <Route exact path="/clients/client/:id/:tab" component={clientProfile} />
                                     </React.Suspense>
                                 </Layout>
                             ) : (
