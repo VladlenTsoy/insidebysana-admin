@@ -68,6 +68,7 @@ const OrdersTableBlock: React.FC<OrdersTableBlockProps> = (
                     <RangePicker
                         size="large"
                         onChange={onChangeHandler}
+                        inputReadOnly={true}
                         // defaultValue={[moment(), moment()]}
                         format="DD-MM-YYYY"
                     />

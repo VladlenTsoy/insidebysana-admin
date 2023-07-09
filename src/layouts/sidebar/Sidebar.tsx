@@ -44,12 +44,13 @@ const menuItems = [
 
 interface SidebarProps {
     collapsed: boolean;
+    onCollapsedMenuItems: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({collapsed}) => {
+const Sidebar: React.FC<SidebarProps> = ({collapsed, onCollapsedMenuItems}) => {
     const location = useLocation()
     const pathnameArray = location.pathname.split("/")
-
+    
     return (
         <div className={styles.logoMenuSticky}>
             <div className={styles.logo}>
@@ -79,6 +80,7 @@ const Sidebar: React.FC<SidebarProps> = ({collapsed}) => {
                 items={menuItems}
                 defaultSelectedKeys={[pathnameArray[1]]}
                 className={styles.siteLayoutMenu}
+                onClick={onCollapsedMenuItems}
             />
         </div>
     )

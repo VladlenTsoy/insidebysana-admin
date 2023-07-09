@@ -1,22 +1,10 @@
 import {createApi} from "@reduxjs/toolkit/query/react"
 import baseQuery from "utils/apiConfig"
-import {Client} from "types/Client"
+import {Client, IClientCart, IClientOrder, IClientWishlist, SelectClientsFilterParams} from "types/Client"
 
 type GetAllType = {
     total: number
     results: Client[]
-}
-
-interface GetAllProps {
-    search: string
-    pagination: {
-        current: number
-        pageSize: number
-    }
-    sorter: {
-        field: string | string[]
-        order: string
-    }
 }
 
 interface CreateProps {
@@ -54,13 +42,21 @@ export const clientsApi = createApi({
     tagTypes: ["clients", "client"],
     endpoints: build => ({
         // Получить клиентов
-        getAllClients: build.query<GetAllType, Partial<GetAllProps>>({
+        getAllClients: build.query<GetAllType, SelectClientsFilterParams>({
             query: data => ({
                 url: `user/admin/clients/table`,
                 method: "POST",
                 body: data
             }),
             providesTags: ["clients"]
+        }),
+        createQuery: build.mutation<GetAllType, SelectClientsFilterParams>({
+            query: data => ({
+                url: `user/admin/clients/table`,
+                method: "POST",
+                body: data
+            }),
+            invalidatesTags: ["clients"],
         }),
         // Создать клиента
         createClient: build.mutation<Client, Partial<CreateProps>>({
@@ -81,7 +77,7 @@ export const clientsApi = createApi({
             invalidatesTags: ["clients", "client"]
         }),
         // Получить клиента
-        getClient: build.query({
+        getClient: build.query<Client, string>({
             query: id => ({
                 url: `user/admin/client/${id}`,
                 method: "GET"
@@ -89,31 +85,32 @@ export const clientsApi = createApi({
             providesTags: ["client"]
         }),
         // Получить заказы клиента
-        getClientOrders: build.query({
+        getClientOrders: build.query<IClientOrder[], string>({
             query: id => ({
                 url: `user/admin/client/${id}/orders`,
                 method: "GET"
             }),
         }),
         // Получить избранное клиента
-        getClientWishlist: build.query({
+        getClientWishlist: build.query<IClientWishlist[], string>({
             query: id => ({
                 url: `user/admin/client/${id}/wishlist`,
                 method: "GET"
             }),
         }),
         // Получить корзину клиента
-        getClientCart: build.query({
+        getClientCart: build.query<IClientCart[], string>({
             query: id => ({
                 url: `user/admin/client/${id}/cart`,
                 method: "GET"
             })
-        })
+        }),
     })
 })
 
 export const {
     useGetAllClientsQuery,
+    useCreateQueryMutation,
     useCreateClientMutation,
     useUpdateClientMutation,
     useGetClientQuery,
